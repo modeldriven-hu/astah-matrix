@@ -6,6 +6,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 import java.awt.BorderLayout;
@@ -26,7 +28,7 @@ public class PackageSelectorDialog {
 
         int result = JOptionPane.showConfirmDialog(null,
                 getPanel(),
-                "JOptionPane Example : ",
+                "Select a package",
                 JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE);
 
@@ -45,10 +47,26 @@ public class PackageSelectorDialog {
         tree.setCellRenderer(new PackageTreeNodeRenderer());
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
+        tree.addTreeSelectionListener(new TreeSelectionListener() {
+            @Override
+            public void valueChanged(TreeSelectionEvent treeSelectionEvent) {
+                PackageTreeNode node = (PackageTreeNode)
+                        tree.getLastSelectedPathComponent();
+
+                if (node == null) {
+                    return;
+                }
+
+                PackageSelectorDialog.this.selectedPackage = node.model();
+            }
+        });
+
         JScrollPane scrollPane = new JScrollPane(tree);
 
         panel.setLayout(new BorderLayout());
         panel.add(scrollPane, BorderLayout.CENTER);
+
+        panel.setPreferredSize(new java.awt.Dimension(400, 400));
 
         return panel;
     }

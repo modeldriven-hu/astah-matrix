@@ -15,14 +15,14 @@ public class PackageTreeNode implements TreeNode {
     private final PackageTreeNode parent;
     private final List<PackageTreeNode> children;
 
-    private final String name;
+    private final IPackage model;
 
-    public PackageTreeNode(IPackage pkg, PackageTreeNode parent) {
+    public PackageTreeNode(IPackage model, PackageTreeNode parent) {
         this.parent = parent;
         this.children = new ArrayList<>();
-        this.name = pkg.getName();
+        this.model = model;
 
-        for (INamedElement child : pkg.getOwnedElements()){
+        for (INamedElement child : model.getOwnedElements()){
             if (child instanceof IPackage){
                 IPackage p = (IPackage) child;
                 children.add(new PackageTreeNode(p, this));
@@ -67,6 +67,10 @@ public class PackageTreeNode implements TreeNode {
     }
 
     public String name() {
-        return name;
+        return this.model.getName();
+    }
+
+    public IPackage model(){
+        return this.model;
     }
 }
