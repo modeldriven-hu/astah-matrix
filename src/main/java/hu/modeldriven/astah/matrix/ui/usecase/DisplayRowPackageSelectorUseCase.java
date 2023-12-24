@@ -1,8 +1,8 @@
 package hu.modeldriven.astah.matrix.ui.usecase;
 
 import com.change_vision.jude.api.inf.model.IPackage;
-import hu.modeldriven.astah.dialog.pkg.PackageSelectionResult;
-import hu.modeldriven.astah.dialog.pkg.PackageSelectorDialog;
+import hu.modeldriven.astah.core.dialog.pkg.PackageSelectionResult;
+import hu.modeldriven.astah.core.dialog.pkg.PackageSelectorDialog;
 import hu.modeldriven.astah.matrix.ui.event.RowPackageSelectedEvent;
 import hu.modeldriven.astah.matrix.ui.event.RowPackageSelectionRequestedEvent;
 import hu.modeldriven.core.eventbus.Event;

@@ -1,9 +1,8 @@
-package hu.modeldriven.astah.dialog.pkg;
+package hu.modeldriven.astah.core.dialog.pkg;
 
 import com.change_vision.jude.api.inf.model.INamedElement;
 import com.change_vision.jude.api.inf.model.IPackage;
 
-import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.Collections;

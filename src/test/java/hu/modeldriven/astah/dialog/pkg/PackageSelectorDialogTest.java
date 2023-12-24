@@ -1,6 +1,7 @@
 package hu.modeldriven.astah.dialog.pkg;
 
-import org.junit.Test;
+import hu.modeldriven.astah.core.dialog.pkg.PackageSelectionResult;
+import hu.modeldriven.astah.core.dialog.pkg.PackageSelectorDialog;
 
 import javax.swing.SwingUtilities;
 
@@ -25,7 +26,7 @@ public class PackageSelectorDialogTest {
             PackageSelectorDialog dialog = new PackageSelectorDialog(rootPackage);
             PackageSelectionResult result = dialog.show();
 
-            System.out.println(result.selectedPackage().get());
+            System.out.println(result.selectedPackage().get().getName());
         });
 
     }

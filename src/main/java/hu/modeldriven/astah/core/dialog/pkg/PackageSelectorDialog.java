@@ -1,4 +1,4 @@
-package hu.modeldriven.astah.dialog.pkg;
+package hu.modeldriven.astah.core.dialog.pkg;
 
 import com.change_vision.jude.api.inf.model.IPackage;
 

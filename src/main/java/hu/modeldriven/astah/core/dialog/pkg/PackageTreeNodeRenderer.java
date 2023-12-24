@@ -1,4 +1,4 @@
-package hu.modeldriven.astah.dialog.pkg;
+package hu.modeldriven.astah.core.dialog.pkg;
 
 import javax.swing.JLabel;
 import javax.swing.JTree;
