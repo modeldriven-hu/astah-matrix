@@ -13,9 +13,9 @@
 	<artifactId>astah-matrix</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>%bundle.name</name>
-	<description>%bundle.description</description>
-	<pluginRepositories>
+	<name>astah-matrix</name>
+	<description>Astah matrix</description>
+	<!--<pluginRepositories>
 		<pluginRepository>
 			<id>local_astah_repository</id>
 			<name>Local Astah* Plugin Repository</name>
@@ -28,12 +28,12 @@
 				<updatePolicy>never</updatePolicy>
 			</releases>
 		</pluginRepository>
-	</pluginRepositories>
+	</pluginRepositories>-->
 	<repositories>
 		<repository>
 			<id>java.net</id>
 			<name>java.net Maven Repository</name>
-			<url>http://download.java.net/maven/2</url>
+			<url>https://download.java.net/maven/2</url>
 			<releases>
 			</releases>
 			<snapshots>
@@ -42,7 +42,7 @@
 		</repository>
 		<repository>
 			<id>uk-central</id>
-			<url>http://uk.maven.org/maven2/</url>
+			<url>https://uk.maven.org/maven2/</url>
 		</repository>
 	</repositories>
 	<reporting>
@@ -258,7 +258,7 @@
 			<artifactId>astah-api</artifactId>
 			<version>${astah.version}</version>
 			<scope>system</scope>
-			<systemPath>${astahPath}/astah-api.jar</systemPath>
+			<systemPath>/usr/lib/astah_sysml/astah-api.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>
