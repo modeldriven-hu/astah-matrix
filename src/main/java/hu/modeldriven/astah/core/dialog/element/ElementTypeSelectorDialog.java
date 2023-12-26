@@ -1,7 +1,6 @@
 package hu.modeldriven.astah.core.dialog.element;
 
 import com.change_vision.jude.api.inf.model.*;
-import com.change_vision.jude.api.inf.view.IconDescription;
 import hu.modeldriven.astah.core.dialog.element.matcher.ClassMatcher;
 import hu.modeldriven.astah.core.dialog.element.matcher.CombinedMatcher;
 import hu.modeldriven.astah.core.dialog.element.matcher.ElementMatcher;
@@ -15,7 +14,7 @@ public class ElementTypeSelectorDialog {
     private final Map<String, ElementMatcher> elementMatcherHashMap = new HashMap<>();
 
     public ElementTypeSelectorDialog(){
-        
+
         elementMatcherHashMap.put("Action", new ClassMatcher(IAction.class));
         elementMatcherHashMap.put("Class", new ClassMatcher(IClass.class));
         elementMatcherHashMap.put("Use Case", new ClassMatcher(IUseCase.class));
