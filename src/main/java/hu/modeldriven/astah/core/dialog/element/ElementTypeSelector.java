@@ -2,14 +2,14 @@ package hu.modeldriven.astah.core.dialog.element;
 
 import hu.modeldriven.astah.core.dialog.element.matcher.ElementMatcher;
 
-public class ElementTypeSelectorTableRow {
+public class ElementTypeSelector {
 
     private boolean selected = false;
     private final String name;
 
     private final ElementMatcher matcher;
 
-    public ElementTypeSelectorTableRow(String name, ElementMatcher matcher) {
+    public ElementTypeSelector(String name, ElementMatcher matcher) {
         this.name = name;
         this.matcher = matcher;
     }

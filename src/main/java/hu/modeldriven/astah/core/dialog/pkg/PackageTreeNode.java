@@ -21,8 +21,8 @@ public class PackageTreeNode implements TreeNode {
         this.children = new ArrayList<>();
         this.model = model;
 
-        for (INamedElement child : model.getOwnedElements()){
-            if (child instanceof IPackage){
+        for (INamedElement child : model.getOwnedElements()) {
+            if (child instanceof IPackage) {
                 IPackage p = (IPackage) child;
                 children.add(new PackageTreeNode(p, this));
             }
@@ -69,7 +69,7 @@ public class PackageTreeNode implements TreeNode {
         return this.model.getName();
     }
 
-    public IPackage model(){
+    public IPackage model() {
         return this.model;
     }
 }

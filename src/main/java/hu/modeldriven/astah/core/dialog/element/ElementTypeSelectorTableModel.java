@@ -6,9 +6,9 @@ import java.util.Optional;
 
 public class ElementTypeSelectorTableModel extends AbstractTableModel {
 
-    private final List<ElementTypeSelectorTableRow> rows;
+    private final List<ElementTypeSelector> rows;
 
-    public ElementTypeSelectorTableModel(List<ElementTypeSelectorTableRow> rows){
+    public ElementTypeSelectorTableModel(List<ElementTypeSelector> rows) {
         super();
         this.rows = rows;
     }
@@ -23,15 +23,17 @@ public class ElementTypeSelectorTableModel extends AbstractTableModel {
         return 2;
     }
 
-    public Optional<ElementTypeSelectorTableRow> selectedRow(){
+    public Optional<ElementTypeSelector> selectedRow() {
         return rows.stream().filter(row -> row.selected() == true).findFirst();
     }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        switch (columnIndex){
-            case 0: return Boolean.class;
-            case 1: return String.class;
+        switch (columnIndex) {
+            case 0:
+                return Boolean.class;
+            case 1:
+                return String.class;
         }
 
         return Object.class;
@@ -39,9 +41,11 @@ public class ElementTypeSelectorTableModel extends AbstractTableModel {
 
     @Override
     public String getColumnName(int columnIndex) {
-        switch (columnIndex){
-            case 0: return "#";
-            case 1: return "Element type";
+        switch (columnIndex) {
+            case 0:
+                return "#";
+            case 1:
+                return "Element type";
         }
 
         return "<undefined>";
@@ -49,7 +53,7 @@ public class ElementTypeSelectorTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        switch (columnIndex){
+        switch (columnIndex) {
             case 0:
                 return true;
             default:
@@ -70,7 +74,7 @@ public class ElementTypeSelectorTableModel extends AbstractTableModel {
                     // of rows in this table it works well
 
                     for (int i = 0; i < rows.size(); i++) {
-                        ElementTypeSelectorTableRow currentRow = rows.get(i);
+                        ElementTypeSelector currentRow = rows.get(i);
 
                         if (rowIndex == i) {
                             currentRow.setSelected((Boolean) aValue);
@@ -79,7 +83,7 @@ public class ElementTypeSelectorTableModel extends AbstractTableModel {
                         }
                     }
 
-                    fireTableRowsUpdated(0, rows.size()-1);
+                    fireTableRowsUpdated(0, rows.size() - 1);
                 }
         }
 
@@ -88,9 +92,9 @@ public class ElementTypeSelectorTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 
-        ElementTypeSelectorTableRow selectedTableRow = rows.get(rowIndex);
+        ElementTypeSelector selectedTableRow = rows.get(rowIndex);
 
-        switch (columnIndex){
+        switch (columnIndex) {
 
             case 0:
                 return selectedTableRow.selected();

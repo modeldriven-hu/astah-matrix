@@ -1,10 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package hu.modeldriven.astah.core.dialog.element;
-
-import hu.modeldriven.astah.core.dialog.element.matcher.ElementMatcher;
 
 import javax.swing.JDialog;
 import javax.swing.ListSelectionModel;
@@ -23,14 +17,14 @@ import java.util.regex.PatternSyntaxException;
  */
 public class ElementTypeSelectorPanel extends AbstractElementTypeSelectorPanel {
 
-    private final Consumer<ElementMatcher> elementSelectedCallback;
+    private final Consumer<ElementTypeSelector> elementSelectedCallback;
     private final JDialog parentDialog;
 
-    private final Supplier<List<ElementTypeSelectorTableRow>> data;
+    private final Supplier<List<ElementTypeSelector>> data;
 
     public ElementTypeSelectorPanel(JDialog parentDialog,
-                                    Supplier<List<ElementTypeSelectorTableRow>> data,
-                                    Consumer<ElementMatcher> elementSelectedCallback) {
+                                    Supplier<List<ElementTypeSelector>> data,
+                                    Consumer<ElementTypeSelector> elementSelectedCallback) {
         super();
         this.parentDialog = parentDialog;
         this.data = data;
@@ -74,8 +68,7 @@ public class ElementTypeSelectorPanel extends AbstractElementTypeSelectorPanel {
                 String text = ElementTypeSelectorPanel.this.filterTextField.getText();
 
                 try {
-                    RowFilter filter = RowFilter.regexFilter(text);
-                    rowSorter.setRowFilter(filter);
+                    rowSorter.setRowFilter(RowFilter.regexFilter(text));
                 } catch (PatternSyntaxException e) {
                     // ignore
                 }
@@ -83,9 +76,7 @@ public class ElementTypeSelectorPanel extends AbstractElementTypeSelectorPanel {
         });
 
         this.okButton.addActionListener(actionEvent -> {
-            tableModel.selectedRow().ifPresent(row -> {
-                this.elementSelectedCallback.accept(row.matcher());
-            });
+            tableModel.selectedRow().ifPresent(this.elementSelectedCallback);
 
             this.parentDialog.setVisible(false);
             this.parentDialog.dispose();

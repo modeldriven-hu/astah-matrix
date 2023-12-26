@@ -13,11 +13,11 @@ public class TestPackage implements IPackage {
     private final String name;
     private List<INamedElement> elements = new ArrayList<>();
 
-    public TestPackage(String name){
+    public TestPackage(String name) {
         this.name = name;
     }
 
-    public void addElement(INamedElement element){
+    public void addElement(INamedElement element) {
         this.elements.add(element);
     }
 

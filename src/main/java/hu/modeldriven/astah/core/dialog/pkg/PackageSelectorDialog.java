@@ -16,11 +16,10 @@ import java.util.Optional;
 public class PackageSelectorDialog {
 
 
-
     private final IPackage rootPackage;
     private IPackage selectedPackage;
 
-    public PackageSelectorDialog(IPackage rootPackage){
+    public PackageSelectorDialog(IPackage rootPackage) {
         this.rootPackage = rootPackage;
     }
 

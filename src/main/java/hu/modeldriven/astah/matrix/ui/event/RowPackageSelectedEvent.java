@@ -7,7 +7,7 @@ public class RowPackageSelectedEvent implements Event {
 
     private final IPackage selectedPackage;
 
-    public RowPackageSelectedEvent(IPackage selectedPackage){
+    public RowPackageSelectedEvent(IPackage selectedPackage) {
         this.selectedPackage = selectedPackage;
     }
 

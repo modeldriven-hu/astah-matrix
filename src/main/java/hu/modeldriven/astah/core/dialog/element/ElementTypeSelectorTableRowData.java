@@ -12,16 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class ElementTypeSelectorTableRowData implements Supplier<List<ElementTypeSelectorTableRow>> {
+public class ElementTypeSelectorTableRowData implements Supplier<List<ElementTypeSelector>> {
 
     @Override
-    public List<ElementTypeSelectorTableRow> get() {
-        List<ElementTypeSelectorTableRow> rows = new ArrayList<>();
+    public List<ElementTypeSelector> get() {
+        List<ElementTypeSelector> rows = new ArrayList<>();
 
-        rows.add(new ElementTypeSelectorTableRow("Activity", new ClassMatcher(IAction.class)));
-        rows.add(new ElementTypeSelectorTableRow("Requirement", new ClassMatcher(IRequirement.class)));
-        rows.add(new ElementTypeSelectorTableRow("Use Case", new ClassMatcher(IUseCase.class)));
-        rows.add(new ElementTypeSelectorTableRow("Block", new CombinedMatcher(
+        rows.add(new ElementTypeSelector("Activity", new ClassMatcher(IAction.class)));
+        rows.add(new ElementTypeSelector("Requirement", new ClassMatcher(IRequirement.class)));
+        rows.add(new ElementTypeSelector("Use Case", new ClassMatcher(IUseCase.class)));
+        rows.add(new ElementTypeSelector("Block", new CombinedMatcher(
                 new ClassMatcher(IClass.class),
                 new StereotypeMatcher("block"))
         ));

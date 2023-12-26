@@ -15,7 +15,7 @@ public class PackageTreeNodeRenderer extends DefaultTreeCellRenderer {
         PackageTreeNode node = (PackageTreeNode) value;
 
         if (component instanceof JLabel) {
-            ((JLabel)component).setText(node.name());
+            ((JLabel) component).setText(node.name());
             ((JLabel) component).setIcon(this.getDefaultOpenIcon());
         }
 

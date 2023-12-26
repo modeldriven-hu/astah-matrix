@@ -5,9 +5,8 @@
 package hu.modeldriven.astah.matrix.ui;
 
 /**
- *
  * @author zsolt
  */
 public class MatrixPanel extends AbstractMatrixPanel {
-    
+
 }

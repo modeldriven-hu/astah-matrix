@@ -1,7 +1,5 @@
 package hu.modeldriven.astah.core.dialog.element;
 
-import hu.modeldriven.astah.core.dialog.element.matcher.ElementMatcher;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -11,9 +9,9 @@ import java.util.function.Consumer;
 
 public class ElementTypeSelectorDialog {
 
-    private final Consumer<ElementMatcher> callback;
+    private final Consumer<ElementTypeSelector> callback;
 
-    public ElementTypeSelectorDialog(Consumer<ElementMatcher> callback) {
+    public ElementTypeSelectorDialog(Consumer<ElementTypeSelector> callback) {
         this.callback = callback;
     }
 
@@ -42,8 +40,8 @@ public class ElementTypeSelectorDialog {
             frame.getContentPane().add(testButton, BorderLayout.CENTER);
 
             testButton.addActionListener(actionEvent -> {
-                ElementTypeSelectorDialog dialog = new ElementTypeSelectorDialog(matcher -> {
-                    System.out.println("Selected matcher = " + matcher);
+                ElementTypeSelectorDialog dialog = new ElementTypeSelectorDialog(selector -> {
+                    System.out.println("Selected selector = " + selector.name());
                 });
 
                 dialog.show();
