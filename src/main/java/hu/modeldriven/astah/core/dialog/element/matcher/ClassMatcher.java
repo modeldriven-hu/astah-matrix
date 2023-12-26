@@ -14,4 +14,9 @@ public class ClassMatcher implements ElementMatcher{
     public boolean matches(IElement element) {
         return requiredClass.isInstance(element);
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " (" + requiredClass + ")";
+    }
 }

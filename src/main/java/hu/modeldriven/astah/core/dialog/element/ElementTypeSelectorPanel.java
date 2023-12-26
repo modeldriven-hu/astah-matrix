@@ -4,11 +4,18 @@
  */
 package hu.modeldriven.astah.core.dialog.element;
 
+import com.change_vision.jude.api.inf.model.IAction;
 import com.change_vision.jude.api.inf.model.IModel;
+import com.change_vision.jude.api.inf.model.IRequirement;
+import com.change_vision.jude.api.inf.model.IUseCase;
 import hu.modeldriven.astah.core.dialog.element.matcher.ClassMatcher;
 import hu.modeldriven.astah.core.dialog.element.matcher.ElementMatcher;
 
 import javax.swing.JDialog;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.TableColumnModel;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -28,8 +35,21 @@ public class ElementTypeSelectorPanel extends AbstractElementTypeSelectorPanel {
 
     private void initComponents() {
 
+        ElementTypeSelectorTableModel tableModel = new ElementTypeSelectorTableModel(provideRows());
+
+        this.elementTable.setModel(tableModel);
+
+        TableColumnModel columnModel = this.elementTable.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(50);
+        columnModel.getColumn(0).setMaxWidth(50);
+
+        elementTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         this.okButton.addActionListener(actionEvent -> {
-            this.elementSelectedCallback.accept(new ClassMatcher(IModel.class));
+            tableModel.selectedRow().ifPresent(row -> {
+                this.elementSelectedCallback.accept(row.matcher());
+            });
+
             this.parentDialog.setVisible(false);
             this.parentDialog.dispose();
         });
@@ -39,6 +59,16 @@ public class ElementTypeSelectorPanel extends AbstractElementTypeSelectorPanel {
             this.parentDialog.dispose();
         });
 
+    }
+
+    private List<ElementTypeSelectorTableRow> provideRows(){
+        List<ElementTypeSelectorTableRow> rows = new ArrayList<>();
+
+        rows.add(new ElementTypeSelectorTableRow("Activity", new ClassMatcher(IAction.class)));
+        rows.add(new ElementTypeSelectorTableRow("Requirement", new ClassMatcher(IRequirement.class)));
+        rows.add(new ElementTypeSelectorTableRow("Use Case", new ClassMatcher(IUseCase.class)));
+
+        return rows;
     }
 
 
