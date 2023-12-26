@@ -1,29 +1,56 @@
 package hu.modeldriven.astah.core.dialog.element;
 
-import com.change_vision.jude.api.inf.model.*;
-import hu.modeldriven.astah.core.dialog.element.matcher.ClassMatcher;
-import hu.modeldriven.astah.core.dialog.element.matcher.CombinedMatcher;
 import hu.modeldriven.astah.core.dialog.element.matcher.ElementMatcher;
-import hu.modeldriven.astah.core.dialog.element.matcher.StereotypeMatcher;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import java.awt.BorderLayout;
+import java.util.function.Consumer;
 
 public class ElementTypeSelectorDialog {
 
-    private final Map<String, ElementMatcher> elementMatcherHashMap = new HashMap<>();
+    private final Consumer<ElementMatcher> callback;
 
-    public ElementTypeSelectorDialog(){
+    public ElementTypeSelectorDialog(Consumer<ElementMatcher> callback) {
+        this.callback = callback;
+    }
 
-        elementMatcherHashMap.put("Action", new ClassMatcher(IAction.class));
-        elementMatcherHashMap.put("Class", new ClassMatcher(IClass.class));
-        elementMatcherHashMap.put("Use Case", new ClassMatcher(IUseCase.class));
-        elementMatcherHashMap.put("Requirement", new ClassMatcher(IRequirement.class));
-        elementMatcherHashMap.put("Package", new ClassMatcher(IPackage.class));
-        elementMatcherHashMap.put("Block", new CombinedMatcher(
-                new ClassMatcher(IClass.class),
-                new StereotypeMatcher("Block"))
-        );
+    public void show() {
+        JDialog dialog = new JDialog();
+        dialog.setModal(true);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
+        dialog.getContentPane().setLayout(new BorderLayout());
+        dialog.getContentPane().add(new ElementTypeSelectorPanel(dialog, callback));
+
+        dialog.pack();
+        dialog.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+
+        SwingUtilities.invokeLater(() -> {
+
+            JFrame frame = new JFrame();
+            frame.getContentPane().setLayout(new BorderLayout());
+
+            JButton testButton = new JButton("Display dialog");
+            frame.getContentPane().add(testButton, BorderLayout.CENTER);
+
+            testButton.addActionListener(actionEvent -> {
+                ElementTypeSelectorDialog dialog = new ElementTypeSelectorDialog(matcher -> {
+                    System.out.println("Selected matcher = " + matcher);
+                });
+
+                dialog.show();
+            });
+
+            frame.pack();
+            frame.setVisible(true);
+
+        });
     }
 
 }
