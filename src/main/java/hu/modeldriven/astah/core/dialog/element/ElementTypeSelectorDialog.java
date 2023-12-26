@@ -21,9 +21,11 @@ public class ElementTypeSelectorDialog {
         JDialog dialog = new JDialog();
         dialog.setModal(true);
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-
         dialog.getContentPane().setLayout(new BorderLayout());
-        dialog.getContentPane().add(new ElementTypeSelectorPanel(dialog, callback));
+
+        ElementTypeSelectorTableRowData data = new ElementTypeSelectorTableRowData();
+        ElementTypeSelectorPanel panel = new ElementTypeSelectorPanel(dialog, data, callback);
+        dialog.getContentPane().add(panel);
 
         dialog.pack();
         dialog.setVisible(true);
