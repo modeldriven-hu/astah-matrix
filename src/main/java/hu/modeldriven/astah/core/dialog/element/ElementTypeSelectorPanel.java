@@ -7,9 +7,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
-import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 import java.util.regex.PatternSyntaxException;
 
 /**

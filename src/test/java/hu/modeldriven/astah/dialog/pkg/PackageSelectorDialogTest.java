@@ -23,10 +23,12 @@ public class PackageSelectorDialogTest {
 
             rootPackage.addElement(childContainer);
 
-            PackageSelectorDialog dialog = new PackageSelectorDialog(rootPackage);
-            PackageSelectionResult result = dialog.show();
+            PackageSelectorDialog dialog = new PackageSelectorDialog(rootPackage,
+                    selectedPackage -> {
+                        System.out.println(selectedPackage.getName());
+                    });
 
-            System.out.println(result.selectedPackage().get().getName());
+            dialog.show();
         });
 
     }

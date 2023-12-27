@@ -10,7 +10,6 @@ import hu.modeldriven.astah.core.dialog.element.matcher.StereotypeMatcher;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class ElementTypeSelectorTableData {
 
