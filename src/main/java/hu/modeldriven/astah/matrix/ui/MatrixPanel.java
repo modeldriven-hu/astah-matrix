@@ -4,8 +4,9 @@
  */
 package hu.modeldriven.astah.matrix.ui;
 
-import hu.modeldriven.astah.core.dialog.element.ElementTypeSelectorDialog;
-import hu.modeldriven.astah.matrix.ui.event.RowElementTypeSelectedEvent;
+import hu.modeldriven.astah.matrix.ui.event.RowElementTypeSelectionRequestedEvent;
+import hu.modeldriven.astah.matrix.ui.usecase.DisplayRowTypeNameUseCase;
+import hu.modeldriven.astah.matrix.ui.usecase.DisplayRowTypeSelectorUseCase;
 import hu.modeldriven.core.eventbus.EventBus;
 
 import java.awt.Component;
@@ -18,26 +19,20 @@ public class MatrixPanel extends AbstractMatrixPanel {
     private final Component parentComponent;
     private final EventBus eventBus;
 
-    public MatrixPanel(Component parentComponent, EventBus eventBus){
+    public MatrixPanel(Component parentComponent, EventBus eventBus) {
         super();
         this.parentComponent = parentComponent;
         this.eventBus = eventBus;
         initComponents();
     }
 
-    private void initComponents(){
+    private void initComponents() {
+
+        this.eventBus.subscribe(new DisplayRowTypeNameUseCase(rowTypeTextField));
+        this.eventBus.subscribe(new DisplayRowTypeSelectorUseCase(parentComponent, eventBus));
+
         rowTypeSelectButton.addActionListener(actionEvent -> {
-
-            ElementTypeSelectorDialog dialog = new ElementTypeSelectorDialog(
-                    parentComponent,
-                    es -> eventBus.publish(
-                            new RowElementTypeSelectedEvent(
-                                es.name(),
-                                es.matcher()
-                    ))
-            );
-
-            dialog.show();
+            this.eventBus.publish(new RowElementTypeSelectionRequestedEvent());
         });
     }
 
