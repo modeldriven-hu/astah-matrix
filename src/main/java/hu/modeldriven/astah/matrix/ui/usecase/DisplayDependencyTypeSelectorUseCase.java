@@ -23,7 +23,7 @@ public class DisplayDependencyTypeSelectorUseCase implements EventHandler<Depend
     }
 
     @Override
-    public void handleEvent(DependencySelectionRequestedEvent e) {
+    public void handleEvent(DependencySelectionRequestedEvent event) {
         TypeSelectorDialog dialog = new TypeSelectorDialog(
                 parentComponent,
                 new DependencyTypeSelectorData(),

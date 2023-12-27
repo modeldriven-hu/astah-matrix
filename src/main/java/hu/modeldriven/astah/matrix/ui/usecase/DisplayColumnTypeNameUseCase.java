@@ -18,8 +18,8 @@ public class DisplayColumnTypeNameUseCase implements EventHandler<ColumnTypeSele
     }
 
     @Override
-    public void handleEvent(ColumnTypeSelectedEvent e) {
-        this.textField.setText(e.name());
+    public void handleEvent(ColumnTypeSelectedEvent event) {
+        this.textField.setText(event.name());
     }
 
     @Override

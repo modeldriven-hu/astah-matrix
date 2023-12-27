@@ -23,7 +23,7 @@ public class DisplayRowTypeSelectorUseCase implements EventHandler<RowTypeSelect
     }
 
     @Override
-    public void handleEvent(RowTypeSelectionRequestedEvent e) {
+    public void handleEvent(RowTypeSelectionRequestedEvent event) {
         TypeSelectorDialog dialog = new TypeSelectorDialog(
                 parentComponent,
                 new ElementTypeSelectorData(),

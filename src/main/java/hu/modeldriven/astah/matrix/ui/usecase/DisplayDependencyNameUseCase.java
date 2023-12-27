@@ -18,8 +18,8 @@ public class DisplayDependencyNameUseCase implements EventHandler<DependencyType
     }
 
     @Override
-    public void handleEvent(DependencyTypeSelectedEvent e) {
-        this.textField.setText(e.name());
+    public void handleEvent(DependencyTypeSelectedEvent event) {
+        this.textField.setText(event.name());
     }
 
     @Override

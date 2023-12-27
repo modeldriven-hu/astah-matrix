@@ -23,7 +23,7 @@ public class DisplayColumnTypeSelectorUseCase implements EventHandler<ColumnType
     }
 
     @Override
-    public void handleEvent(ColumnTypeSelectionRequestedEvent e) {
+    public void handleEvent(ColumnTypeSelectionRequestedEvent event) {
         TypeSelectorDialog dialog = new TypeSelectorDialog(
                 parentComponent,
                 new ElementTypeSelectorData(),

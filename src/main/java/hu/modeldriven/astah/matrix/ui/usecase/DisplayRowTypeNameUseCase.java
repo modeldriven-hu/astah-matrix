@@ -17,8 +17,8 @@ public class DisplayRowTypeNameUseCase implements EventHandler<RowTypeSelectedEv
     }
 
     @Override
-    public void handleEvent(RowTypeSelectedEvent e) {
-        this.textField.setText(e.name());
+    public void handleEvent(RowTypeSelectedEvent event) {
+        this.textField.setText(event.name());
     }
 
     @Override
