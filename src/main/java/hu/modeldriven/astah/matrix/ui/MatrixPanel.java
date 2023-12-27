@@ -59,7 +59,6 @@ public class MatrixPanel extends AbstractMatrixPanel {
             this.eventBus.publish(new ColumnPackageSelectionRequestedEvent());
         });
 
-
     }
 
 }
