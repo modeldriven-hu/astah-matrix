@@ -24,16 +24,17 @@ public class PackageSelectorPanel extends AbstractPackageSelectorPanel {
 
     private void initComponents() {
 
-        DefaultTreeModel model = new DefaultTreeModel(new PackageTreeNode(rootPackage, null));
+        DefaultTreeModel treeModel = new DefaultTreeModel(
+                new PackageTreeNode(rootPackage, null));
 
-        packageTree.setModel(model);
+        packageTree.setModel(treeModel);
         packageTree.setCellRenderer(new PackageTreeNodeRenderer());
         packageTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
         this.okButton.addActionListener(actionEvent -> {
 
-            PackageTreeNode node = (PackageTreeNode) packageTree
-                    .getLastSelectedPathComponent();
+            PackageTreeNode node = (PackageTreeNode)
+                    packageTree.getLastSelectedPathComponent();
 
             if (node != null) {
                 this.callback.accept(node.model());
