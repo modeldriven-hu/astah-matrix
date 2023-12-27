@@ -5,13 +5,16 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.util.function.Consumer;
 
 public class ElementTypeSelectorDialog {
 
+    private final Component parentComponent;
     private final Consumer<ElementTypeSelector> callback;
 
-    public ElementTypeSelectorDialog(Consumer<ElementTypeSelector> callback) {
+    public ElementTypeSelectorDialog(Component parentComponent, Consumer<ElementTypeSelector> callback) {
+        this.parentComponent = parentComponent;
         this.callback = callback;
     }
 
@@ -26,6 +29,7 @@ public class ElementTypeSelectorDialog {
         dialog.getContentPane().add(panel);
 
         dialog.pack();
+        dialog.setLocationRelativeTo(parentComponent);
         dialog.setVisible(true);
     }
 
@@ -40,7 +44,7 @@ public class ElementTypeSelectorDialog {
             frame.getContentPane().add(testButton, BorderLayout.CENTER);
 
             testButton.addActionListener(actionEvent -> {
-                ElementTypeSelectorDialog dialog = new ElementTypeSelectorDialog(selector -> {
+                ElementTypeSelectorDialog dialog = new ElementTypeSelectorDialog(null, selector -> {
                     System.out.println("Selected selector = " + selector.name());
                 });
 
