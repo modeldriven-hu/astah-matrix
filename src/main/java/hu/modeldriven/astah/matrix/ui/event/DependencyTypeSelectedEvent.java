@@ -1,14 +1,14 @@
 package hu.modeldriven.astah.matrix.ui.event;
 
-import hu.modeldriven.astah.core.dialog.type.matcher.ElementMatcher;
+import hu.modeldriven.astah.core.dialog.type.matcher.TypeMatcher;
 import hu.modeldriven.core.eventbus.Event;
 
 public class DependencyTypeSelectedEvent implements Event {
 
     private final String name;
-    private final ElementMatcher elementMatcher;
+    private final TypeMatcher elementMatcher;
 
-    public DependencyTypeSelectedEvent(String name, ElementMatcher elementMatcher) {
+    public DependencyTypeSelectedEvent(String name, TypeMatcher elementMatcher) {
         this.name = name;
         this.elementMatcher = elementMatcher;
     }
@@ -17,7 +17,7 @@ public class DependencyTypeSelectedEvent implements Event {
         return name;
     }
 
-    public ElementMatcher elementMatcher() {
+    public TypeMatcher elementMatcher() {
         return this.elementMatcher;
     }
 

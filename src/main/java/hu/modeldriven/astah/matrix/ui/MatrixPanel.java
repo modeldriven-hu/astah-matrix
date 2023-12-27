@@ -45,6 +45,8 @@ public class MatrixPanel extends AbstractMatrixPanel {
 
         this.eventBus.subscribe(new EnableQueryButtonUseCase(eventBus, queryButton));
 
+        this.eventBus.subscribe(new CalculateMatrixDataUseCase(eventBus));
+
         rowTypeSelectButton.addActionListener(actionEvent -> {
             this.eventBus.publish(new RowTypeSelectionRequestedEvent());
         });
@@ -63,6 +65,10 @@ public class MatrixPanel extends AbstractMatrixPanel {
 
         dependencySelectButton.addActionListener(actionEvent -> {
             this.eventBus.publish(new DependencySelectionRequestedEvent());
+        });
+
+        queryButton.addActionListener(actionEvent -> {
+            this.eventBus.publish(new QueryRequestedEvent());
         });
 
     }
