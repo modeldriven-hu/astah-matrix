@@ -12,10 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class ElementTypeSelectorTableRowData implements Supplier<List<ElementTypeSelector>> {
+public class ElementTypeSelectorTableData {
 
-    @Override
-    public List<ElementTypeSelector> get() {
+    public List<ElementTypeSelector> asRows() {
         List<ElementTypeSelector> rows = new ArrayList<>();
 
         rows.add(new ElementTypeSelector("Activity", new ClassMatcher(IAction.class)));

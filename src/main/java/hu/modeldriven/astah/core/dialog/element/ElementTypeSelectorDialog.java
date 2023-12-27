@@ -21,7 +21,7 @@ public class ElementTypeSelectorDialog {
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.getContentPane().setLayout(new BorderLayout());
 
-        ElementTypeSelectorTableRowData data = new ElementTypeSelectorTableRowData();
+        ElementTypeSelectorTableData data = new ElementTypeSelectorTableData();
         ElementTypeSelectorPanel panel = new ElementTypeSelectorPanel(dialog, data, callback);
         dialog.getContentPane().add(panel);
 

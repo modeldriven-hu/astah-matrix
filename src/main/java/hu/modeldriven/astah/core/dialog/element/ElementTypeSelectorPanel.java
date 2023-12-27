@@ -20,10 +20,10 @@ public class ElementTypeSelectorPanel extends AbstractElementTypeSelectorPanel {
     private final Consumer<ElementTypeSelector> elementSelectedCallback;
     private final JDialog parentDialog;
 
-    private final Supplier<List<ElementTypeSelector>> data;
+    private final ElementTypeSelectorTableData data;
 
     public ElementTypeSelectorPanel(JDialog parentDialog,
-                                    Supplier<List<ElementTypeSelector>> data,
+                                    ElementTypeSelectorTableData data,
                                     Consumer<ElementTypeSelector> elementSelectedCallback) {
         super();
         this.parentDialog = parentDialog;
@@ -34,8 +34,7 @@ public class ElementTypeSelectorPanel extends AbstractElementTypeSelectorPanel {
 
     private void initComponents() {
 
-        ElementTypeSelectorTableModel tableModel = new ElementTypeSelectorTableModel(
-                data.get());
+        ElementTypeSelectorTableModel tableModel = new ElementTypeSelectorTableModel(data);
         this.elementTable.setModel(tableModel);
 
         TableRowSorter<ElementTypeSelectorTableModel> rowSorter = new TableRowSorter<>(tableModel);

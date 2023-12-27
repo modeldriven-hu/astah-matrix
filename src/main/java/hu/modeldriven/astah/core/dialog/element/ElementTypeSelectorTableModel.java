@@ -3,14 +3,15 @@ package hu.modeldriven.astah.core.dialog.element;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class ElementTypeSelectorTableModel extends AbstractTableModel {
 
     private final List<ElementTypeSelector> rows;
 
-    public ElementTypeSelectorTableModel(List<ElementTypeSelector> rows) {
+    public ElementTypeSelectorTableModel(ElementTypeSelectorTableData initialData) {
         super();
-        this.rows = rows;
+        this.rows = initialData.asRows();
     }
 
     @Override
