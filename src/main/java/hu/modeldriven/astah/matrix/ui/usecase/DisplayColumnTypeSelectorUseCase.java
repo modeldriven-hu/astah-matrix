@@ -1,7 +1,8 @@
 package hu.modeldriven.astah.matrix.ui.usecase;
 
 import hu.modeldriven.astah.core.dialog.element.ElementTypeSelectorDialog;
-import hu.modeldriven.astah.matrix.ui.event.RowTypeSelectedEvent;
+import hu.modeldriven.astah.matrix.ui.event.ColumnTypeSelectedEvent;
+import hu.modeldriven.astah.matrix.ui.event.ColumnTypeSelectionRequestedEvent;
 import hu.modeldriven.astah.matrix.ui.event.RowTypeSelectionRequestedEvent;
 import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventBus;
@@ -11,22 +12,22 @@ import java.awt.Component;
 import java.util.Collections;
 import java.util.List;
 
-public class DisplayRowTypeSelectorUseCase implements EventHandler<RowTypeSelectionRequestedEvent> {
+public class DisplayColumnTypeSelectorUseCase implements EventHandler<ColumnTypeSelectionRequestedEvent> {
 
     private final Component parentComponent;
     private final EventBus eventBus;
 
-    public DisplayRowTypeSelectorUseCase(Component parentComponent, EventBus eventBus){
+    public DisplayColumnTypeSelectorUseCase(Component parentComponent, EventBus eventBus){
         this.parentComponent = parentComponent;
         this.eventBus = eventBus;
     }
 
     @Override
-    public void handleEvent(RowTypeSelectionRequestedEvent e) {
+    public void handleEvent(ColumnTypeSelectionRequestedEvent e) {
         ElementTypeSelectorDialog dialog = new ElementTypeSelectorDialog(
                 parentComponent,
                 es -> eventBus.publish(
-                        new RowTypeSelectedEvent(
+                        new ColumnTypeSelectedEvent(
                                 es.name(),
                                 es.matcher()
                         ))
@@ -37,6 +38,6 @@ public class DisplayRowTypeSelectorUseCase implements EventHandler<RowTypeSelect
 
     @Override
     public List<Class<? extends Event>> subscribedEvents() {
-        return Collections.singletonList(RowTypeSelectionRequestedEvent.class);
+        return Collections.singletonList(ColumnTypeSelectionRequestedEvent.class);
     }
 }

@@ -3,12 +3,12 @@ package hu.modeldriven.astah.matrix.ui.event;
 import hu.modeldriven.astah.core.dialog.element.matcher.ElementMatcher;
 import hu.modeldriven.core.eventbus.Event;
 
-public class RowElementTypeSelectedEvent implements Event {
+public class RowTypeSelectedEvent implements Event {
 
     private final String name;
     private final ElementMatcher elementMatcher;
 
-    public RowElementTypeSelectedEvent(String name, ElementMatcher elementMatcher) {
+    public RowTypeSelectedEvent(String name, ElementMatcher elementMatcher) {
         this.name = name;
         this.elementMatcher = elementMatcher;
     }
