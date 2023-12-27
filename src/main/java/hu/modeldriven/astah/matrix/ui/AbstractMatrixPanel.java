@@ -36,7 +36,7 @@ public class AbstractMatrixPanel extends javax.swing.JPanel {
         columnTypeTextField = new javax.swing.JTextField();
         columnTypeSelectButton = new javax.swing.JButton();
         columnPackageLabel = new javax.swing.JLabel();
-        columnPackageSelectField = new javax.swing.JTextField();
+        columnPackageTextField = new javax.swing.JTextField();
         columnPackageSelectButton = new javax.swing.JButton();
         dependencyTypeLabel = new javax.swing.JLabel();
         dependencyTypeComboBox = new javax.swing.JComboBox<>();
@@ -71,7 +71,7 @@ public class AbstractMatrixPanel extends javax.swing.JPanel {
 
         columnPackageLabel.setText("Column package:");
 
-        columnPackageSelectField.setEnabled(false);
+        columnPackageTextField.setEnabled(false);
 
         columnPackageSelectButton.setText("Select...");
 
@@ -100,15 +100,15 @@ public class AbstractMatrixPanel extends javax.swing.JPanel {
                         .addComponent(dependencyTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(topPanelLayout.createSequentialGroup()
                             .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(dependencyTypeLabel)
                                 .addGroup(topPanelLayout.createSequentialGroup()
-                                    .addComponent(dependencyTypeLabel)
-                                    .addGap(9, 9, 9)
-                                    .addComponent(rowPackageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(rowPackageLabel)
-                                .addGroup(topPanelLayout.createSequentialGroup()
-                                    .addComponent(rowElementTypeLabel)
+                                    .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(rowElementTypeLabel)
+                                        .addComponent(rowPackageLabel))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(rowTypeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(rowPackageTextField)
+                                        .addComponent(rowTypeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(rowTypeSelectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -124,7 +124,7 @@ public class AbstractMatrixPanel extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, topPanelLayout.createSequentialGroup()
                                 .addComponent(columnPackageLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(columnPackageSelectField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(columnPackageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(columnTypeSelectButton, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -134,8 +134,6 @@ public class AbstractMatrixPanel extends javax.swing.JPanel {
         );
 
         topPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {rowPackageSelectButton, rowTypeSelectButton});
-
-        topPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {rowPackageTextField, rowTypeTextField});
 
         topPanelLayout.setVerticalGroup(
             topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,7 +153,7 @@ public class AbstractMatrixPanel extends javax.swing.JPanel {
                         .addComponent(rowPackageLabel)
                         .addComponent(rowPackageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(rowPackageSelectButton)
-                        .addComponent(columnPackageSelectField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(columnPackageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(columnPackageSelectButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -200,7 +198,7 @@ public class AbstractMatrixPanel extends javax.swing.JPanel {
     private javax.swing.JLabel columnElementTypeLabel;
     private javax.swing.JLabel columnPackageLabel;
     protected javax.swing.JButton columnPackageSelectButton;
-    protected javax.swing.JTextField columnPackageSelectField;
+    protected javax.swing.JTextField columnPackageTextField;
     protected javax.swing.JButton columnTypeSelectButton;
     protected javax.swing.JTextField columnTypeTextField;
     private javax.swing.JPanel contentPanel;

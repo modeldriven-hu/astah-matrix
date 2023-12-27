@@ -4,15 +4,19 @@ import com.change_vision.jude.api.inf.model.IPackage;
 
 import javax.swing.JDialog;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.util.function.Consumer;
 
 public class PackageSelectorDialog {
+
+    private final Component parentComponent;
 
     private final IPackage rootPackage;
 
     private final Consumer<IPackage> callback;
 
-    public PackageSelectorDialog(IPackage rootPackage, Consumer<IPackage> callback) {
+    public PackageSelectorDialog(Component parentComponent, IPackage rootPackage, Consumer<IPackage> callback) {
+        this.parentComponent = parentComponent;
         this.rootPackage = rootPackage;
         this.callback = callback;
     }
@@ -27,6 +31,7 @@ public class PackageSelectorDialog {
         dialog.getContentPane().add(panel);
 
         dialog.pack();
+        dialog.setLocationRelativeTo(parentComponent);
         dialog.setVisible(true);
     }
 
