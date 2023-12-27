@@ -1,15 +1,15 @@
-package hu.modeldriven.astah.core.dialog.element;
+package hu.modeldriven.astah.core.dialog.type;
 
-import hu.modeldriven.astah.core.dialog.element.matcher.ElementMatcher;
+import hu.modeldriven.astah.core.dialog.type.matcher.ElementMatcher;
 
-public class ElementTypeSelector {
+public class TypeSelector {
 
     private boolean selected = false;
     private final String name;
 
     private final ElementMatcher matcher;
 
-    public ElementTypeSelector(String name, ElementMatcher matcher) {
+    public TypeSelector(String name, ElementMatcher matcher) {
         this.name = name;
         this.matcher = matcher;
     }

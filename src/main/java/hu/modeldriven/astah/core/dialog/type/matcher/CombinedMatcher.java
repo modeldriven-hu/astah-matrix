@@ -1,4 +1,4 @@
-package hu.modeldriven.astah.core.dialog.element.matcher;
+package hu.modeldriven.astah.core.dialog.type.matcher;
 
 import com.change_vision.jude.api.inf.model.IElement;
 

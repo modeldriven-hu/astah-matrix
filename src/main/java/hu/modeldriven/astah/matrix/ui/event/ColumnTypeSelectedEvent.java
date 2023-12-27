@@ -1,6 +1,6 @@
 package hu.modeldriven.astah.matrix.ui.event;
 
-import hu.modeldriven.astah.core.dialog.element.matcher.ElementMatcher;
+import hu.modeldriven.astah.core.dialog.type.matcher.ElementMatcher;
 import hu.modeldriven.core.eventbus.Event;
 
 public class ColumnTypeSelectedEvent implements Event {

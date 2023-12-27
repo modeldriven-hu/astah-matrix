@@ -1,14 +1,14 @@
-package hu.modeldriven.astah.core.dialog.element;
+package hu.modeldriven.astah.core.dialog.type;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 import java.util.Optional;
 
-public class ElementTypeSelectorTableModel extends AbstractTableModel {
+public class TypeSelectorTableModel extends AbstractTableModel {
 
-    private final List<ElementTypeSelector> rows;
+    private final List<TypeSelector> rows;
 
-    public ElementTypeSelectorTableModel(ElementTypeSelectorTableData initialData) {
+    public TypeSelectorTableModel(TypeSelectorData initialData) {
         super();
         this.rows = initialData.asRows();
     }
@@ -23,7 +23,7 @@ public class ElementTypeSelectorTableModel extends AbstractTableModel {
         return 2;
     }
 
-    public Optional<ElementTypeSelector> selectedRow() {
+    public Optional<TypeSelector> selectedRow() {
         return rows.stream().filter(row -> row.selected() == true).findFirst();
     }
 
@@ -74,7 +74,7 @@ public class ElementTypeSelectorTableModel extends AbstractTableModel {
                     // of rows in this table it works well
 
                     for (int i = 0; i < rows.size(); i++) {
-                        ElementTypeSelector currentRow = rows.get(i);
+                        TypeSelector currentRow = rows.get(i);
 
                         if (rowIndex == i) {
                             currentRow.setSelected((Boolean) aValue);
@@ -92,7 +92,7 @@ public class ElementTypeSelectorTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 
-        ElementTypeSelector selectedTableRow = rows.get(rowIndex);
+        TypeSelector selectedTableRow = rows.get(rowIndex);
 
         switch (columnIndex) {
 

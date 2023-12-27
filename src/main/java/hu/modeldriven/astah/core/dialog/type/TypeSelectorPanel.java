@@ -1,4 +1,4 @@
-package hu.modeldriven.astah.core.dialog.element;
+package hu.modeldriven.astah.core.dialog.type;
 
 import javax.swing.JDialog;
 import javax.swing.ListSelectionModel;
@@ -13,16 +13,16 @@ import java.util.regex.PatternSyntaxException;
 /**
  * @author zsolt
  */
-public class ElementTypeSelectorPanel extends AbstractElementTypeSelectorPanel {
+public class TypeSelectorPanel extends AbstractTypeSelectorPanel {
 
-    private final Consumer<ElementTypeSelector> elementSelectedCallback;
+    private final Consumer<TypeSelector> elementSelectedCallback;
     private final JDialog parentDialog;
 
-    private final ElementTypeSelectorTableData data;
+    private final TypeSelectorData data;
 
-    public ElementTypeSelectorPanel(JDialog parentDialog,
-                                    ElementTypeSelectorTableData data,
-                                    Consumer<ElementTypeSelector> elementSelectedCallback) {
+    public TypeSelectorPanel(JDialog parentDialog,
+                             TypeSelectorData data,
+                             Consumer<TypeSelector> elementSelectedCallback) {
         super();
         this.parentDialog = parentDialog;
         this.data = data;
@@ -32,10 +32,10 @@ public class ElementTypeSelectorPanel extends AbstractElementTypeSelectorPanel {
 
     private void initComponents() {
 
-        ElementTypeSelectorTableModel tableModel = new ElementTypeSelectorTableModel(data);
+        TypeSelectorTableModel tableModel = new TypeSelectorTableModel(data);
         this.elementTable.setModel(tableModel);
 
-        TableRowSorter<ElementTypeSelectorTableModel> rowSorter = new TableRowSorter<>(tableModel);
+        TableRowSorter<TypeSelectorTableModel> rowSorter = new TableRowSorter<>(tableModel);
         this.elementTable.setRowSorter(rowSorter);
 
         TableColumnModel columnModel = this.elementTable.getColumnModel();
@@ -62,7 +62,7 @@ public class ElementTypeSelectorPanel extends AbstractElementTypeSelectorPanel {
             }
 
             void handleTextChange() {
-                String text = ElementTypeSelectorPanel.this.filterTextField.getText();
+                String text = TypeSelectorPanel.this.filterTextField.getText();
 
                 try {
                     rowSorter.setRowFilter(RowFilter.regexFilter(text));

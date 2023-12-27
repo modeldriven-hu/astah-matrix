@@ -1,4 +1,4 @@
-package hu.modeldriven.astah.core.dialog.element;
+package hu.modeldriven.astah.core.dialog.type;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -8,13 +8,17 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.util.function.Consumer;
 
-public class ElementTypeSelectorDialog {
+public class TypeSelectorDialog {
 
     private final Component parentComponent;
-    private final Consumer<ElementTypeSelector> callback;
 
-    public ElementTypeSelectorDialog(Component parentComponent, Consumer<ElementTypeSelector> callback) {
+    private final TypeSelectorData data;
+
+    private final Consumer<TypeSelector> callback;
+
+    public TypeSelectorDialog(Component parentComponent, TypeSelectorData data, Consumer<TypeSelector> callback) {
         this.parentComponent = parentComponent;
+        this.data = data;
         this.callback = callback;
     }
 
@@ -24,8 +28,7 @@ public class ElementTypeSelectorDialog {
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.getContentPane().setLayout(new BorderLayout());
 
-        ElementTypeSelectorTableData data = new ElementTypeSelectorTableData();
-        ElementTypeSelectorPanel panel = new ElementTypeSelectorPanel(dialog, data, callback);
+        TypeSelectorPanel panel = new TypeSelectorPanel(dialog, data, callback);
         dialog.getContentPane().add(panel);
 
         dialog.pack();
@@ -44,7 +47,9 @@ public class ElementTypeSelectorDialog {
             frame.getContentPane().add(testButton, BorderLayout.CENTER);
 
             testButton.addActionListener(actionEvent -> {
-                ElementTypeSelectorDialog dialog = new ElementTypeSelectorDialog(null, selector -> {
+                TypeSelectorDialog dialog = new TypeSelectorDialog(null,
+                        new ElementTypeSelectorData(),
+                        selector -> {
                     System.out.println("Selected selector = " + selector.name());
                 });
 

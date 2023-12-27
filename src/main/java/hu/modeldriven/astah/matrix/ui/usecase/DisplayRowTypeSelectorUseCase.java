@@ -1,6 +1,7 @@
 package hu.modeldriven.astah.matrix.ui.usecase;
 
-import hu.modeldriven.astah.core.dialog.element.ElementTypeSelectorDialog;
+import hu.modeldriven.astah.core.dialog.type.ElementTypeSelectorData;
+import hu.modeldriven.astah.core.dialog.type.TypeSelectorDialog;
 import hu.modeldriven.astah.matrix.ui.event.RowTypeSelectedEvent;
 import hu.modeldriven.astah.matrix.ui.event.RowTypeSelectionRequestedEvent;
 import hu.modeldriven.core.eventbus.Event;
@@ -23,8 +24,9 @@ public class DisplayRowTypeSelectorUseCase implements EventHandler<RowTypeSelect
 
     @Override
     public void handleEvent(RowTypeSelectionRequestedEvent e) {
-        ElementTypeSelectorDialog dialog = new ElementTypeSelectorDialog(
+        TypeSelectorDialog dialog = new TypeSelectorDialog(
                 parentComponent,
+                new ElementTypeSelectorData(),
                 es -> eventBus.publish(
                         new RowTypeSelectedEvent(
                                 es.name(),
