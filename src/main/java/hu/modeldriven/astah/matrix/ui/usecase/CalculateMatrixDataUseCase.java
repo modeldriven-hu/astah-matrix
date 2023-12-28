@@ -6,15 +6,14 @@ import com.change_vision.jude.api.inf.model.IPackage;
 import com.change_vision.jude.api.inf.model.IRealization;
 import hu.modeldriven.astah.core.dialog.type.matcher.TypeMatcher;
 import hu.modeldriven.astah.matrix.ui.event.*;
-import hu.modeldriven.astah.matrix.ui.tabledata.TableData;
+import hu.modeldriven.astah.matrix.ui.table.TableData;
 import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventBus;
 import hu.modeldriven.core.eventbus.EventHandler;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class CalculateMatrixDataUseCase implements EventHandler {
 
@@ -55,14 +54,18 @@ public class CalculateMatrixDataUseCase implements EventHandler {
     }
 
     private void createMatrix() {
-        Set<INamedElement> rows = findElements(queryInfo.rowPackage, queryInfo.rowTypeMatcher);
-        Set<INamedElement> columns = findElements(queryInfo.columnPackage, queryInfo.columnTypeMatcher);
+        List<INamedElement> rows = findElements(queryInfo.rowPackage, queryInfo.rowTypeMatcher);
+        List<INamedElement> columns = findElements(queryInfo.columnPackage, queryInfo.columnTypeMatcher);
 
-        TableData tableData = new TableData();
+        TableData tableData = new TableData(rows, columns);
 
-        for (INamedElement row : rows) {
-            for (INamedElement column : columns) {
-                tableData.addRelationship(row, column,getRelationshipDirection(row, column));
+        for (int row = 0; row < rows.size(); row++) {
+
+            INamedElement rowElement = rows.get(row);
+
+            for (int column = 0; column < columns.size(); column++) {
+                INamedElement columnElement = columns.get(column);
+                tableData.addRelationship(row, column, getRelationshipDirection(rowElement, columnElement));
             }
         }
 
@@ -75,17 +78,17 @@ public class CalculateMatrixDataUseCase implements EventHandler {
 
         boolean rowToColumn = false;
 
-        for (IDependency dependency : row.getClientDependencies()){
-            if (queryInfo.columnTypeMatcher.matches(dependency)){
-                if (dependency.getSupplier().equals(column)){
+        for (IDependency dependency : row.getClientDependencies()) {
+            if (queryInfo.columnTypeMatcher.matches(dependency)) {
+                if (dependency.getSupplier().equals(column)) {
                     rowToColumn = true;
                 }
             }
         }
 
-        for (IRealization realization : row.getClientRealizations()){
-            if (queryInfo.columnTypeMatcher.matches(realization)){
-                if (realization.getSupplier().equals(column)){
+        for (IRealization realization : row.getClientRealizations()) {
+            if (queryInfo.columnTypeMatcher.matches(realization)) {
+                if (realization.getSupplier().equals(column)) {
                     rowToColumn = true;
                 }
             }
@@ -93,17 +96,17 @@ public class CalculateMatrixDataUseCase implements EventHandler {
 
         boolean columnToRow = false;
 
-        for (IDependency dependency : row.getSupplierDependencies()){
-            if (queryInfo.columnTypeMatcher.matches(dependency)){
-                if (dependency.getClient().equals(column)){
+        for (IDependency dependency : row.getSupplierDependencies()) {
+            if (queryInfo.columnTypeMatcher.matches(dependency)) {
+                if (dependency.getClient().equals(column)) {
                     columnToRow = true;
                 }
             }
         }
 
-        for (IRealization realization : row.getSupplierRealizations()){
-            if (queryInfo.columnTypeMatcher.matches(realization)){
-                if (realization.getClient().equals(column)){
+        for (IRealization realization : row.getSupplierRealizations()) {
+            if (queryInfo.columnTypeMatcher.matches(realization)) {
+                if (realization.getClient().equals(column)) {
                     columnToRow = true;
                 }
             }
@@ -120,8 +123,8 @@ public class CalculateMatrixDataUseCase implements EventHandler {
         }
     }
 
-    private Set<INamedElement> findElements(IPackage rowPackage, TypeMatcher rowTypeMatcher) {
-        Set<INamedElement> elements = new HashSet<>();
+    private List<INamedElement> findElements(IPackage rowPackage, TypeMatcher rowTypeMatcher) {
+        List<INamedElement> elements = new ArrayList<>();
 
         for (INamedElement element : rowPackage.getOwnedElements()) {
             if (element instanceof IPackage) {

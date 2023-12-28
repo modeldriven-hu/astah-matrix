@@ -1,6 +1,6 @@
 package hu.modeldriven.astah.matrix.ui.event;
 
-import hu.modeldriven.astah.matrix.ui.tabledata.TableData;
+import hu.modeldriven.astah.matrix.ui.table.TableData;
 import hu.modeldriven.core.eventbus.Event;
 
 public class TableDataCalculatedEvent implements Event {
