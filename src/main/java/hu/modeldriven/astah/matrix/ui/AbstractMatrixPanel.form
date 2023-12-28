@@ -33,31 +33,22 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="directionLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="directionComboBox" min="-2" pref="239" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="rowElementTypeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="rowPackageLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="dependencyTypeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="rowPackageTextField" max="32767" attributes="0"/>
-                              <Component id="rowTypeTextField" pref="130" max="32767" attributes="0"/>
-                              <Component id="dependencyTextField" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="rowTypeSelectButton" linkSize="1" alignment="0" pref="97" max="32767" attributes="0"/>
-                              <Component id="rowPackageSelectButton" linkSize="1" alignment="0" pref="94" max="32767" attributes="0"/>
-                              <Component id="dependencySelectButton" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="rowElementTypeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="rowPackageLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="dependencyTypeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="rowPackageTextField" max="32767" attributes="0"/>
+                      <Component id="rowTypeTextField" pref="130" max="32767" attributes="0"/>
+                      <Component id="dependencyTextField" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="rowTypeSelectButton" linkSize="1" alignment="0" pref="97" max="32767" attributes="0"/>
+                      <Component id="rowPackageSelectButton" linkSize="1" alignment="0" pref="94" max="32767" attributes="0"/>
+                      <Component id="dependencySelectButton" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="154" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -116,13 +107,7 @@
                       <Component id="dependencySelectButton" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="directionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="directionComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="queryButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <Component id="queryButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="30" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -218,26 +203,6 @@
             <Property name="text" type="java.lang.String" value="Dependency type:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="directionLabel">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Direction:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="directionComboBox">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="Both"/>
-                <StringItem index="1" value="Row to column"/>
-                <StringItem index="2" value="Column to row"/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
-          </AuxValues>
-        </Component>
         <Component class="javax.swing.JButton" name="queryButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Query"/>
@@ -294,6 +259,9 @@
                   </Table>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

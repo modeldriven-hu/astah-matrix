@@ -39,8 +39,6 @@ public class AbstractMatrixPanel extends javax.swing.JPanel {
         columnPackageTextField = new javax.swing.JTextField();
         columnPackageSelectButton = new javax.swing.JButton();
         dependencyTypeLabel = new javax.swing.JLabel();
-        directionLabel = new javax.swing.JLabel();
-        directionComboBox = new javax.swing.JComboBox<>();
         queryButton = new javax.swing.JButton();
         dependencyTextField = new javax.swing.JTextField();
         dependencySelectButton = new javax.swing.JButton();
@@ -78,10 +76,6 @@ public class AbstractMatrixPanel extends javax.swing.JPanel {
 
         dependencyTypeLabel.setText("Dependency type:");
 
-        directionLabel.setText("Direction:");
-
-        directionComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Both", "Row to column", "Column to row" }));
-
         queryButton.setText("Query");
         queryButton.setEnabled(false);
 
@@ -95,26 +89,20 @@ public class AbstractMatrixPanel extends javax.swing.JPanel {
             topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(topPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(topPanelLayout.createSequentialGroup()
-                        .addComponent(directionLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(directionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, topPanelLayout.createSequentialGroup()
-                        .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rowElementTypeLabel)
-                            .addComponent(rowPackageLabel)
-                            .addComponent(dependencyTypeLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(rowPackageTextField)
-                            .addComponent(rowTypeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(dependencyTextField))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(rowTypeSelectButton, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
-                            .addComponent(rowPackageSelectButton, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                            .addComponent(dependencySelectButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rowElementTypeLabel)
+                    .addComponent(rowPackageLabel)
+                    .addComponent(dependencyTypeLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(rowPackageTextField)
+                    .addComponent(rowTypeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                    .addComponent(dependencyTextField))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(rowTypeSelectButton, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                    .addComponent(rowPackageSelectButton, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                    .addComponent(dependencySelectButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
                 .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, topPanelLayout.createSequentialGroup()
@@ -163,11 +151,7 @@ public class AbstractMatrixPanel extends javax.swing.JPanel {
                         .addComponent(dependencyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(dependencySelectButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(directionLabel)
-                    .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(directionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(queryButton)))
+                .addComponent(queryButton)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -205,10 +189,8 @@ public class AbstractMatrixPanel extends javax.swing.JPanel {
     protected javax.swing.JButton dependencySelectButton;
     protected javax.swing.JTextField dependencyTextField;
     private javax.swing.JLabel dependencyTypeLabel;
-    protected javax.swing.JComboBox<String> directionComboBox;
-    private javax.swing.JLabel directionLabel;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable matrixTable;
+    protected javax.swing.JTable matrixTable;
     protected javax.swing.JButton queryButton;
     private javax.swing.JLabel rowElementTypeLabel;
     private javax.swing.JLabel rowPackageLabel;
