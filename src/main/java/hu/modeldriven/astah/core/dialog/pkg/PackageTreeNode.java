@@ -11,12 +11,12 @@ import java.util.List;
 
 public class PackageTreeNode implements TreeNode {
 
-    private final PackageTreeNode parent;
-    private final List<PackageTreeNode> children;
+    private final TreeNode parent;
+    private final List<TreeNode> children;
 
     private final IPackage model;
 
-    public PackageTreeNode(IPackage model, PackageTreeNode parent) {
+    public PackageTreeNode(IPackage model, TreeNode parent) {
         this.parent = parent;
         this.children = new ArrayList<>();
         this.model = model;

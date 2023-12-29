@@ -6,16 +6,16 @@ package hu.modeldriven.astah.matrix.ui;
 
 import com.change_vision.jude.api.inf.model.INamedElement;
 import hu.modeldriven.astah.core.model.AstahModel;
-import hu.modeldriven.astah.core.model.DummyModel;
 import hu.modeldriven.astah.core.model.DummyNamedElement;
 import hu.modeldriven.astah.core.model.Model;
 import hu.modeldriven.astah.matrix.ui.event.*;
-import hu.modeldriven.astah.matrix.ui.table.RelationshipTableCellRenderer;
-import hu.modeldriven.astah.matrix.ui.table.RelationshipTableModel;
-import hu.modeldriven.astah.matrix.ui.table.TableData;
+import hu.modeldriven.astah.matrix.ui.table.*;
 import hu.modeldriven.astah.matrix.ui.usecase.*;
 import hu.modeldriven.core.eventbus.EventBus;
 
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +30,24 @@ public class MatrixPanel extends AbstractMatrixPanel {
         this.parentComponent = parentComponent;
         this.eventBus = eventBus;
         initComponents();
+        initUseCases();
     }
 
     private void initComponents() {
+
+        this.matrixTable.getTableHeader().setResizingAllowed(true);
+
+        ListSelectionListener listener = e -> matrixTable.repaint();
+        matrixTable.getSelectionModel().addListSelectionListener(listener);
+        matrixTable.getColumnModel().getSelectionModel().addListSelectionListener(listener);
+
+        this.matrixTable.setDefaultRenderer(INamedElement.class, new NamedElementTableCellRenderer());
+        this.matrixTable.setDefaultRenderer(RelationshipDirection.class, new RelationshipTableCellRenderer());
+
+        fillTableWithDemoData();
+    }
+
+    private void initUseCases(){
 
         Model model = new AstahModel();
 
@@ -81,10 +96,6 @@ public class MatrixPanel extends AbstractMatrixPanel {
             this.eventBus.publish(new QueryRequestedEvent());
         });
 
-        this.matrixTable.getTableHeader().setResizingAllowed(true);
-        this.matrixTable.setDefaultRenderer(TableData.RelationshipDirection.class, new RelationshipTableCellRenderer());
-
-        //fillTableWithDemoData();
     }
 
     private void fillTableWithDemoData() {
@@ -104,20 +115,14 @@ public class MatrixPanel extends AbstractMatrixPanel {
 
         TableData data = new TableData(rows, columns);
 
-        data.addRelationship(0,1, TableData.RelationshipDirection.ROW_TO_COLUMN);
-        data.addRelationship(1,2, TableData.RelationshipDirection.ROW_TO_COLUMN);
-        data.addRelationship(2,0, TableData.RelationshipDirection.COLUMN_TO_ROW);
-        data.addRelationship(2,1, TableData.RelationshipDirection.BOTH);
+        data.addRelationship(0,1, RelationshipDirection.ROW_TO_COLUMN);
+        data.addRelationship(1,2, RelationshipDirection.ROW_TO_COLUMN);
+        data.addRelationship(2,0, RelationshipDirection.COLUMN_TO_ROW);
+        data.addRelationship(2,1, RelationshipDirection.BOTH);
 
         RelationshipTableModel tableModel = new RelationshipTableModel(data);
 
         this.matrixTable.setModel(tableModel);
-
-     /*   TableColumnModel tableColumnModel = this.matrixTable.getColumnModel();
-
-        for (int column = 1; column < tableColumnModel.getColumnCount(); column++){
-            tableColumnModel.getColumn(column).setHeaderRenderer(new VerticalTableHeaderCellRenderer());
-        }*/
     }
 
 }

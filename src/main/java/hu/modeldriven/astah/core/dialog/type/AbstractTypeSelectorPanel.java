@@ -4,6 +4,8 @@
  */
 package hu.modeldriven.astah.core.dialog.type;
 
+import java.awt.Font;
+
 /**
  * @author zsolt
  */
@@ -42,7 +44,7 @@ public class AbstractTypeSelectorPanel extends javax.swing.JPanel {
 
         infoPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        titleLabel.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        titleLabel.setFont(new java.awt.Font("Segoe UI Light", Font.BOLD, 18)); // NOI18N
         titleLabel.setText("Select element type (s)");
 
         descriptionLabel.setText("Select the element type(s) you want to use.");

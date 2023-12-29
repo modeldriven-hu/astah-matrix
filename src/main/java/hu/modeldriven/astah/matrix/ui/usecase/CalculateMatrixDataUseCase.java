@@ -6,6 +6,7 @@ import com.change_vision.jude.api.inf.model.IPackage;
 import com.change_vision.jude.api.inf.model.IRealization;
 import hu.modeldriven.astah.core.dialog.type.matcher.TypeMatcher;
 import hu.modeldriven.astah.matrix.ui.event.*;
+import hu.modeldriven.astah.matrix.ui.table.RelationshipDirection;
 import hu.modeldriven.astah.matrix.ui.table.TableData;
 import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventBus;
@@ -74,7 +75,7 @@ public class CalculateMatrixDataUseCase implements EventHandler {
         eventBus.publish(new TableDataCalculatedEvent(tableData));
     }
 
-    private TableData.RelationshipDirection getRelationshipDirection(INamedElement row, INamedElement column) {
+    private RelationshipDirection getRelationshipDirection(INamedElement row, INamedElement column) {
 
         // Client -> Supplier
 
@@ -119,13 +120,13 @@ public class CalculateMatrixDataUseCase implements EventHandler {
         }
 
         if (rowToColumn && columnToRow) {
-            return TableData.RelationshipDirection.BOTH;
+            return RelationshipDirection.BOTH;
         } else if (rowToColumn) {
-            return TableData.RelationshipDirection.ROW_TO_COLUMN;
+            return RelationshipDirection.ROW_TO_COLUMN;
         } else if (columnToRow) {
-            return TableData.RelationshipDirection.COLUMN_TO_ROW;
+            return RelationshipDirection.COLUMN_TO_ROW;
         } else {
-            return TableData.RelationshipDirection.NONE;
+            return RelationshipDirection.NONE;
         }
     }
 
@@ -157,7 +158,7 @@ public class CalculateMatrixDataUseCase implements EventHandler {
     }
 
 
-    class QueryInfo {
+    static class QueryInfo {
         IPackage columnPackage;
         TypeMatcher columnTypeMatcher;
 

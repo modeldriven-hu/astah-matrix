@@ -1,5 +1,7 @@
 package hu.modeldriven.astah.matrix.ui.table;
 
+import com.change_vision.jude.api.inf.model.INamedElement;
+
 import javax.swing.table.AbstractTableModel;
 
 public class RelationshipTableModel extends AbstractTableModel {
@@ -23,7 +25,7 @@ public class RelationshipTableModel extends AbstractTableModel {
     @Override
     public String getColumnName(int column) {
         if (column == 0) {
-            return "<TODO>";
+            return "";
         } else {
             return this.tableData.columns().get(column-1).getName();
         }
@@ -31,18 +33,18 @@ public class RelationshipTableModel extends AbstractTableModel {
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        switch (columnIndex) {
-            case 0:
-                return String.class;
-            default:
-                return TableData.RelationshipDirection.class;
+
+        if (columnIndex == 0) {
+            return INamedElement.class;
+        } else {
+            return RelationshipDirection.class;
         }
     }
 
     @Override
     public Object getValueAt(int row, int column) {
         if (column == 0){
-            return this.tableData.rows().get(row).getName();
+            return this.tableData.rows().get(row);
         } else {
             return this.tableData.getRelationship(row, column-1);
         }

@@ -41,10 +41,4 @@ public class TableData {
         return this.data[row][column];
     }
 
-    public static enum RelationshipDirection {
-        ROW_TO_COLUMN,
-        COLUMN_TO_ROW,
-        BOTH,
-        NONE
-    }
 }

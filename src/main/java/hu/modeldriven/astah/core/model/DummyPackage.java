@@ -23,7 +23,7 @@ public class DummyPackage implements IPackage {
 
     @Override
     public INamedElement[] getOwnedElements() {
-        return elements.toArray(new INamedElement[elements.size()]);
+        return elements.toArray(new INamedElement[0]);
     }
 
     @Override

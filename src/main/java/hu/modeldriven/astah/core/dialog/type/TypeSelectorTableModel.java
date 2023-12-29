@@ -24,7 +24,7 @@ public class TypeSelectorTableModel extends AbstractTableModel {
     }
 
     public Optional<TypeSelector> selectedRow() {
-        return rows.stream().filter(row -> row.selected() == true).findFirst();
+        return rows.stream().filter(row -> row.selected()).findFirst();
     }
 
     @Override
