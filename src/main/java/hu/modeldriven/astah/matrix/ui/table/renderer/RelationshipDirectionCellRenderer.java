@@ -1,4 +1,6 @@
-package hu.modeldriven.astah.matrix.ui.table;
+package hu.modeldriven.astah.matrix.ui.table.renderer;
+
+import hu.modeldriven.astah.matrix.ui.table.RelationshipDirection;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -8,7 +10,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.Color;
 import java.awt.Component;
 
-public class RelationshipTableCellRenderer extends DefaultTableCellRenderer {
+public class RelationshipDirectionCellRenderer extends DefaultTableCellRenderer {
 
     private final Icon rowToColumnIcon = new ImageIcon(getClass().getResource("/images/row-to-column.png"));
     private final Icon columnToRowIcon = new ImageIcon(getClass().getResource("/images/column-to-row.png"));

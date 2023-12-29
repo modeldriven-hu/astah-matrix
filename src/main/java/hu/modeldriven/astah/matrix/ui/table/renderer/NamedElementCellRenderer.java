@@ -1,4 +1,4 @@
-package hu.modeldriven.astah.matrix.ui.table;
+package hu.modeldriven.astah.matrix.ui.table.renderer;
 
 import com.change_vision.jude.api.inf.model.INamedElement;
 
@@ -7,7 +7,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.Component;
 import java.awt.Font;
 
-public class NamedElementTableCellRenderer extends DefaultTableCellRenderer {
+public class NamedElementCellRenderer extends DefaultTableCellRenderer {
 
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);

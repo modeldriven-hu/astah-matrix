@@ -4,14 +4,14 @@ import com.change_vision.jude.api.inf.model.INamedElement;
 
 import java.util.List;
 
-public class TableData {
+public class MatrixData {
 
     private final List<INamedElement> rows;
     private final List<INamedElement> columns;
 
     private final RelationshipDirection[][] data;
 
-    public TableData(List<INamedElement> rows, List<INamedElement> columns) {
+    public MatrixData(List<INamedElement> rows, List<INamedElement> columns) {
         this.rows = rows;
         this.columns = columns;
         this.data = new RelationshipDirection[rows.size()][columns.size()];

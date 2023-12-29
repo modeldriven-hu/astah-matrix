@@ -4,11 +4,11 @@ import com.change_vision.jude.api.inf.model.INamedElement;
 
 import javax.swing.table.AbstractTableModel;
 
-public class RelationshipTableModel extends AbstractTableModel {
+public class MatrixTableModel extends AbstractTableModel {
 
-    private final TableData tableData;
+    private final MatrixData tableData;
 
-    public RelationshipTableModel(TableData tableData){
+    public MatrixTableModel(MatrixData tableData){
         this.tableData = tableData;
     }
 

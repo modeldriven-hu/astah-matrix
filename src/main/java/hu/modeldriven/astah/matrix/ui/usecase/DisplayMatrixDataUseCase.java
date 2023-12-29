@@ -1,7 +1,7 @@
 package hu.modeldriven.astah.matrix.ui.usecase;
 
 import hu.modeldriven.astah.matrix.ui.event.TableDataCalculatedEvent;
-import hu.modeldriven.astah.matrix.ui.table.RelationshipTableModel;
+import hu.modeldriven.astah.matrix.ui.table.MatrixTableModel;
 import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventHandler;
 
@@ -19,7 +19,7 @@ public class DisplayMatrixDataUseCase implements EventHandler<TableDataCalculate
 
     @Override
     public void handleEvent(TableDataCalculatedEvent event) {
-        RelationshipTableModel tableModel = new RelationshipTableModel(event.getTableData());
+        MatrixTableModel tableModel = new MatrixTableModel(event.getTableData());
         this.table.setModel(tableModel);
     }
 

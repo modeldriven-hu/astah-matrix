@@ -1,17 +1,17 @@
 package hu.modeldriven.astah.matrix.ui.event;
 
-import hu.modeldriven.astah.matrix.ui.table.TableData;
+import hu.modeldriven.astah.matrix.ui.table.MatrixData;
 import hu.modeldriven.core.eventbus.Event;
 
 public class TableDataCalculatedEvent implements Event {
 
-    private final TableData tableData;
+    private final MatrixData tableData;
 
-    public TableDataCalculatedEvent(TableData tableData){
+    public TableDataCalculatedEvent(MatrixData tableData){
         this.tableData = tableData;
     }
 
-    public TableData getTableData() {
+    public MatrixData getTableData() {
         return tableData;
     }
 }

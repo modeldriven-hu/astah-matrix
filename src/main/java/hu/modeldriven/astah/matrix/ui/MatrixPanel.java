@@ -10,11 +10,12 @@ import hu.modeldriven.astah.core.model.DummyNamedElement;
 import hu.modeldriven.astah.core.model.Model;
 import hu.modeldriven.astah.matrix.ui.event.*;
 import hu.modeldriven.astah.matrix.ui.table.*;
+import hu.modeldriven.astah.matrix.ui.table.renderer.MatrixTableHeaderRenderer;
+import hu.modeldriven.astah.matrix.ui.table.renderer.NamedElementCellRenderer;
+import hu.modeldriven.astah.matrix.ui.table.renderer.RelationshipDirectionCellRenderer;
 import hu.modeldriven.astah.matrix.ui.usecase.*;
 import hu.modeldriven.core.eventbus.EventBus;
 
-import javax.swing.JTable;
-import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -37,12 +38,17 @@ public class MatrixPanel extends AbstractMatrixPanel {
 
         this.matrixTable.getTableHeader().setResizingAllowed(true);
 
-        ListSelectionListener listener = e -> matrixTable.repaint();
+        ListSelectionListener listener = e -> {
+            matrixTable.getTableHeader().repaint();
+            matrixTable.repaint();
+        };
+
         matrixTable.getSelectionModel().addListSelectionListener(listener);
         matrixTable.getColumnModel().getSelectionModel().addListSelectionListener(listener);
 
-        this.matrixTable.setDefaultRenderer(INamedElement.class, new NamedElementTableCellRenderer());
-        this.matrixTable.setDefaultRenderer(RelationshipDirection.class, new RelationshipTableCellRenderer());
+        this.matrixTable.setDefaultRenderer(INamedElement.class, new NamedElementCellRenderer());
+        this.matrixTable.setDefaultRenderer(RelationshipDirection.class, new RelationshipDirectionCellRenderer());
+        this.matrixTable.getTableHeader().setDefaultRenderer(new MatrixTableHeaderRenderer());
 
         fillTableWithDemoData();
     }
@@ -113,14 +119,14 @@ public class MatrixPanel extends AbstractMatrixPanel {
         columns.add(new DummyNamedElement("UseCase 5"));
         columns.add(new DummyNamedElement("UseCase 6"));
 
-        TableData data = new TableData(rows, columns);
+        MatrixData data = new MatrixData(rows, columns);
 
         data.addRelationship(0,1, RelationshipDirection.ROW_TO_COLUMN);
         data.addRelationship(1,2, RelationshipDirection.ROW_TO_COLUMN);
         data.addRelationship(2,0, RelationshipDirection.COLUMN_TO_ROW);
         data.addRelationship(2,1, RelationshipDirection.BOTH);
 
-        RelationshipTableModel tableModel = new RelationshipTableModel(data);
+        MatrixTableModel tableModel = new MatrixTableModel(data);
 
         this.matrixTable.setModel(tableModel);
     }

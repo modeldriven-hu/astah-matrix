@@ -7,7 +7,7 @@ import com.change_vision.jude.api.inf.model.IRealization;
 import hu.modeldriven.astah.core.dialog.type.matcher.TypeMatcher;
 import hu.modeldriven.astah.matrix.ui.event.*;
 import hu.modeldriven.astah.matrix.ui.table.RelationshipDirection;
-import hu.modeldriven.astah.matrix.ui.table.TableData;
+import hu.modeldriven.astah.matrix.ui.table.MatrixData;
 import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventBus;
 import hu.modeldriven.core.eventbus.EventHandler;
@@ -15,10 +15,8 @@ import hu.modeldriven.core.eventbus.EventHandler;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
-public class CalculateMatrixDataUseCase implements EventHandler {
+public class CalculateMatrixDataUseCase implements EventHandler<Event> {
 
     private final EventBus eventBus;
     private final QueryInfo queryInfo;
@@ -60,7 +58,7 @@ public class CalculateMatrixDataUseCase implements EventHandler {
         List<INamedElement> rows = findElements(queryInfo.rowPackage, queryInfo.rowTypeMatcher);
         List<INamedElement> columns = findElements(queryInfo.columnPackage, queryInfo.columnTypeMatcher);
 
-        TableData tableData = new TableData(rows, columns);
+        MatrixData tableData = new MatrixData(rows, columns);
 
         for (int row = 0; row < rows.size(); row++) {
 
