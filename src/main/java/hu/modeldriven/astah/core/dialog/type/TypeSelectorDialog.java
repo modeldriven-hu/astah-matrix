@@ -50,8 +50,8 @@ public class TypeSelectorDialog {
                 TypeSelectorDialog dialog = new TypeSelectorDialog(null,
                         new ElementTypeSelectorData(),
                         selector -> {
-                    System.out.println("Selected selector = " + selector.name());
-                });
+                            System.out.println("Selected selector = " + selector.name());
+                        });
 
                 dialog.show();
             });

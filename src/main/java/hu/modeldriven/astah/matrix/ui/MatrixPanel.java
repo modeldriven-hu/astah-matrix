@@ -5,6 +5,7 @@
 package hu.modeldriven.astah.matrix.ui;
 
 import com.change_vision.jude.api.inf.model.INamedElement;
+import hu.modeldriven.astah.core.model.AstahModel;
 import hu.modeldriven.astah.core.model.DummyModel;
 import hu.modeldriven.astah.core.model.DummyNamedElement;
 import hu.modeldriven.astah.core.model.Model;
@@ -33,7 +34,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
 
     private void initComponents() {
 
-        Model model = new DummyModel();
+        Model model = new AstahModel();
 
         this.eventBus.subscribe(new DisplayRowTypeNameUseCase(rowTypeTextField));
         this.eventBus.subscribe(new DisplayRowTypeSelectorUseCase(parentComponent, eventBus));
@@ -53,6 +54,8 @@ public class MatrixPanel extends AbstractMatrixPanel {
         this.eventBus.subscribe(new EnableQueryButtonUseCase(eventBus, queryButton));
 
         this.eventBus.subscribe(new CalculateMatrixDataUseCase(eventBus));
+
+        this.eventBus.subscribe(new DisplayMatrixDataUseCase(matrixTable));
 
         rowTypeSelectButton.addActionListener(actionEvent -> {
             this.eventBus.publish(new RowTypeSelectionRequestedEvent());
@@ -81,7 +84,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
         this.matrixTable.getTableHeader().setResizingAllowed(true);
         this.matrixTable.setDefaultRenderer(TableData.RelationshipDirection.class, new RelationshipTableCellRenderer());
 
-        fillTableWithDemoData();
+        //fillTableWithDemoData();
     }
 
     private void fillTableWithDemoData() {

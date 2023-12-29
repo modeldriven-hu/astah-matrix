@@ -18,9 +18,7 @@ public class TemplateAction implements IPluginActionDelegate {
             ProjectAccessor projectAccessor = api.getProjectAccessor();
             projectAccessor.getProject();
 
-            //JOptionPane.showMessageDialog(window.getParent(), "Hello");
-
-            MatrixScreen matrixScreen = new MatrixScreen();
+            MatrixScreen matrixScreen = new MatrixScreen(window.getParent());
             matrixScreen.show();
 
         } catch (ProjectNotFoundException e) {

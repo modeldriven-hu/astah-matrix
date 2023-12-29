@@ -9,7 +9,7 @@ public class DummyNamedElement implements INamedElement {
 
     private final String name;
 
-    public DummyNamedElement(String name){
+    public DummyNamedElement(String name) {
         this.name = name;
     }
 

@@ -1,6 +1,7 @@
 package hu.modeldriven.astah.matrix.ui.usecase;
 
 import hu.modeldriven.astah.core.dialog.type.DependencyTypeSelectorData;
+import hu.modeldriven.astah.core.dialog.type.TypeSelector;
 import hu.modeldriven.astah.core.dialog.type.TypeSelectorDialog;
 import hu.modeldriven.astah.matrix.ui.event.DependencySelectionRequestedEvent;
 import hu.modeldriven.astah.matrix.ui.event.DependencyTypeSelectedEvent;
@@ -11,8 +12,10 @@ import hu.modeldriven.core.eventbus.EventHandler;
 import java.awt.Component;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 
-public class DisplayDependencyTypeSelectorUseCase implements EventHandler<DependencySelectionRequestedEvent> {
+public class DisplayDependencyTypeSelectorUseCase implements EventHandler<DependencySelectionRequestedEvent>,
+        Consumer<TypeSelector> {
 
     private final Component parentComponent;
     private final EventBus eventBus;
@@ -27,11 +30,7 @@ public class DisplayDependencyTypeSelectorUseCase implements EventHandler<Depend
         TypeSelectorDialog dialog = new TypeSelectorDialog(
                 parentComponent,
                 new DependencyTypeSelectorData(),
-                es -> eventBus.publish(
-                        new DependencyTypeSelectedEvent(
-                                es.name(),
-                                es.matcher()
-                        ))
+                this
         );
 
         dialog.show();
@@ -40,5 +39,13 @@ public class DisplayDependencyTypeSelectorUseCase implements EventHandler<Depend
     @Override
     public List<Class<? extends Event>> subscribedEvents() {
         return Collections.singletonList(DependencySelectionRequestedEvent.class);
+    }
+
+    @Override
+    public void accept(TypeSelector typeSelector) {
+        eventBus.publish(new DependencyTypeSelectedEvent(
+                typeSelector.name(),
+                typeSelector.matcher()
+        ));
     }
 }

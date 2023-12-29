@@ -14,6 +14,8 @@ import hu.modeldriven.core.eventbus.EventHandler;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class CalculateMatrixDataUseCase implements EventHandler {
 
@@ -79,17 +81,19 @@ public class CalculateMatrixDataUseCase implements EventHandler {
         boolean rowToColumn = false;
 
         for (IDependency dependency : row.getClientDependencies()) {
-            if (queryInfo.columnTypeMatcher.matches(dependency)) {
+            if (queryInfo.dependencyTypeMatcher.matches(dependency)) {
                 if (dependency.getSupplier().equals(column)) {
                     rowToColumn = true;
+                    break;
                 }
             }
         }
 
         for (IRealization realization : row.getClientRealizations()) {
-            if (queryInfo.columnTypeMatcher.matches(realization)) {
+            if (queryInfo.dependencyTypeMatcher.matches(realization)) {
                 if (realization.getSupplier().equals(column)) {
                     rowToColumn = true;
+                    break;
                 }
             }
         }
@@ -97,17 +101,19 @@ public class CalculateMatrixDataUseCase implements EventHandler {
         boolean columnToRow = false;
 
         for (IDependency dependency : row.getSupplierDependencies()) {
-            if (queryInfo.columnTypeMatcher.matches(dependency)) {
+            if (queryInfo.dependencyTypeMatcher.matches(dependency)) {
                 if (dependency.getClient().equals(column)) {
                     columnToRow = true;
+                    break;
                 }
             }
         }
 
         for (IRealization realization : row.getSupplierRealizations()) {
-            if (queryInfo.columnTypeMatcher.matches(realization)) {
+            if (queryInfo.dependencyTypeMatcher.matches(realization)) {
                 if (realization.getClient().equals(column)) {
                     columnToRow = true;
+                    break;
                 }
             }
         }
