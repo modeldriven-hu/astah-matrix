@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin>
+    <extension point="com.change_vision.astah.ui.view">
+        <view
+                id="hu.modeldriven.astah-matrix.MatrixView"
+                type="extraTab"
+                class="hu.modeldriven.astah.matrix.MatrixView" />
+    </extension>
     <extension point="com.change_vision.astah.ui.actionSets">
         <actionSet
                 label="%action_set_label"

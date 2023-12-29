@@ -36,7 +36,8 @@ public class MatrixPanel extends AbstractMatrixPanel {
 
     private void initComponents() {
 
-        this.matrixTable.getTableHeader().setResizingAllowed(true);
+        matrixTable.getTableHeader().setResizingAllowed(true);
+        matrixTable.getTableHeader().setReorderingAllowed(false);
 
         ListSelectionListener listener = e -> {
             matrixTable.getTableHeader().repaint();
@@ -46,9 +47,14 @@ public class MatrixPanel extends AbstractMatrixPanel {
         matrixTable.getSelectionModel().addListSelectionListener(listener);
         matrixTable.getColumnModel().getSelectionModel().addListSelectionListener(listener);
 
-        this.matrixTable.setDefaultRenderer(INamedElement.class, new NamedElementCellRenderer());
-        this.matrixTable.setDefaultRenderer(RelationshipDirection.class, new RelationshipDirectionCellRenderer());
-        this.matrixTable.getTableHeader().setDefaultRenderer(new MatrixTableHeaderRenderer());
+        matrixTable.setRowSelectionAllowed(false);
+        matrixTable.setColumnSelectionAllowed(false);
+
+        matrixTable.setDefaultRenderer(INamedElement.class, new NamedElementCellRenderer());
+        matrixTable.setDefaultRenderer(RelationshipDirection.class, new RelationshipDirectionCellRenderer());
+        matrixTable.getTableHeader().setDefaultRenderer(new MatrixTableHeaderRenderer());
+
+        // add popup menu https://stackoverflow.com/questions/16743427/jtable-right-click-popup-menu
 
         fillTableWithDemoData();
     }
