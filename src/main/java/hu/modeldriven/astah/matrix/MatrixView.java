@@ -1,5 +1,7 @@
 package hu.modeldriven.astah.matrix;
 
+import com.change_vision.jude.api.inf.AstahAPI;
+import com.change_vision.jude.api.inf.exception.InvalidUsingException;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 import com.change_vision.jude.api.inf.project.ProjectAccessorFactory;
 import com.change_vision.jude.api.inf.project.ProjectEvent;
@@ -36,8 +38,17 @@ public class MatrixView extends JPanel implements IPluginExtraTabView, ProjectEv
     }
 
     private Container createContentPane() {
+
+        Component component = null;
+
+        try {
+            component = AstahAPI.getAstahAPI().getViewManager().getMainFrame();
+        } catch (Exception e) {
+            component = this;
+        }
+
         EventBus eventBus = new EventBus();
-        MatrixPanel panel = new MatrixPanel(this, eventBus);
+        MatrixPanel panel = new MatrixPanel(component, eventBus);
         return panel;
     }
 

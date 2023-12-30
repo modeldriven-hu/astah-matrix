@@ -36,14 +36,17 @@ public class MatrixPanel extends AbstractMatrixPanel {
         super();
         this.parentComponent = parentComponent;
         this.eventBus = eventBus;
+
         initComponents();
         initActionListeners();
         initUseCases();
-        fillTableWithDemoData();
+
+        // Enable this for testing purposes
+        //fillTableWithDemoData();
     }
 
     private void initComponents() {
-        
+
         matrixTable.getTableHeader().setResizingAllowed(true);
         matrixTable.getTableHeader().setReorderingAllowed(false);
 
