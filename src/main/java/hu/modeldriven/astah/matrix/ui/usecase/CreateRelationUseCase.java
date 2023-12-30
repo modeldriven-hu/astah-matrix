@@ -8,6 +8,7 @@ import hu.modeldriven.astah.core.dialog.type.DependencyTypeSelectorData;
 import hu.modeldriven.astah.matrix.ui.event.CreateRelationshipRequestedEvent;
 import hu.modeldriven.astah.matrix.ui.event.DependencyTypeSelectedEvent;
 import hu.modeldriven.astah.matrix.ui.event.ExceptionOccuredEvent;
+import hu.modeldriven.astah.matrix.ui.event.QueryRequestedEvent;
 import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventBus;
 import hu.modeldriven.core.eventbus.EventHandler;
@@ -55,11 +56,12 @@ public class CreateRelationUseCase implements EventHandler<Event> {
                 transactionManager.beginTransaction();
 
                 switch (event.direction()) {
-                    case ROW_TO_COLUMN:
-                        data.createRelationship(typeName, projectAccessor, event.sourceElement(), event.targetElement());
-
                     case COLUMN_TO_ROW:
+                        data.createRelationship(typeName, projectAccessor, event.sourceElement(), event.targetElement());
+                        break;
+                    case ROW_TO_COLUMN:
                         data.createRelationship(typeName, projectAccessor, event.targetElement(), event.sourceElement());
+                        break;
                 }
 
                 transactionManager.endTransaction();
@@ -67,6 +69,8 @@ public class CreateRelationUseCase implements EventHandler<Event> {
                 transactionManager.abortTransaction();
                 throw new RuntimeException(e);
             }
+
+            eventBus.publish(new QueryRequestedEvent());
 
         } catch (Exception e) {
             eventBus.publish(new ExceptionOccuredEvent(e));

@@ -26,7 +26,7 @@ public class DependencyTypeSelectorData implements TypeSelectorData {
     }
 
     private void createDependencyRelationship(ProjectAccessor projectAccessor, INamedElement client, INamedElement supplier) throws IOException, InvalidEditingException {
-        projectAccessor.getModelEditorFactory().getBasicModelEditor().createDependency(client, supplier, "matrixGenerated");
+        projectAccessor.getModelEditorFactory().getBasicModelEditor().createDependency(client, supplier, "");
     }
 
     @Override
