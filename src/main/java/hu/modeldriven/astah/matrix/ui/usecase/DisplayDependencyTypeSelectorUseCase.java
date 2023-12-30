@@ -44,8 +44,7 @@ public class DisplayDependencyTypeSelectorUseCase implements EventHandler<Depend
     @Override
     public void accept(TypeSelector typeSelector) {
         eventBus.publish(new DependencyTypeSelectedEvent(
-                typeSelector.name(),
-                typeSelector.matcher()
+                typeSelector
         ));
     }
 }

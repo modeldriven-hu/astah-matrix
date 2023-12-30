@@ -12,6 +12,14 @@ public class MatrixTableModel extends AbstractTableModel {
         this.tableData = tableData;
     }
 
+    public INamedElement getElementByRow(int row){
+        return tableData.rows().get(row);
+    }
+
+    public INamedElement getElementByColumn(int column){
+        return tableData.columns().get(column - 1);
+    }
+
     @Override
     public int getRowCount() {
         return this.tableData.rowCount();

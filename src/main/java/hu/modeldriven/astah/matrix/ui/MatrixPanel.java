@@ -16,6 +16,9 @@ import hu.modeldriven.astah.matrix.ui.table.renderer.RelationshipDirectionCellRe
 import hu.modeldriven.astah.matrix.ui.usecase.*;
 import hu.modeldriven.core.eventbus.EventBus;
 
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.event.ListSelectionListener;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -31,7 +34,9 @@ public class MatrixPanel extends AbstractMatrixPanel {
         this.parentComponent = parentComponent;
         this.eventBus = eventBus;
         initComponents();
+        initActionListeners();
         initUseCases();
+        fillTableWithDemoData();
     }
 
     private void initComponents() {
@@ -54,9 +59,114 @@ public class MatrixPanel extends AbstractMatrixPanel {
         matrixTable.setDefaultRenderer(RelationshipDirection.class, new RelationshipDirectionCellRenderer());
         matrixTable.getTableHeader().setDefaultRenderer(new MatrixTableHeaderRenderer());
 
-        // add popup menu https://stackoverflow.com/questions/16743427/jtable-right-click-popup-menu
+        addPopupMenu();
+    }
 
-        fillTableWithDemoData();
+    private void addPopupMenu(){
+        JPopupMenu popupMenu = new JPopupMenu();
+
+        JMenu rowMenu = createRowMenu();
+        JMenu columnMenu = createColumnMenu();
+        JMenu createRelationshipMenu = createRelationshipMenu();
+
+        popupMenu.add(rowMenu);
+        popupMenu.add(columnMenu);
+        popupMenu.add(createRelationshipMenu);
+
+        matrixTable.setComponentPopupMenu(popupMenu);
+    }
+
+    private JMenu createRowMenu() {
+        JMenu rowMenu = new JMenu("Row");
+
+        JMenuItem showRowInStructureItem = new JMenuItem("Show in Structure Tree");
+        showRowInStructureItem.addActionListener(actionEvent -> eventBus.publish(
+                new ShowInStructureTreeRequestedEvent(getSelectedRowElement())));
+        rowMenu.add(showRowInStructureItem);
+
+        return rowMenu;
+    }
+
+    private JMenu createColumnMenu() {
+        JMenu columnMenu = new JMenu("Column");
+
+        JMenuItem showColumnInStructureItem = new JMenuItem("Show in Structure Tree");
+        showColumnInStructureItem.addActionListener(actionEvent -> eventBus.publish(
+                new ShowInStructureTreeRequestedEvent(getSelectedColumnElement())));
+        columnMenu.add(showColumnInStructureItem);
+
+        return columnMenu;
+    }
+
+    private JMenu createRelationshipMenu() {
+        JMenu createRelationshipMenu = new JMenu("Create Relationship");
+
+        JMenuItem rowToColumnItem = new JMenuItem("Row to Column");
+        rowToColumnItem.addActionListener(actionEvent -> eventBus.publish(
+                new CreateRelationshipRequestedEvent(getSelectedRowElement(),
+                        getSelectedColumnElement(), RelationshipDirection.ROW_TO_COLUMN)));
+
+        createRelationshipMenu.add(rowToColumnItem);
+
+        JMenuItem columnToRowItem = new JMenuItem("Column to Row");
+        columnToRowItem.addActionListener(actionEvent -> eventBus.publish(
+                new CreateRelationshipRequestedEvent(getSelectedRowElement(),
+                        getSelectedColumnElement(), RelationshipDirection.COLUMN_TO_ROW)));
+
+        createRelationshipMenu.add(columnToRowItem);
+
+        return createRelationshipMenu;
+    }
+
+    INamedElement getSelectedRowElement(){
+
+        int selectedRow = matrixTable.getSelectedRow();
+
+        if (selectedRow != -1 && matrixTable.getModel() instanceof  MatrixTableModel){
+            MatrixTableModel model = (MatrixTableModel) matrixTable.getModel();
+            return model.getElementByRow(selectedRow);
+        }
+
+        return null;
+    }
+
+    INamedElement getSelectedColumnElement(){
+
+        int selectedColumn = matrixTable.getSelectedColumn();
+
+        if (selectedColumn != -1 && matrixTable.getModel() instanceof MatrixTableModel){
+            MatrixTableModel model = (MatrixTableModel) matrixTable.getModel();
+            return model.getElementByColumn(selectedColumn);
+        }
+
+        return null;
+    }
+
+    private void initActionListeners(){
+
+        rowTypeSelectButton.addActionListener(actionEvent -> {
+            this.eventBus.publish(new RowTypeSelectionRequestedEvent());
+        });
+
+        rowPackageSelectButton.addActionListener(actionEvent -> {
+            this.eventBus.publish(new RowPackageSelectionRequestedEvent());
+        });
+
+        columnTypeSelectButton.addActionListener(actionEvent -> {
+            this.eventBus.publish(new ColumnTypeSelectionRequestedEvent());
+        });
+
+        columnPackageSelectButton.addActionListener(actionEvent -> {
+            this.eventBus.publish(new ColumnPackageSelectionRequestedEvent());
+        });
+
+        dependencySelectButton.addActionListener(actionEvent -> {
+            this.eventBus.publish(new DependencySelectionRequestedEvent());
+        });
+
+        queryButton.addActionListener(actionEvent -> {
+            this.eventBus.publish(new QueryRequestedEvent());
+        });
     }
 
     private void initUseCases(){
@@ -84,30 +194,11 @@ public class MatrixPanel extends AbstractMatrixPanel {
 
         this.eventBus.subscribe(new DisplayMatrixDataUseCase(matrixTable));
 
-        rowTypeSelectButton.addActionListener(actionEvent -> {
-            this.eventBus.publish(new RowTypeSelectionRequestedEvent());
-        });
+        this.eventBus.subscribe(new ShowElementInStructureTreeUseCase(eventBus));
 
-        rowPackageSelectButton.addActionListener(actionEvent -> {
-            this.eventBus.publish(new RowPackageSelectionRequestedEvent());
-        });
+        this.eventBus.subscribe(new CreateRelationUseCase(eventBus));
 
-        columnTypeSelectButton.addActionListener(actionEvent -> {
-            this.eventBus.publish(new ColumnTypeSelectionRequestedEvent());
-        });
-
-        columnPackageSelectButton.addActionListener(actionEvent -> {
-            this.eventBus.publish(new ColumnPackageSelectionRequestedEvent());
-        });
-
-        dependencySelectButton.addActionListener(actionEvent -> {
-            this.eventBus.publish(new DependencySelectionRequestedEvent());
-        });
-
-        queryButton.addActionListener(actionEvent -> {
-            this.eventBus.publish(new QueryRequestedEvent());
-        });
-
+        this.eventBus.subscribe(new DisplayExceptionUseCase());
     }
 
     private void fillTableWithDemoData() {
