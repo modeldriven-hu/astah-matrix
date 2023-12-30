@@ -10,6 +10,8 @@ import java.awt.Font;
 
 public class NamedElementCellRenderer extends DefaultTableCellRenderer {
 
+    private final Color backgroundColor = new Color(230,230,230);
+
     public NamedElementCellRenderer(){
         super();
         super.setOpaque(true);
@@ -19,7 +21,7 @@ public class NamedElementCellRenderer extends DefaultTableCellRenderer {
         super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
         setText("");
-        setBackground(table.getTableHeader().getBackground());
+        setBackground(backgroundColor);
         setForeground(Color.BLACK);
 
         if (value instanceof INamedElement) {

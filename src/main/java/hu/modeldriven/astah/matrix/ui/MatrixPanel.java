@@ -19,8 +19,11 @@ import hu.modeldriven.core.eventbus.EventBus;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.TransferHandler;
 import javax.swing.event.ListSelectionListener;
 import java.awt.Component;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +43,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
     }
 
     private void initComponents() {
-
+        
         matrixTable.getTableHeader().setResizingAllowed(true);
         matrixTable.getTableHeader().setReorderingAllowed(false);
 
