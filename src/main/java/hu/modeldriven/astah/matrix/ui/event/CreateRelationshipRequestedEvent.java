@@ -12,7 +12,7 @@ public class CreateRelationshipRequestedEvent implements Event {
 
     public CreateRelationshipRequestedEvent(INamedElement sourceElement,
                                             INamedElement targetElement,
-                                            RelationshipDirection direction){
+                                            RelationshipDirection direction) {
         this.sourceElement = sourceElement;
         this.targetElement = targetElement;
         this.direction = direction;

@@ -13,7 +13,7 @@ public class DisplayMatrixDataUseCase implements EventHandler<TableDataCalculate
 
     private final JTable table;
 
-    public DisplayMatrixDataUseCase(JTable table){
+    public DisplayMatrixDataUseCase(JTable table) {
         this.table = table;
     }
 

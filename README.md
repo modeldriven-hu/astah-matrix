@@ -1,10 +1,9 @@
-# astah-matrix
-Display a dependency matrix for Astah SysML.
+# Astah Matrix Plug-in
 
-# Tasks
+This enables you to display dependencies among model elements 
+in Astah SysML, but might also work with other Astah variants
+as well.
 
-- [ ] Implement drag and drop for package
-- [ ] Implement drag and drop for type
-- [ ] Display icons
-- [ ] Translation
-- [ ] Theme support
+# Build
+
+

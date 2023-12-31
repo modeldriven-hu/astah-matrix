@@ -7,7 +7,7 @@ public class TableDataCalculatedEvent implements Event {
 
     private final MatrixData tableData;
 
-    public TableDataCalculatedEvent(MatrixData tableData){
+    public TableDataCalculatedEvent(MatrixData tableData) {
         this.tableData = tableData;
     }
 

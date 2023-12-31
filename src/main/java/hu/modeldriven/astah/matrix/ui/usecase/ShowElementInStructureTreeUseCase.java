@@ -16,7 +16,7 @@ public class ShowElementInStructureTreeUseCase implements EventHandler<ShowInStr
 
     private final EventBus eventBus;
 
-    public ShowElementInStructureTreeUseCase(EventBus eventBus){
+    public ShowElementInStructureTreeUseCase(EventBus eventBus) {
         this.eventBus = eventBus;
     }
 

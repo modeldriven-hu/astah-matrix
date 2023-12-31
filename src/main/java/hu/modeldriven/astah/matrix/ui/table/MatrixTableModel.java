@@ -8,15 +8,15 @@ public class MatrixTableModel extends AbstractTableModel {
 
     private final MatrixData tableData;
 
-    public MatrixTableModel(MatrixData tableData){
+    public MatrixTableModel(MatrixData tableData) {
         this.tableData = tableData;
     }
 
-    public INamedElement getElementByRow(int row){
+    public INamedElement getElementByRow(int row) {
         return tableData.rows().get(row);
     }
 
-    public INamedElement getElementByColumn(int column){
+    public INamedElement getElementByColumn(int column) {
         return tableData.columns().get(column - 1);
     }
 
@@ -35,7 +35,7 @@ public class MatrixTableModel extends AbstractTableModel {
         if (column == 0) {
             return "";
         } else {
-            return this.tableData.columns().get(column-1).getName();
+            return this.tableData.columns().get(column - 1).getName();
         }
     }
 
@@ -51,10 +51,10 @@ public class MatrixTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int row, int column) {
-        if (column == 0){
+        if (column == 0) {
             return this.tableData.rows().get(row);
         } else {
-            return this.tableData.getRelationship(row, column-1);
+            return this.tableData.getRelationship(row, column - 1);
         }
     }
 }

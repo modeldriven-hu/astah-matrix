@@ -4,5 +4,5 @@ import com.change_vision.jude.api.inf.model.IElement;
 
 public interface TypeMatcher {
 
-    public boolean matches(IElement element);
+    boolean matches(IElement element);
 }

@@ -1,7 +1,6 @@
 package hu.modeldriven.astah.matrix.ui.usecase;
 
 import hu.modeldriven.astah.matrix.ui.event.ColumnTypeSelectedEvent;
-import hu.modeldriven.astah.matrix.ui.event.RowTypeSelectedEvent;
 import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventHandler;
 

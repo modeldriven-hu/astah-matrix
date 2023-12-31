@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface TypeSelectorData {
 
-    public List<TypeSelector> asRows();
+    List<TypeSelector> asRows();
 
 }

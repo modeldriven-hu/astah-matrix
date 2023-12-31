@@ -20,7 +20,7 @@ public class DisplayDependencyTypeSelectorUseCase implements EventHandler<Depend
     private final Component parentComponent;
     private final EventBus eventBus;
 
-    public DisplayDependencyTypeSelectorUseCase(Component parentComponent, EventBus eventBus){
+    public DisplayDependencyTypeSelectorUseCase(Component parentComponent, EventBus eventBus) {
         this.parentComponent = parentComponent;
         this.eventBus = eventBus;
     }

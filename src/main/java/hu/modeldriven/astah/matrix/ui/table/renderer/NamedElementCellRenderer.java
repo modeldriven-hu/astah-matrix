@@ -10,9 +10,9 @@ import java.awt.Font;
 
 public class NamedElementCellRenderer extends DefaultTableCellRenderer {
 
-    private final Color backgroundColor = new Color(230,230,230);
+    private final Color backgroundColor = new Color(230, 230, 230);
 
-    public NamedElementCellRenderer(){
+    public NamedElementCellRenderer() {
         super();
         super.setOpaque(true);
     }

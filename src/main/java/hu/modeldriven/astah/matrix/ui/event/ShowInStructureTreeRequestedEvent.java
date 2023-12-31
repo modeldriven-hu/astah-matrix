@@ -7,11 +7,11 @@ public class ShowInStructureTreeRequestedEvent implements Event {
 
     private final INamedElement element;
 
-    public ShowInStructureTreeRequestedEvent(INamedElement element){
+    public ShowInStructureTreeRequestedEvent(INamedElement element) {
         this.element = element;
     }
 
-    public INamedElement element(){
+    public INamedElement element() {
         return element;
     }
 

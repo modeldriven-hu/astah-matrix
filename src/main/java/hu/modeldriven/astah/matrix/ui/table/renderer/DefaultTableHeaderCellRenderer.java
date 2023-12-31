@@ -1,26 +1,26 @@
 package hu.modeldriven.astah.matrix.ui.table.renderer;
 
 /**
- * @(#)DefaultTableHeaderCellRenderer.java	1.0 02/24/09
+ * @(#)DefaultTableHeaderCellRenderer.java 1.0 02/24/09
  */
 //package darrylbu.renderer;
 
-import java.awt.Component;
-import java.util.List;
 import javax.swing.Icon;
 import javax.swing.JTable;
 import javax.swing.RowSorter;
 import javax.swing.RowSorter.SortKey;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.Component;
+import java.util.List;
 
 /**
  * A default cell renderer for a JTableHeader.
- * <P>
+ * <p>
  * DefaultTableHeaderCellRenderer attempts to provide identical behavior to the
  * renderer which the Swing subsystem uses by default, the Sun proprietary
  * class sun.swing.table.DefaultTableCellHeaderRenderer.
- * <P>
+ * <p>
  * To apply any desired customization, DefaultTableHeaderCellRenderer may be
  * suitably extended.
  *
@@ -30,7 +30,7 @@ public class DefaultTableHeaderCellRenderer extends DefaultTableCellRenderer {
 
     /**
      * Constructs a <code>DefaultTableHeaderCellRenderer</code>.
-     * <P>
+     * <p>
      * The horizontal alignment and text position are set as appropriate to a
      * table header cell, and the opaque property is set to false.
      */
@@ -43,20 +43,20 @@ public class DefaultTableHeaderCellRenderer extends DefaultTableCellRenderer {
 
     /**
      * Returns the default table header cell renderer.
-     * <P>
+     * <p>
      * If the column is sorted, the approapriate icon is retrieved from the
      * current Look and Feel, and a border appropriate to a table header cell
      * is applied.
-     * <P>
+     * <p>
      * Subclasses may overide this method to provide custom content or
      * formatting.
      *
-     * @param table the <code>JTable</code>.
-     * @param value the value to assign to the header cell
+     * @param table      the <code>JTable</code>.
+     * @param value      the value to assign to the header cell
      * @param isSelected This parameter is ignored.
-     * @param hasFocus This parameter is ignored.
-     * @param row This parameter is ignored.
-     * @param column the column of the header cell to render
+     * @param hasFocus   This parameter is ignored.
+     * @param row        This parameter is ignored.
+     * @param column     the column of the header cell to render
      * @return the default table header cell renderer
      */
     @Override
@@ -73,7 +73,7 @@ public class DefaultTableHeaderCellRenderer extends DefaultTableCellRenderer {
      * Overloaded to return an icon suitable to the primary sorted column, or null if
      * the column is not the primary sort key.
      *
-     * @param table the <code>JTable</code>.
+     * @param table  the <code>JTable</code>.
      * @param column the column index.
      * @return the sort icon, or null if the column is unsorted.
      */
@@ -93,7 +93,7 @@ public class DefaultTableHeaderCellRenderer extends DefaultTableCellRenderer {
     /**
      * Returns the current sort key, or null if the column is unsorted.
      *
-     * @param table the table
+     * @param table  the table
      * @param column the column index
      * @return the SortKey, or null if the column is unsorted
      */

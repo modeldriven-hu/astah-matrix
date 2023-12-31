@@ -17,7 +17,7 @@ public class DisplayColumnTypeSelectorUseCase implements EventHandler<ColumnType
     private final Component parentComponent;
     private final EventBus eventBus;
 
-    public DisplayColumnTypeSelectorUseCase(Component parentComponent, EventBus eventBus){
+    public DisplayColumnTypeSelectorUseCase(Component parentComponent, EventBus eventBus) {
         this.parentComponent = parentComponent;
         this.eventBus = eventBus;
     }

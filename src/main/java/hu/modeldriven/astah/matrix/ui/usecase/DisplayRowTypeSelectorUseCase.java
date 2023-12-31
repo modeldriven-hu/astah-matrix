@@ -17,7 +17,7 @@ public class DisplayRowTypeSelectorUseCase implements EventHandler<RowTypeSelect
     private final Component parentComponent;
     private final EventBus eventBus;
 
-    public DisplayRowTypeSelectorUseCase(Component parentComponent, EventBus eventBus){
+    public DisplayRowTypeSelectorUseCase(Component parentComponent, EventBus eventBus) {
         this.parentComponent = parentComponent;
         this.eventBus = eventBus;
     }

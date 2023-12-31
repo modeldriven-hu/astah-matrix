@@ -9,7 +9,9 @@ import hu.modeldriven.astah.core.model.AstahModel;
 import hu.modeldriven.astah.core.model.DummyNamedElement;
 import hu.modeldriven.astah.core.model.Model;
 import hu.modeldriven.astah.matrix.ui.event.*;
-import hu.modeldriven.astah.matrix.ui.table.*;
+import hu.modeldriven.astah.matrix.ui.table.MatrixData;
+import hu.modeldriven.astah.matrix.ui.table.MatrixTableModel;
+import hu.modeldriven.astah.matrix.ui.table.RelationshipDirection;
 import hu.modeldriven.astah.matrix.ui.table.renderer.MatrixTableHeaderRenderer;
 import hu.modeldriven.astah.matrix.ui.table.renderer.NamedElementCellRenderer;
 import hu.modeldriven.astah.matrix.ui.table.renderer.RelationshipDirectionCellRenderer;
@@ -19,11 +21,8 @@ import hu.modeldriven.core.eventbus.EventBus;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import javax.swing.TransferHandler;
 import javax.swing.event.ListSelectionListener;
 import java.awt.Component;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +67,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
         addPopupMenu();
     }
 
-    private void addPopupMenu(){
+    private void addPopupMenu() {
         JPopupMenu popupMenu = new JPopupMenu();
 
         JMenu rowMenu = createRowMenu();
@@ -124,11 +123,11 @@ public class MatrixPanel extends AbstractMatrixPanel {
         return createRelationshipMenu;
     }
 
-    INamedElement getSelectedRowElement(){
+    INamedElement getSelectedRowElement() {
 
         int selectedRow = matrixTable.getSelectedRow();
 
-        if (selectedRow != -1 && matrixTable.getModel() instanceof  MatrixTableModel){
+        if (selectedRow != -1 && matrixTable.getModel() instanceof MatrixTableModel) {
             MatrixTableModel model = (MatrixTableModel) matrixTable.getModel();
             return model.getElementByRow(selectedRow);
         }
@@ -136,11 +135,11 @@ public class MatrixPanel extends AbstractMatrixPanel {
         return null;
     }
 
-    INamedElement getSelectedColumnElement(){
+    INamedElement getSelectedColumnElement() {
 
         int selectedColumn = matrixTable.getSelectedColumn();
 
-        if (selectedColumn != -1 && matrixTable.getModel() instanceof MatrixTableModel){
+        if (selectedColumn != -1 && matrixTable.getModel() instanceof MatrixTableModel) {
             MatrixTableModel model = (MatrixTableModel) matrixTable.getModel();
             return model.getElementByColumn(selectedColumn);
         }
@@ -148,7 +147,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
         return null;
     }
 
-    private void initActionListeners(){
+    private void initActionListeners() {
 
         rowTypeSelectButton.addActionListener(actionEvent -> {
             this.eventBus.publish(new RowTypeSelectionRequestedEvent());
@@ -175,7 +174,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
         });
     }
 
-    private void initUseCases(){
+    private void initUseCases() {
 
         Model model = new AstahModel();
 
@@ -224,10 +223,10 @@ public class MatrixPanel extends AbstractMatrixPanel {
 
         MatrixData data = new MatrixData(rows, columns);
 
-        data.addRelationship(0,1, RelationshipDirection.ROW_TO_COLUMN);
-        data.addRelationship(1,2, RelationshipDirection.ROW_TO_COLUMN);
-        data.addRelationship(2,0, RelationshipDirection.COLUMN_TO_ROW);
-        data.addRelationship(2,1, RelationshipDirection.BOTH);
+        data.addRelationship(0, 1, RelationshipDirection.ROW_TO_COLUMN);
+        data.addRelationship(1, 2, RelationshipDirection.ROW_TO_COLUMN);
+        data.addRelationship(2, 0, RelationshipDirection.COLUMN_TO_ROW);
+        data.addRelationship(2, 1, RelationshipDirection.BOTH);
 
         MatrixTableModel tableModel = new MatrixTableModel(data);
 

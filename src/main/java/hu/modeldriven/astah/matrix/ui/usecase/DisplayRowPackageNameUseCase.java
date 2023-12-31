@@ -12,7 +12,7 @@ public class DisplayRowPackageNameUseCase implements EventHandler<RowPackageSele
 
     private final JTextField textField;
 
-    public DisplayRowPackageNameUseCase(JTextField textField){
+    public DisplayRowPackageNameUseCase(JTextField textField) {
         this.textField = textField;
     }
 

@@ -20,7 +20,6 @@ public class RelationshipDirectionCellRenderer extends DefaultTableCellRenderer 
     private final Color currentSelectionColor = new Color(204, 255, 204);
 
 
-
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);

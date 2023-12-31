@@ -16,12 +16,12 @@ public class DependencyTypeSelectorData implements TypeSelectorData {
 
     private final Map<TypeSelector, InnerFunction> map;
 
-    public DependencyTypeSelectorData(){
+    public DependencyTypeSelectorData() {
         this.map = new HashMap<>();
         this.initialize();
     }
 
-    private void initialize(){
+    private void initialize() {
         map.put(new TypeSelector("Dependency", new ClassMatcher(IDependency.class)), this::createDependencyRelationship);
     }
 
@@ -36,17 +36,17 @@ public class DependencyTypeSelectorData implements TypeSelectorData {
         return rows;
     }
 
-    public void createRelationship(String name, ProjectAccessor projectAccessor, INamedElement client, INamedElement supplier) throws Exception{
+    public void createRelationship(String name, ProjectAccessor projectAccessor, INamedElement client, INamedElement supplier) throws Exception {
         InnerFunction function = map.entrySet().stream()
-                                    .filter(entry -> entry.getKey().name().equals(name))
-                                    .findFirst().orElseThrow(IllegalArgumentException::new).getValue();
+                .filter(entry -> entry.getKey().name().equals(name))
+                .findFirst().orElseThrow(IllegalArgumentException::new).getValue();
         function.execute(projectAccessor, client, supplier);
     }
 
     @FunctionalInterface
-    interface InnerFunction{
+    interface InnerFunction {
 
-        public void execute(ProjectAccessor projectAccessor, INamedElement client, INamedElement supplier) throws Exception;
+        void execute(ProjectAccessor projectAccessor, INamedElement client, INamedElement supplier) throws Exception;
 
     }
 

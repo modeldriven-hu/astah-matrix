@@ -75,7 +75,7 @@ public class AbstractTypeSelectorPanel extends javax.swing.JPanel {
 
         elementTable.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{
-                        {new Boolean(false), "Use case"},
+                        {Boolean.FALSE, "Use case"},
                         {null, "Activity"},
                         {null, "Action"}
                 },
@@ -83,7 +83,7 @@ public class AbstractTypeSelectorPanel extends javax.swing.JPanel {
                         "#", "Element type"
                 }
         ) {
-            Class[] types = new Class[]{
+            final Class[] types = new Class[]{
                     java.lang.Boolean.class, java.lang.String.class
             };
 

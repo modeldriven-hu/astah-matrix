@@ -1,7 +1,6 @@
 package hu.modeldriven.astah.matrix.ui.usecase;
 
 import hu.modeldriven.astah.matrix.ui.event.ColumnPackageSelectedEvent;
-import hu.modeldriven.astah.matrix.ui.event.RowPackageSelectedEvent;
 import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventHandler;
 
@@ -13,7 +12,7 @@ public class DisplayColumnPackageNameUseCase implements EventHandler<ColumnPacka
 
     private final JTextField textField;
 
-    public DisplayColumnPackageNameUseCase(JTextField textField){
+    public DisplayColumnPackageNameUseCase(JTextField textField) {
         this.textField = textField;
     }
 

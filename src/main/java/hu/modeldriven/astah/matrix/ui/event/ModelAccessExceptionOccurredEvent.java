@@ -7,7 +7,7 @@ public class ModelAccessExceptionOccurredEvent implements Event {
 
     private final ModelAccessException exception;
 
-    public ModelAccessExceptionOccurredEvent(ModelAccessException exception){
+    public ModelAccessExceptionOccurredEvent(ModelAccessException exception) {
         this.exception = exception;
     }
 
