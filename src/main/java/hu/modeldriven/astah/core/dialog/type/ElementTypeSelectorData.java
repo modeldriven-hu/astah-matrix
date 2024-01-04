@@ -14,9 +14,9 @@ public class ElementTypeSelectorData implements TypeSelectorData {
     public List<TypeSelector> asRows() {
         List<TypeSelector> rows = new ArrayList<>();
 
-        rows.add(new TypeSelector("Activity", new ClassMatcher(IAction.class)));
-        rows.add(new TypeSelector("Requirement", new ClassMatcher(IRequirement.class)));
-        rows.add(new TypeSelector("Use Case", new ClassMatcher(IUseCase.class)));
+        rows.add(new TypeSelector("Activity", new ClassMatcher<>(IAction.class)));
+        rows.add(new TypeSelector("Requirement", new ClassMatcher<>(IRequirement.class)));
+        rows.add(new TypeSelector("Use Case", new ClassMatcher<>(IUseCase.class)));
         rows.add(new TypeSelector("Block", new StereotypeMatcher("Block")));
 
         return rows;

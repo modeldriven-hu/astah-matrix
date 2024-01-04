@@ -108,16 +108,17 @@ public class DummyPackage implements IPackage {
 
     @Override
     public void setName(String s) throws InvalidEditingException {
+        // dummy implementation
     }
 
     @Override
     public void setDefinition(String s) throws InvalidEditingException {
-
+        // dummy implementation
     }
 
     @Override
     public void setVisibility(String s) throws InvalidEditingException {
-
+        // dummy implementation
     }
 
     @Override
@@ -132,12 +133,12 @@ public class DummyPackage implements IPackage {
 
     @Override
     public void setAlias1(String s) throws InvalidEditingException {
-
+        // dummy implementation
     }
 
     @Override
     public void setAlias2(String s) throws InvalidEditingException {
-
+        // dummy implementation
     }
 
     @Override
@@ -177,12 +178,12 @@ public class DummyPackage implements IPackage {
 
     @Override
     public void removeStereotype(String s) throws InvalidEditingException {
-
+        // dummy implementation
     }
 
     @Override
     public void addStereotype(String s) throws InvalidEditingException {
-
+        // dummy implementation
     }
 
     @Override
@@ -212,7 +213,7 @@ public class DummyPackage implements IPackage {
 
     @Override
     public void setTypeModifier(String s) throws InvalidEditingException {
-
+        // dummy implementation
     }
 
     @Override
@@ -237,6 +238,6 @@ public class DummyPackage implements IPackage {
 
     @Override
     public void deleteHyperlink(IHyperlink iHyperlink) throws InvalidEditingException {
-
+        // dummy implementation
     }
 }

@@ -9,6 +9,7 @@ import java.awt.Font;
 /**
  * @author zsolt
  */
+@SuppressWarnings({"java:S1450", "java:S1161"})
 public class AbstractTypeSelectorPanel extends javax.swing.JPanel {
 
     /**

@@ -47,24 +47,27 @@ public class MatrixView extends JPanel implements IPluginExtraTabView, ProjectEv
         }
 
         EventBus eventBus = new EventBus();
-        MatrixPanel panel = new MatrixPanel(component, eventBus);
-        return panel;
+        return new MatrixPanel(component, eventBus);
     }
 
     @Override
     public void projectChanged(ProjectEvent e) {
+        // nothing to do here
     }
 
     @Override
     public void projectClosed(ProjectEvent e) {
+        // nothing to do here
     }
 
     @Override
     public void projectOpened(ProjectEvent e) {
+        // nothing to do here
     }
 
     @Override
     public void addSelectionListener(ISelectionListener listener) {
+        // nothing to do here
     }
 
     @Override
@@ -83,10 +86,10 @@ public class MatrixView extends JPanel implements IPluginExtraTabView, ProjectEv
     }
 
     public void activated() {
-
+        // nothing to do here
     }
 
     public void deactivated() {
-
+        // nothing to do here
     }
 }

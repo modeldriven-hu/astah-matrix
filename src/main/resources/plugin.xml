@@ -4,6 +4,6 @@
         <view
                 id="hu.modeldriven.astah-matrix.MatrixView"
                 type="extraTab"
-                class="hu.modeldriven.astah.matrix.MatrixView" />
+                class="hu.modeldriven.astah.matrix.MatrixView"/>
     </extension>
 </plugin>

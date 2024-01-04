@@ -6,7 +6,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class MatrixTableModel extends AbstractTableModel {
 
-    private final MatrixData tableData;
+    private final transient MatrixData tableData;
 
     public MatrixTableModel(MatrixData tableData) {
         this.tableData = tableData;

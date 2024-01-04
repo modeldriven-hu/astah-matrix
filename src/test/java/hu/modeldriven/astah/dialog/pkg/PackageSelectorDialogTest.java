@@ -1,7 +1,6 @@
 package hu.modeldriven.astah.dialog.pkg;
 
 import hu.modeldriven.astah.core.dialog.pkg.PackageSelectorDialog;
-import hu.modeldriven.astah.core.dialog.type.ElementTypeSelectorData;
 
 import javax.swing.SwingUtilities;
 

@@ -4,8 +4,8 @@ import hu.modeldriven.astah.matrix.ui.table.RelationshipDirection;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.Color;
 import java.awt.Component;
@@ -27,13 +27,13 @@ public class RelationshipDirectionCellRenderer extends DefaultTableCellRenderer 
         setText("");
         setIcon(null);
 
-        setBackgroundColor(table, row, column, isSelected);
+        setBackgroundColor(table, row, column);
         setDirectionIcon(value);
 
         return this;
     }
 
-    private void setBackgroundColor(JTable table, int row, int column, boolean isSelected) {
+    private void setBackgroundColor(JTable table, int row, int column) {
 
         this.setBackground(table.getBackground());
         this.setBorder(null);
@@ -52,10 +52,10 @@ public class RelationshipDirectionCellRenderer extends DefaultTableCellRenderer 
     }
 
     private void setDirectionIcon(Object value) {
-        if (value != null && value instanceof RelationshipDirection) {
+        if (value instanceof RelationshipDirection) {
 
-            setHorizontalAlignment(JLabel.CENTER);
-            setVerticalAlignment(JLabel.CENTER);
+            setHorizontalAlignment(SwingConstants.CENTER);
+            setVerticalAlignment(SwingConstants.CENTER);
 
             switch ((RelationshipDirection) value) {
                 case ROW_TO_COLUMN:

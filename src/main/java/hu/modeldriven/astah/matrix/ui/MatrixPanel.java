@@ -6,10 +6,8 @@ package hu.modeldriven.astah.matrix.ui;
 
 import com.change_vision.jude.api.inf.model.INamedElement;
 import hu.modeldriven.astah.core.model.AstahModel;
-import hu.modeldriven.astah.core.model.DummyNamedElement;
 import hu.modeldriven.astah.core.model.Model;
 import hu.modeldriven.astah.matrix.ui.event.*;
-import hu.modeldriven.astah.matrix.ui.table.MatrixData;
 import hu.modeldriven.astah.matrix.ui.table.MatrixTableModel;
 import hu.modeldriven.astah.matrix.ui.table.RelationshipDirection;
 import hu.modeldriven.astah.matrix.ui.table.renderer.MatrixTableHeaderRenderer;
@@ -23,20 +21,19 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.event.ListSelectionListener;
 import java.awt.Component;
-import java.util.ArrayList;
-import java.util.List;
 
+@SuppressWarnings("java:S125")
 public class MatrixPanel extends AbstractMatrixPanel {
 
     private final Component parentComponent;
-    private final EventBus eventBus;
+    private final transient EventBus eventBus;
 
     public MatrixPanel(Component parentComponent, EventBus eventBus) {
         super();
         this.parentComponent = parentComponent;
         this.eventBus = eventBus;
 
-        initComponents();
+        initUIComponents();
         initActionListeners();
         initUseCases();
 
@@ -44,7 +41,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
         //fillTableWithDemoData();
     }
 
-    private void initComponents() {
+    private void initUIComponents() {
 
         matrixTable.getTableHeader().setResizingAllowed(true);
         matrixTable.getTableHeader().setReorderingAllowed(false);
@@ -148,30 +145,12 @@ public class MatrixPanel extends AbstractMatrixPanel {
     }
 
     private void initActionListeners() {
-
-        rowTypeSelectButton.addActionListener(actionEvent -> {
-            this.eventBus.publish(new RowTypeSelectionRequestedEvent());
-        });
-
-        rowPackageSelectButton.addActionListener(actionEvent -> {
-            this.eventBus.publish(new RowPackageSelectionRequestedEvent());
-        });
-
-        columnTypeSelectButton.addActionListener(actionEvent -> {
-            this.eventBus.publish(new ColumnTypeSelectionRequestedEvent());
-        });
-
-        columnPackageSelectButton.addActionListener(actionEvent -> {
-            this.eventBus.publish(new ColumnPackageSelectionRequestedEvent());
-        });
-
-        dependencySelectButton.addActionListener(actionEvent -> {
-            this.eventBus.publish(new DependencySelectionRequestedEvent());
-        });
-
-        queryButton.addActionListener(actionEvent -> {
-            this.eventBus.publish(new QueryRequestedEvent());
-        });
+        rowTypeSelectButton.addActionListener(actionEvent -> this.eventBus.publish(new RowTypeSelectionRequestedEvent()));
+        rowPackageSelectButton.addActionListener(actionEvent -> this.eventBus.publish(new RowPackageSelectionRequestedEvent()));
+        columnTypeSelectButton.addActionListener(actionEvent -> this.eventBus.publish(new ColumnTypeSelectionRequestedEvent()));
+        columnPackageSelectButton.addActionListener(actionEvent -> this.eventBus.publish(new ColumnPackageSelectionRequestedEvent()));
+        dependencySelectButton.addActionListener(actionEvent -> this.eventBus.publish(new DependencySelectionRequestedEvent()));
+        queryButton.addActionListener(actionEvent -> this.eventBus.publish(new QueryRequestedEvent()));
     }
 
     private void initUseCases() {
@@ -193,7 +172,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
         this.eventBus.subscribe(new DisplayDependencyNameUseCase(dependencyTextField));
         this.eventBus.subscribe(new DisplayDependencyTypeSelectorUseCase(parentComponent, eventBus));
 
-        this.eventBus.subscribe(new EnableQueryButtonUseCase(eventBus, queryButton));
+        this.eventBus.subscribe(new EnableQueryButtonUseCase(queryButton));
 
         this.eventBus.subscribe(new CalculateMatrixDataUseCase(eventBus));
 
@@ -206,31 +185,31 @@ public class MatrixPanel extends AbstractMatrixPanel {
         this.eventBus.subscribe(new DisplayExceptionUseCase());
     }
 
-    private void fillTableWithDemoData() {
-
-        List<INamedElement> rows = new ArrayList<>();
-        rows.add(new DummyNamedElement("Requirement 1"));
-        rows.add(new DummyNamedElement("Requirement 2"));
-        rows.add(new DummyNamedElement("Requirement 3"));
-
-        List<INamedElement> columns = new ArrayList<>();
-        columns.add(new DummyNamedElement("UseCase 1"));
-        columns.add(new DummyNamedElement("UseCase 2"));
-        columns.add(new DummyNamedElement("UseCase 3"));
-        columns.add(new DummyNamedElement("UseCase 4"));
-        columns.add(new DummyNamedElement("UseCase 5"));
-        columns.add(new DummyNamedElement("UseCase 6"));
-
-        MatrixData data = new MatrixData(rows, columns);
-
-        data.addRelationship(0, 1, RelationshipDirection.ROW_TO_COLUMN);
-        data.addRelationship(1, 2, RelationshipDirection.ROW_TO_COLUMN);
-        data.addRelationship(2, 0, RelationshipDirection.COLUMN_TO_ROW);
-        data.addRelationship(2, 1, RelationshipDirection.BOTH);
-
-        MatrixTableModel tableModel = new MatrixTableModel(data);
-
-        this.matrixTable.setModel(tableModel);
-    }
+//    private void fillTableWithDemoData() {
+//
+//        List<INamedElement> rows = new ArrayList<>();
+//        rows.add(new DummyNamedElement("Requirement 1"));
+//        rows.add(new DummyNamedElement("Requirement 2"));
+//        rows.add(new DummyNamedElement("Requirement 3"));
+//
+//        List<INamedElement> columns = new ArrayList<>();
+//        columns.add(new DummyNamedElement("UseCase 1"));
+//        columns.add(new DummyNamedElement("UseCase 2"));
+//        columns.add(new DummyNamedElement("UseCase 3"));
+//        columns.add(new DummyNamedElement("UseCase 4"));
+//        columns.add(new DummyNamedElement("UseCase 5"));
+//        columns.add(new DummyNamedElement("UseCase 6"));
+//
+//        MatrixData data = new MatrixData(rows, columns);
+//
+//        data.addRelationship(0, 1, RelationshipDirection.ROW_TO_COLUMN);
+//        data.addRelationship(1, 2, RelationshipDirection.ROW_TO_COLUMN);
+//        data.addRelationship(2, 0, RelationshipDirection.COLUMN_TO_ROW);
+//        data.addRelationship(2, 1, RelationshipDirection.BOTH);
+//
+//        MatrixTableModel tableModel = new MatrixTableModel(data);
+//
+//        this.matrixTable.setModel(tableModel);
+//    }
 
 }

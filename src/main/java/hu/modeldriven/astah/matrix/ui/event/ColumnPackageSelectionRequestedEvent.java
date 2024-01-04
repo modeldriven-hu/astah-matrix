@@ -4,7 +4,4 @@ import hu.modeldriven.core.eventbus.Event;
 
 public class ColumnPackageSelectionRequestedEvent implements Event {
 
-    public ColumnPackageSelectionRequestedEvent() {
-    }
-
 }

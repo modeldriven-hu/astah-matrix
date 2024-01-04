@@ -2,17 +2,19 @@ package hu.modeldriven.astah.matrix.ui.table.renderer;
 
 /**
  * @(#)DefaultTableHeaderCellRenderer.java 1.0 02/24/09
+ * <p>
+ * from the package darrylbu.renderer;
+ * <p>
+ * Refactored in order to remove Sonar errors by Zsolt Sándor
  */
-//package darrylbu.renderer;
 
-import javax.swing.Icon;
-import javax.swing.JTable;
-import javax.swing.RowSorter;
+import javax.swing.*;
 import javax.swing.RowSorter.SortKey;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableModel;
 import java.awt.Component;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A default cell renderer for a JTableHeader.
@@ -80,11 +82,10 @@ public class DefaultTableHeaderCellRenderer extends DefaultTableCellRenderer {
     protected Icon getIcon(JTable table, int column) {
         SortKey sortKey = getSortKey(table, column);
         if (sortKey != null && table.convertColumnIndexToView(sortKey.getColumn()) == column) {
-            switch (sortKey.getSortOrder()) {
-                case ASCENDING:
-                    return UIManager.getIcon("Table.ascendingSortIcon");
-                case DESCENDING:
-                    return UIManager.getIcon("Table.descendingSortIcon");
+            if (Objects.requireNonNull(sortKey.getSortOrder()) == SortOrder.ASCENDING) {
+                return UIManager.getIcon("Table.ascendingSortIcon");
+            } else if (sortKey.getSortOrder() == SortOrder.DESCENDING) {
+                return UIManager.getIcon("Table.descendingSortIcon");
             }
         }
         return null;
@@ -98,14 +99,14 @@ public class DefaultTableHeaderCellRenderer extends DefaultTableCellRenderer {
      * @return the SortKey, or null if the column is unsorted
      */
     protected SortKey getSortKey(JTable table, int column) {
-        RowSorter rowSorter = table.getRowSorter();
+        RowSorter<? extends TableModel> rowSorter = table.getRowSorter();
         if (rowSorter == null) {
             return null;
         }
 
-        List sortedColumns = rowSorter.getSortKeys();
-        if (sortedColumns.size() > 0) {
-            return (SortKey) sortedColumns.get(0);
+        List<? extends RowSorter.SortKey> sortedColumns = rowSorter.getSortKeys();
+        if (!sortedColumns.isEmpty()) {
+            return sortedColumns.get(0);
         }
         return null;
     }

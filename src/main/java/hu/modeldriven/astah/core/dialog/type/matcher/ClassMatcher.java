@@ -2,11 +2,11 @@ package hu.modeldriven.astah.core.dialog.type.matcher;
 
 import com.change_vision.jude.api.inf.model.IElement;
 
-public class ClassMatcher implements TypeMatcher {
+public class ClassMatcher<T> implements TypeMatcher {
 
-    private final Class requiredClass;
+    private final Class<T> requiredClass;
 
-    public ClassMatcher(Class requiredClass) {
+    public ClassMatcher(Class<T> requiredClass) {
         this.requiredClass = requiredClass;
     }
 

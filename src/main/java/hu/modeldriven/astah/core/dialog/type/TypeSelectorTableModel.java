@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public class TypeSelectorTableModel extends AbstractTableModel {
 
-    private final List<TypeSelector> rows;
+    private final transient List<TypeSelector> rows;
 
     public TypeSelectorTableModel(TypeSelectorData initialData) {
         super();
@@ -34,9 +34,9 @@ public class TypeSelectorTableModel extends AbstractTableModel {
                 return Boolean.class;
             case 1:
                 return String.class;
+            default:
+                return Object.class;
         }
-
-        return Object.class;
     }
 
     @Override
@@ -46,45 +46,37 @@ public class TypeSelectorTableModel extends AbstractTableModel {
                 return "#";
             case 1:
                 return "Element type";
+            default:
+                return "<undefined>";
         }
-
-        return "<undefined>";
     }
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        switch (columnIndex) {
-            case 0:
-                return true;
-            default:
-                return false;
-        }
+        return columnIndex == 0;
     }
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 
-        switch (columnIndex) {
-            case 0:
-                if (aValue instanceof Boolean) {
+        if (columnIndex == 0 && aValue instanceof Boolean) {
 
-                    // We set the selection value for each row to false except rowIndex
-                    // Then notify the table that all rows have been modified
-                    // This is not very optimal for performance but given the small amount
-                    // of rows in this table it works well
+            // We set the selection value for each row to false except rowIndex
+            // Then notify the table that all rows have been modified
+            // This is not very optimal for performance but given the small amount
+            // of rows in this table it works well
 
-                    for (int i = 0; i < rows.size(); i++) {
-                        TypeSelector currentRow = rows.get(i);
+            for (int i = 0; i < rows.size(); i++) {
+                TypeSelector currentRow = rows.get(i);
 
-                        if (rowIndex == i) {
-                            currentRow.setSelected((Boolean) aValue);
-                        } else {
-                            currentRow.setSelected(false);
-                        }
-                    }
-
-                    fireTableRowsUpdated(0, rows.size() - 1);
+                if (rowIndex == i) {
+                    currentRow.setSelected((Boolean) aValue);
+                } else {
+                    currentRow.setSelected(false);
                 }
+            }
+
+            fireTableRowsUpdated(0, rows.size() - 1);
         }
 
     }
@@ -102,8 +94,9 @@ public class TypeSelectorTableModel extends AbstractTableModel {
             case 1:
                 return selectedTableRow.name();
 
-        }
+            default:
+                return null;
 
-        return null;
+        }
     }
 }

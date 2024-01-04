@@ -3,12 +3,14 @@ package hu.modeldriven.astah.matrix.ui.usecase;
 import com.change_vision.jude.api.inf.AstahAPI;
 import com.change_vision.jude.api.inf.editor.ITransactionManager;
 import com.change_vision.jude.api.inf.exception.BadTransactionException;
+import com.change_vision.jude.api.inf.model.INamedElement;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 import hu.modeldriven.astah.core.dialog.type.DependencyTypeSelectorData;
 import hu.modeldriven.astah.matrix.ui.event.CreateRelationshipRequestedEvent;
 import hu.modeldriven.astah.matrix.ui.event.DependencyTypeSelectedEvent;
 import hu.modeldriven.astah.matrix.ui.event.ExceptionOccuredEvent;
 import hu.modeldriven.astah.matrix.ui.event.QueryRequestedEvent;
+import hu.modeldriven.astah.matrix.ui.table.RelationshipDirection;
 import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventBus;
 import hu.modeldriven.core.eventbus.EventHandler;
@@ -48,34 +50,43 @@ public class CreateRelationUseCase implements EventHandler<Event> {
 
         try {
             AstahAPI api = AstahAPI.getAstahAPI();
-            ProjectAccessor projectAccessor = api.getProjectAccessor();
-
-            ITransactionManager transactionManager = projectAccessor.getTransactionManager();
-
-            try {
-                transactionManager.beginTransaction();
-
-                switch (event.direction()) {
-                    case COLUMN_TO_ROW:
-                        data.createRelationship(typeName, projectAccessor, event.sourceElement(), event.targetElement());
-                        break;
-                    case ROW_TO_COLUMN:
-                        data.createRelationship(typeName, projectAccessor, event.targetElement(), event.sourceElement());
-                        break;
-                }
-
-                transactionManager.endTransaction();
-            } catch (BadTransactionException e) {
-                transactionManager.abortTransaction();
-                throw new RuntimeException(e);
-            }
-
-            eventBus.publish(new QueryRequestedEvent());
+            createRelations(api, event.direction(), event.sourceElement(), event.targetElement());
 
         } catch (Exception e) {
             eventBus.publish(new ExceptionOccuredEvent(e));
         }
 
+    }
+
+    private void createRelations(AstahAPI api, RelationshipDirection direction, INamedElement source, INamedElement target) {
+
+        ProjectAccessor projectAccessor = api.getProjectAccessor();
+        ITransactionManager transactionManager = projectAccessor.getTransactionManager();
+
+        try {
+            transactionManager.beginTransaction();
+
+            switch (direction) {
+                case COLUMN_TO_ROW:
+                    data.createRelationship(typeName, projectAccessor, source, target);
+                    break;
+                case ROW_TO_COLUMN:
+                    data.createRelationship(typeName, projectAccessor, target, source);
+                    break;
+                default:
+                    break;
+            }
+
+            transactionManager.endTransaction();
+
+            eventBus.publish(new QueryRequestedEvent());
+
+        } catch (BadTransactionException e) {
+            transactionManager.abortTransaction();
+            eventBus.publish(new ExceptionOccuredEvent(e));
+        } catch (Exception e) {
+            eventBus.publish(new ExceptionOccuredEvent(e));
+        }
     }
 
     @Override

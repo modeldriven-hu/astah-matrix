@@ -2,7 +2,6 @@ package hu.modeldriven.astah.matrix.ui.usecase;
 
 import hu.modeldriven.astah.matrix.ui.event.*;
 import hu.modeldriven.core.eventbus.Event;
-import hu.modeldriven.core.eventbus.EventBus;
 import hu.modeldriven.core.eventbus.EventHandler;
 
 import javax.swing.JButton;
@@ -11,14 +10,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EnableQueryButtonUseCase implements EventHandler {
+public class EnableQueryButtonUseCase implements EventHandler<Event> {
 
-    private final EventBus eventBus;
     private final JButton button;
-    private final Map<Class, Boolean> selectedMap;
+    private final Map<Class<?>, Boolean> selectedMap;
 
-    public EnableQueryButtonUseCase(EventBus eventBus, JButton button) {
-        this.eventBus = eventBus;
+    public EnableQueryButtonUseCase(JButton button) {
         this.button = button;
         this.selectedMap = new HashMap<>();
     }

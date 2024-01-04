@@ -1,9 +1,7 @@
 package hu.modeldriven.astah.matrix.ui.usecase;
 
-import com.change_vision.jude.api.inf.model.IDependency;
 import com.change_vision.jude.api.inf.model.INamedElement;
 import com.change_vision.jude.api.inf.model.IPackage;
-import com.change_vision.jude.api.inf.model.IRealization;
 import hu.modeldriven.astah.core.dialog.type.matcher.TypeMatcher;
 import hu.modeldriven.astah.matrix.ui.event.*;
 import hu.modeldriven.astah.matrix.ui.table.MatrixData;
@@ -75,47 +73,19 @@ public class CalculateMatrixDataUseCase implements EventHandler<Event> {
 
     private RelationshipDirection getRelationshipDirection(INamedElement row, INamedElement column) {
 
-        // Client -> Supplier
+        TypeMatcher typeMatcher = queryInfo.dependencyTypeMatcher;
 
-        boolean rowToColumn = false;
+        boolean rowToColumn = Arrays.asList(row.getClientDependencies()).stream()
+                .anyMatch(dependency -> typeMatcher.matches(dependency) && dependency.getSupplier().equals(column))
+                ||
+                Arrays.asList(row.getClientRealizations()).stream()
+                        .anyMatch(realization -> typeMatcher.matches(realization) && realization.getSupplier().equals(column));
 
-        for (IDependency dependency : row.getClientDependencies()) {
-            if (queryInfo.dependencyTypeMatcher.matches(dependency)) {
-                if (dependency.getSupplier().equals(column)) {
-                    rowToColumn = true;
-                    break;
-                }
-            }
-        }
-
-        for (IRealization realization : row.getClientRealizations()) {
-            if (queryInfo.dependencyTypeMatcher.matches(realization)) {
-                if (realization.getSupplier().equals(column)) {
-                    rowToColumn = true;
-                    break;
-                }
-            }
-        }
-
-        boolean columnToRow = false;
-
-        for (IDependency dependency : row.getSupplierDependencies()) {
-            if (queryInfo.dependencyTypeMatcher.matches(dependency)) {
-                if (dependency.getClient().equals(column)) {
-                    columnToRow = true;
-                    break;
-                }
-            }
-        }
-
-        for (IRealization realization : row.getSupplierRealizations()) {
-            if (queryInfo.dependencyTypeMatcher.matches(realization)) {
-                if (realization.getClient().equals(column)) {
-                    columnToRow = true;
-                    break;
-                }
-            }
-        }
+        boolean columnToRow = Arrays.asList(row.getSupplierDependencies()).stream()
+                .anyMatch(dependency -> typeMatcher.matches(dependency) && dependency.getClient().equals(column))
+                ||
+                Arrays.asList(row.getSupplierRealizations()).stream()
+                        .anyMatch(realization -> typeMatcher.matches(realization) && realization.getClient().equals(column));
 
         if (rowToColumn && columnToRow) {
             return RelationshipDirection.BOTH;
@@ -134,10 +104,8 @@ public class CalculateMatrixDataUseCase implements EventHandler<Event> {
         for (INamedElement element : rowPackage.getOwnedElements()) {
             if (element instanceof IPackage) {
                 elements.addAll(findElements((IPackage) element, rowTypeMatcher));
-            } else {
-                if (rowTypeMatcher.matches(element)) {
-                    elements.add(element);
-                }
+            } else if (rowTypeMatcher.matches(element)) {
+                elements.add(element);
             }
         }
 

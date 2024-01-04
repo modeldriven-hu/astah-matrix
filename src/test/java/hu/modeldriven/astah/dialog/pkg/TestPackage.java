@@ -11,7 +11,7 @@ import java.util.List;
 public class TestPackage implements IPackage {
 
     private final String name;
-    private List<INamedElement> elements = new ArrayList<>();
+    private final List<INamedElement> elements = new ArrayList<>();
 
     public TestPackage(String name) {
         this.name = name;

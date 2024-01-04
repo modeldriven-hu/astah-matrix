@@ -15,10 +15,10 @@ import java.util.regex.PatternSyntaxException;
  */
 public class TypeSelectorPanel extends AbstractTypeSelectorPanel {
 
-    private final Consumer<TypeSelector> elementSelectedCallback;
+    private final transient Consumer<TypeSelector> elementSelectedCallback;
     private final JDialog parentDialog;
 
-    private final TypeSelectorData data;
+    private final transient TypeSelectorData data;
 
     public TypeSelectorPanel(JDialog parentDialog,
                              TypeSelectorData data,
@@ -27,10 +27,10 @@ public class TypeSelectorPanel extends AbstractTypeSelectorPanel {
         this.parentDialog = parentDialog;
         this.data = data;
         this.elementSelectedCallback = elementSelectedCallback;
-        initComponents();
+        initUIComponents();
     }
 
-    private void initComponents() {
+    private void initUIComponents() {
 
         TypeSelectorTableModel tableModel = new TypeSelectorTableModel(data);
         this.elementTable.setModel(tableModel);

@@ -6,7 +6,6 @@ import com.change_vision.jude.api.inf.model.INamedElement;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 import hu.modeldriven.astah.core.dialog.type.matcher.ClassMatcher;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,31 +21,34 @@ public class DependencyTypeSelectorData implements TypeSelectorData {
     }
 
     private void initialize() {
-        map.put(new TypeSelector("Dependency", new ClassMatcher(IDependency.class)), this::createDependencyRelationship);
+        map.put(new TypeSelector("Dependency", new ClassMatcher<>(IDependency.class)), this::createDependencyRelationship);
     }
 
-    private void createDependencyRelationship(ProjectAccessor projectAccessor, INamedElement client, INamedElement supplier) throws IOException, InvalidEditingException {
-        projectAccessor.getModelEditorFactory().getBasicModelEditor().createDependency(client, supplier, "");
+    private void createDependencyRelationship(ProjectAccessor projectAccessor, INamedElement client, INamedElement supplier) throws RelationshipCreationFailedException {
+        try {
+            projectAccessor.getModelEditorFactory().getBasicModelEditor().createDependency(client, supplier, "");
+        } catch (InvalidEditingException e) {
+            throw new RelationshipCreationFailedException(e);
+        }
     }
 
     @Override
     public List<TypeSelector> asRows() {
-        List<TypeSelector> rows = new ArrayList<>();
-        rows.addAll(map.keySet());
-        return rows;
+        return new ArrayList<>(map.keySet());
     }
 
-    public void createRelationship(String name, ProjectAccessor projectAccessor, INamedElement client, INamedElement supplier) throws Exception {
+    public void createRelationship(String name, ProjectAccessor projectAccessor, INamedElement client, INamedElement supplier) throws RelationshipCreationFailedException {
         InnerFunction function = map.entrySet().stream()
                 .filter(entry -> entry.getKey().name().equals(name))
                 .findFirst().orElseThrow(IllegalArgumentException::new).getValue();
+
         function.execute(projectAccessor, client, supplier);
     }
 
     @FunctionalInterface
     interface InnerFunction {
 
-        void execute(ProjectAccessor projectAccessor, INamedElement client, INamedElement supplier) throws Exception;
+        void execute(ProjectAccessor projectAccessor, INamedElement client, INamedElement supplier) throws RelationshipCreationFailedException;
 
     }
 

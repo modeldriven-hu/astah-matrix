@@ -1,9 +1,6 @@
 package hu.modeldriven.astah.core.dialog.type;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.util.function.Consumer;
@@ -25,7 +22,7 @@ public class TypeSelectorDialog {
     public void show() {
         JDialog dialog = new JDialog();
         dialog.setModal(true);
-        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         dialog.getContentPane().setLayout(new BorderLayout());
 
         TypeSelectorPanel panel = new TypeSelectorPanel(dialog, data, callback);
@@ -50,7 +47,6 @@ public class TypeSelectorDialog {
                 TypeSelectorDialog dialog = new TypeSelectorDialog(null,
                         new ElementTypeSelectorData(),
                         selector -> {
-                            System.out.println("Selected selector = " + selector.name());
                         });
 
                 dialog.show();
