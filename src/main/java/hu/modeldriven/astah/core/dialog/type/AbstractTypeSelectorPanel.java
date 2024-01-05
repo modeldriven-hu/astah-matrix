@@ -45,7 +45,7 @@ public class AbstractTypeSelectorPanel extends javax.swing.JPanel {
 
         infoPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        titleLabel.setFont(new java.awt.Font("Segoe UI Light", Font.BOLD, 18)); // NOI18N
+        titleLabel.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         titleLabel.setText("Select element type (s)");
 
         descriptionLabel.setText("Select the element type(s) you want to use.");
@@ -53,21 +53,21 @@ public class AbstractTypeSelectorPanel extends javax.swing.JPanel {
         javax.swing.GroupLayout infoPanelLayout = new javax.swing.GroupLayout(infoPanel);
         infoPanel.setLayout(infoPanelLayout);
         infoPanelLayout.setHorizontalGroup(
-                infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(infoPanelLayout.createSequentialGroup()
-                                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(titleLabel)
-                                        .addComponent(descriptionLabel))
-                                .addGap(0, 0, Short.MAX_VALUE))
+            infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(infoPanelLayout.createSequentialGroup()
+                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(titleLabel)
+                    .addComponent(descriptionLabel))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         infoPanelLayout.setVerticalGroup(
-                infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(infoPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(titleLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(descriptionLabel)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(infoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(titleLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(descriptionLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(infoPanel, java.awt.BorderLayout.NORTH);
@@ -75,21 +75,21 @@ public class AbstractTypeSelectorPanel extends javax.swing.JPanel {
         filterLabel.setText("Filter:");
 
         elementTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                        {Boolean.FALSE, "Use case"},
-                        {null, "Activity"},
-                        {null, "Action"}
-                },
-                new String[]{
-                        "#", "Element type"
-                }
+            new Object [][] {
+                { new Boolean(false), "Use case"},
+                {null, "Activity"},
+                {null, "Action"}
+            },
+            new String [] {
+                "#", "Element type"
+            }
         ) {
-            final Class[] types = new Class[]{
-                    java.lang.Boolean.class, java.lang.String.class
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
+                return types [columnIndex];
             }
         });
         scrollPane.setViewportView(elementTable);
@@ -97,27 +97,27 @@ public class AbstractTypeSelectorPanel extends javax.swing.JPanel {
         javax.swing.GroupLayout selectorPanelLayout = new javax.swing.GroupLayout(selectorPanel);
         selectorPanel.setLayout(selectorPanelLayout);
         selectorPanelLayout.setHorizontalGroup(
-                selectorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(selectorPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(selectorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                        .addGroup(selectorPanelLayout.createSequentialGroup()
-                                                .addComponent(filterLabel)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(filterTextField)))
-                                .addContainerGap())
+            selectorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(selectorPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(selectorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(selectorPanelLayout.createSequentialGroup()
+                        .addComponent(filterLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(filterTextField)))
+                .addContainerGap())
         );
         selectorPanelLayout.setVerticalGroup(
-                selectorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(selectorPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(selectorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(filterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(filterLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-                                .addContainerGap())
+            selectorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(selectorPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(selectorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(filterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(filterLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         okButton.setText("Ok");
@@ -127,37 +127,37 @@ public class AbstractTypeSelectorPanel extends javax.swing.JPanel {
         javax.swing.GroupLayout buttonPanelLayout = new javax.swing.GroupLayout(buttonPanel);
         buttonPanel.setLayout(buttonPanelLayout);
         buttonPanelLayout.setHorizontalGroup(
-                buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(buttonPanelLayout.createSequentialGroup()
-                                .addContainerGap(208, Short.MAX_VALUE)
-                                .addComponent(okButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cancelButton)
-                                .addContainerGap())
+            buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buttonPanelLayout.createSequentialGroup()
+                .addContainerGap(208, Short.MAX_VALUE)
+                .addComponent(okButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cancelButton)
+                .addContainerGap())
         );
         buttonPanelLayout.setVerticalGroup(
-                buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttonPanelLayout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(okButton)
-                                        .addComponent(cancelButton))
-                                .addGap(14, 14, 14))
+            buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttonPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(okButton)
+                    .addComponent(cancelButton))
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout contentPanelLayout = new javax.swing.GroupLayout(contentPanel);
         contentPanel.setLayout(contentPanelLayout);
         contentPanelLayout.setHorizontalGroup(
-                contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(buttonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(selectorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(buttonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(selectorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         contentPanelLayout.setVerticalGroup(
-                contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(contentPanelLayout.createSequentialGroup()
-                                .addComponent(selectorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(21, 21, 21)
-                                .addComponent(buttonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+            contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contentPanelLayout.createSequentialGroup()
+                .addComponent(selectorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(21, 21, 21)
+                .addComponent(buttonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         add(contentPanel, java.awt.BorderLayout.CENTER);
