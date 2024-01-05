@@ -14,6 +14,7 @@ import hu.modeldriven.astah.matrix.ui.table.renderer.MatrixTableHeaderRenderer;
 import hu.modeldriven.astah.matrix.ui.table.renderer.NamedElementCellRenderer;
 import hu.modeldriven.astah.matrix.ui.table.renderer.RelationshipDirectionCellRenderer;
 import hu.modeldriven.astah.matrix.ui.usecase.*;
+import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventBus;
 
 import javax.swing.JMenu;
@@ -82,7 +83,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
         JMenu rowMenu = new JMenu("Row");
 
         JMenuItem showRowInStructureItem = new JMenuItem("Show in Structure Tree");
-        showRowInStructureItem.addActionListener(actionEvent -> eventBus.publish(
+        showRowInStructureItem.addActionListener(actionEvent -> fireMatrixEvent(
                 new ShowInStructureTreeRequestedEvent(getSelectedRowElement())));
         rowMenu.add(showRowInStructureItem);
 
@@ -93,7 +94,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
         JMenu columnMenu = new JMenu("Column");
 
         JMenuItem showColumnInStructureItem = new JMenuItem("Show in Structure Tree");
-        showColumnInStructureItem.addActionListener(actionEvent -> eventBus.publish(
+        showColumnInStructureItem.addActionListener(actionEvent -> fireMatrixEvent(
                 new ShowInStructureTreeRequestedEvent(getSelectedColumnElement())));
         columnMenu.add(showColumnInStructureItem);
 
@@ -104,14 +105,14 @@ public class MatrixPanel extends AbstractMatrixPanel {
         JMenu createRelationshipMenu = new JMenu("Create Relationship");
 
         JMenuItem rowToColumnItem = new JMenuItem("Row to Column");
-        rowToColumnItem.addActionListener(actionEvent -> eventBus.publish(
+        rowToColumnItem.addActionListener(actionEvent -> fireMatrixEvent(
                 new CreateRelationshipRequestedEvent(getSelectedRowElement(),
                         getSelectedColumnElement(), RelationshipDirection.ROW_TO_COLUMN)));
 
         createRelationshipMenu.add(rowToColumnItem);
 
         JMenuItem columnToRowItem = new JMenuItem("Column to Row");
-        columnToRowItem.addActionListener(actionEvent -> eventBus.publish(
+        columnToRowItem.addActionListener(actionEvent -> fireMatrixEvent(
                 new CreateRelationshipRequestedEvent(getSelectedRowElement(),
                         getSelectedColumnElement(), RelationshipDirection.COLUMN_TO_ROW)));
 
@@ -120,7 +121,19 @@ public class MatrixPanel extends AbstractMatrixPanel {
         return createRelationshipMenu;
     }
 
-    INamedElement getSelectedRowElement() {
+    private void fireMatrixEvent(Event event){
+        if (isMatrixSelected()) {
+            eventBus.publish(event);
+        } else {
+            eventBus.publish(new MatrixElementNotSelectedEvent());
+        }
+    }
+
+    private boolean isMatrixSelected(){
+        return getSelectedColumnElement() != null && getSelectedColumnElement() != null;
+    }
+
+    private INamedElement getSelectedRowElement() {
 
         int selectedRow = matrixTable.getSelectedRow();
 
@@ -132,11 +145,11 @@ public class MatrixPanel extends AbstractMatrixPanel {
         return null;
     }
 
-    INamedElement getSelectedColumnElement() {
+    private INamedElement getSelectedColumnElement() {
 
         int selectedColumn = matrixTable.getSelectedColumn();
 
-        if (selectedColumn != -1 && matrixTable.getModel() instanceof MatrixTableModel) {
+        if (selectedColumn > 0 && matrixTable.getModel() instanceof MatrixTableModel) {
             MatrixTableModel model = (MatrixTableModel) matrixTable.getModel();
             return model.getElementByColumn(selectedColumn);
         }
@@ -183,6 +196,8 @@ public class MatrixPanel extends AbstractMatrixPanel {
         this.eventBus.subscribe(new CreateRelationUseCase(eventBus));
 
         this.eventBus.subscribe(new DisplayExceptionUseCase());
+
+        this.eventBus.subscribe(new DisplayErrorOnNoMatrixElementSelectionUseCase(parentComponent));
     }
 
 //    private void fillTableWithDemoData() {
