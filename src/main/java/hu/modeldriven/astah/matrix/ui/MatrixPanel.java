@@ -24,7 +24,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.Component;
 
 @SuppressWarnings("java:S125")
-public class MatrixPanel extends AbstractMatrixPanel {
+public class MatrixPanel extends AbstractMigMatrixPanel {
 
     private final Component parentComponent;
     private final transient EventBus eventBus;
