@@ -1,9 +1,11 @@
 package hu.modeldriven.astah.matrix.ui;
 
+import net.miginfocom.layout.Grid;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 public class AbstractMatrixPanel extends JPanel {
 
@@ -37,8 +39,10 @@ public class AbstractMatrixPanel extends JPanel {
     private void initComponents() {
 
         topPanel = new JPanel(new BorderLayout());
+        topPanel.setBackground(Color.WHITE);
 
         contentPanel = new JPanel();
+        contentPanel.setBackground(Color.WHITE);
 
         rowElementTypeLabel = new JLabel();
         rowTypeTextField = new JTextField();
@@ -103,6 +107,8 @@ public class AbstractMatrixPanel extends JPanel {
 
         rowPackageSelectButton.setText("Select ...");
         contentPanel.add(rowPackageSelectButton, "cell 2 1");
+
+        contentPanel.add(new JLabel(), "cell 3 1,width 40:40:40");
 
         columnPackageLabel.setText("Column package:");
         contentPanel.add(columnPackageLabel, "cell 4 1");
