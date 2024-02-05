@@ -5,6 +5,7 @@ import com.change_vision.jude.api.inf.model.IPackage;
 import hu.modeldriven.astah.core.dialog.type.matcher.TypeMatcher;
 import hu.modeldriven.astah.matrix.ui.event.*;
 import hu.modeldriven.astah.matrix.ui.table.MatrixData;
+import hu.modeldriven.astah.matrix.ui.table.MatrixDataImpl;
 import hu.modeldriven.astah.matrix.ui.table.RelationshipDirection;
 import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventBus;
@@ -56,7 +57,7 @@ public class CalculateMatrixDataUseCase implements EventHandler<Event> {
         List<INamedElement> rows = findElements(queryInfo.rowPackage, queryInfo.rowTypeMatcher);
         List<INamedElement> columns = findElements(queryInfo.columnPackage, queryInfo.columnTypeMatcher);
 
-        MatrixData tableData = new MatrixData(rows, columns);
+        MatrixData tableData = new MatrixDataImpl(rows, columns);
 
         for (int row = 0; row < rows.size(); row++) {
 
@@ -75,16 +76,16 @@ public class CalculateMatrixDataUseCase implements EventHandler<Event> {
 
         TypeMatcher typeMatcher = queryInfo.dependencyTypeMatcher;
 
-        boolean rowToColumn = Arrays.asList(row.getClientDependencies()).stream()
+        boolean rowToColumn = Arrays.stream(row.getClientDependencies())
                 .anyMatch(dependency -> typeMatcher.matches(dependency) && dependency.getSupplier().equals(column))
                 ||
-                Arrays.asList(row.getClientRealizations()).stream()
+                Arrays.stream(row.getClientRealizations())
                         .anyMatch(realization -> typeMatcher.matches(realization) && realization.getSupplier().equals(column));
 
-        boolean columnToRow = Arrays.asList(row.getSupplierDependencies()).stream()
+        boolean columnToRow = Arrays.stream(row.getSupplierDependencies())
                 .anyMatch(dependency -> typeMatcher.matches(dependency) && dependency.getClient().equals(column))
                 ||
-                Arrays.asList(row.getSupplierRealizations()).stream()
+                Arrays.stream(row.getSupplierRealizations())
                         .anyMatch(realization -> typeMatcher.matches(realization) && realization.getClient().equals(column));
 
         if (rowToColumn && columnToRow) {

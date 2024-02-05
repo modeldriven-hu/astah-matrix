@@ -6,8 +6,11 @@ package hu.modeldriven.astah.matrix.ui;
 
 import com.change_vision.jude.api.inf.model.INamedElement;
 import hu.modeldriven.astah.core.model.AstahModel;
+import hu.modeldriven.astah.core.model.DummyNamedElement;
 import hu.modeldriven.astah.core.model.Model;
 import hu.modeldriven.astah.matrix.ui.event.*;
+import hu.modeldriven.astah.matrix.ui.table.MatrixData;
+import hu.modeldriven.astah.matrix.ui.table.MatrixDataImpl;
 import hu.modeldriven.astah.matrix.ui.table.MatrixTableModel;
 import hu.modeldriven.astah.matrix.ui.table.RelationshipDirection;
 import hu.modeldriven.astah.matrix.ui.table.renderer.MatrixTableHeaderRenderer;
@@ -22,9 +25,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.event.ListSelectionListener;
 import java.awt.Component;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("java:S125")
 public class MatrixPanel extends AbstractMatrixPanel {
+
+    private static final boolean DEBUG = true;
 
     private final Component parentComponent;
     private final transient EventBus eventBus;
@@ -38,8 +45,9 @@ public class MatrixPanel extends AbstractMatrixPanel {
         initActionListeners();
         initUseCases();
 
-        // Enable this for testing purposes
-        //fillTableWithDemoData();
+        if (DEBUG) {
+            fillTableWithDemoData();
+        }
     }
 
     private void initUIComponents() {
@@ -87,6 +95,11 @@ public class MatrixPanel extends AbstractMatrixPanel {
                 new ShowInStructureTreeRequestedEvent(getSelectedRowElement())));
         rowMenu.add(showRowInStructureItem);
 
+        JMenuItem hideRowsItem = new JMenuItem("Hide rows");
+        hideRowsItem.addActionListener(actionEvent -> fireMatrixEvent(
+                new HideRowsRequestedEvent(matrixTable.getSelectedRows())));
+        rowMenu.add(hideRowsItem);
+
         return rowMenu;
     }
 
@@ -97,6 +110,11 @@ public class MatrixPanel extends AbstractMatrixPanel {
         showColumnInStructureItem.addActionListener(actionEvent -> fireMatrixEvent(
                 new ShowInStructureTreeRequestedEvent(getSelectedColumnElement())));
         columnMenu.add(showColumnInStructureItem);
+
+        JMenuItem hideColumnsItem = new JMenuItem("Hide columns");
+        hideColumnsItem.addActionListener(actionEvent -> fireMatrixEvent(
+                new HideColumnsRequestedEvent(matrixTable.getSelectedColumns())));
+        columnMenu.add(hideColumnsItem);
 
         return columnMenu;
     }
@@ -130,7 +148,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
     }
 
     private boolean isMatrixSelected(){
-        return getSelectedColumnElement() != null && getSelectedColumnElement() != null;
+        return getSelectedColumnElement() != null && getSelectedRowElement() != null;
     }
 
     private INamedElement getSelectedRowElement() {
@@ -198,33 +216,37 @@ public class MatrixPanel extends AbstractMatrixPanel {
         this.eventBus.subscribe(new DisplayExceptionUseCase());
 
         this.eventBus.subscribe(new DisplayErrorOnNoMatrixElementSelectionUseCase(parentComponent));
+
+        this.eventBus.subscribe(new HideColumnsUseCase(matrixTable));
+
+        this.eventBus.subscribe(new HideRowsUseCase(matrixTable));
     }
 
-//    private void fillTableWithDemoData() {
-//
-//        List<INamedElement> rows = new ArrayList<>();
-//        rows.add(new DummyNamedElement("Requirement 1"));
-//        rows.add(new DummyNamedElement("Requirement 2"));
-//        rows.add(new DummyNamedElement("Requirement 3"));
-//
-//        List<INamedElement> columns = new ArrayList<>();
-//        columns.add(new DummyNamedElement("UseCase 1"));
-//        columns.add(new DummyNamedElement("UseCase 2"));
-//        columns.add(new DummyNamedElement("UseCase 3"));
-//        columns.add(new DummyNamedElement("UseCase 4"));
-//        columns.add(new DummyNamedElement("UseCase 5"));
-//        columns.add(new DummyNamedElement("UseCase 6"));
-//
-//        MatrixData data = new MatrixData(rows, columns);
-//
-//        data.addRelationship(0, 1, RelationshipDirection.ROW_TO_COLUMN);
-//        data.addRelationship(1, 2, RelationshipDirection.ROW_TO_COLUMN);
-//        data.addRelationship(2, 0, RelationshipDirection.COLUMN_TO_ROW);
-//        data.addRelationship(2, 1, RelationshipDirection.BOTH);
-//
-//        MatrixTableModel tableModel = new MatrixTableModel(data);
-//
-//        this.matrixTable.setModel(tableModel);
-//    }
+    private void fillTableWithDemoData() {
+
+        List<INamedElement> rows = new ArrayList<>();
+        rows.add(new DummyNamedElement("Requirement 1"));
+        rows.add(new DummyNamedElement("Requirement 2"));
+        rows.add(new DummyNamedElement("Requirement 3"));
+
+        List<INamedElement> columns = new ArrayList<>();
+        columns.add(new DummyNamedElement("UseCase 1"));
+        columns.add(new DummyNamedElement("UseCase 2"));
+        columns.add(new DummyNamedElement("UseCase 3"));
+        columns.add(new DummyNamedElement("UseCase 4"));
+        columns.add(new DummyNamedElement("UseCase 5"));
+        columns.add(new DummyNamedElement("UseCase 6"));
+
+        MatrixData data = new MatrixDataImpl(rows, columns);
+
+        data.addRelationship(0, 1, RelationshipDirection.ROW_TO_COLUMN);
+        data.addRelationship(1, 2, RelationshipDirection.ROW_TO_COLUMN);
+        data.addRelationship(2, 0, RelationshipDirection.COLUMN_TO_ROW);
+        data.addRelationship(2, 1, RelationshipDirection.BOTH);
+
+        MatrixTableModel tableModel = new MatrixTableModel(data);
+
+        this.matrixTable.setModel(tableModel);
+    }
 
 }

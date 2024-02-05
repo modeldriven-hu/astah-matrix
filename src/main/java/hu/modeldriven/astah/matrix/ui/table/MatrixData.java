@@ -4,41 +4,16 @@ import com.change_vision.jude.api.inf.model.INamedElement;
 
 import java.util.List;
 
-public class MatrixData {
+public interface MatrixData {
+    void addRelationship(int rowCount, int columnCount, RelationshipDirection direction);
 
-    private final List<INamedElement> rows;
-    private final List<INamedElement> columns;
+    List<INamedElement> rows();
 
-    private final RelationshipDirection[][] data;
+    List<INamedElement> columns();
 
-    public MatrixData(List<INamedElement> rows, List<INamedElement> columns) {
-        this.rows = rows;
-        this.columns = columns;
-        this.data = new RelationshipDirection[rows.size()][columns.size()];
-    }
+    int rowCount();
 
-    public void addRelationship(int rowCount, int columnCount, RelationshipDirection direction) {
-        this.data[rowCount][columnCount] = direction;
-    }
+    int columnCount();
 
-    public List<INamedElement> rows() {
-        return rows;
-    }
-
-    public List<INamedElement> columns() {
-        return columns;
-    }
-
-    public int rowCount() {
-        return this.rows.size();
-    }
-
-    public int columnCount() {
-        return this.columns.size();
-    }
-
-    public RelationshipDirection getRelationship(int row, int column) {
-        return this.data[row][column];
-    }
-
+    RelationshipDirection getRelationship(int row, int column);
 }

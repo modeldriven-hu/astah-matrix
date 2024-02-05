@@ -3,17 +3,21 @@ package hu.modeldriven.astah.matrix.ui.table;
 import com.change_vision.jude.api.inf.model.INamedElement;
 
 import javax.swing.table.AbstractTableModel;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class MatrixTableModel extends AbstractTableModel {
 
     private final transient MatrixData tableData;
+
+    private Set<Integer> hiddenRows = new TreeSet<>();
 
     public MatrixTableModel(MatrixData tableData) {
         this.tableData = tableData;
     }
 
     public INamedElement getElementByRow(int row) {
-        return tableData.rows().get(row);
+        return tableData.rows().get(calculateRealFromVisibleRow(row));
     }
 
     public INamedElement getElementByColumn(int column) {
@@ -22,7 +26,7 @@ public class MatrixTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return this.tableData.rowCount();
+        return this.tableData.rowCount() - this.hiddenRows.size();
     }
 
     @Override
@@ -54,7 +58,35 @@ public class MatrixTableModel extends AbstractTableModel {
         if (column == 0) {
             return this.tableData.rows().get(row);
         } else {
-            return this.tableData.getRelationship(row, column - 1);
+            return this.tableData.getRelationship(calculateRealFromVisibleRow(row), column - 1);
         }
+    }
+
+    private int calculateRealFromVisibleRow(int visibleRow){
+
+        int currentRow = 0;
+
+        for (int i = 0; i < this.tableData.rowCount(); i++) {
+
+            if (hiddenRows.contains(i)){
+                continue;
+            }
+
+            if (currentRow == visibleRow){
+                return i;
+            }
+
+            currentRow++;
+        }
+
+        return -1;
+    }
+
+    public void hideRows(int[] rows) {
+        for (int rowToHide : rows) {
+            hiddenRows.add(rowToHide);
+        }
+
+        fireTableStructureChanged();
     }
 }
