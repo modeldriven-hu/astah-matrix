@@ -56,7 +56,7 @@ public class MatrixTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int row, int column) {
         if (column == 0) {
-            return this.tableData.rows().get(row);
+            return this.tableData.rows().get(calculateRealFromVisibleRow(row));
         } else {
             return this.tableData.getRelationship(calculateRealFromVisibleRow(row), column - 1);
         }
