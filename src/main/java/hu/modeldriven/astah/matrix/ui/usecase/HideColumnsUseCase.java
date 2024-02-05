@@ -1,6 +1,7 @@
 package hu.modeldriven.astah.matrix.ui.usecase;
 
 import hu.modeldriven.astah.matrix.ui.event.HideColumnsRequestedEvent;
+import hu.modeldriven.astah.matrix.ui.table.MatrixTableModel;
 import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventHandler;
 
@@ -19,13 +20,9 @@ public class HideColumnsUseCase implements EventHandler<HideColumnsRequestedEven
 
     @Override
     public void handleEvent(HideColumnsRequestedEvent event) {
-        for (int columnToHide : event.selectedColumns()){
-            if (columnToHide > 0){
-                TableColumn column = table.getColumnModel().getColumn(columnToHide);
-                column.setMinWidth(0);
-                column.setMaxWidth(0);
-                column.setWidth(0);
-            }
+        if (table.getModel() instanceof MatrixTableModel) {
+            MatrixTableModel matrixTableModel = (MatrixTableModel) table.getModel();
+            matrixTableModel.hideColumns(event.selectedColumns());
         }
     }
 

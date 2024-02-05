@@ -3,6 +3,7 @@ package hu.modeldriven.astah.matrix.ui.table;
 import com.change_vision.jude.api.inf.model.INamedElement;
 
 import javax.swing.table.AbstractTableModel;
+import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -10,7 +11,8 @@ public class MatrixTableModel extends AbstractTableModel {
 
     private final transient MatrixData tableData;
 
-    private Set<Integer> hiddenRows = new TreeSet<>();
+    private final Set<Integer> hiddenRows = new TreeSet<>();
+    private final Set<Integer> hiddenColumns = new TreeSet<>();
 
     public MatrixTableModel(MatrixData tableData) {
         this.tableData = tableData;
@@ -21,7 +23,7 @@ public class MatrixTableModel extends AbstractTableModel {
     }
 
     public INamedElement getElementByColumn(int column) {
-        return tableData.columns().get(column - 1);
+        return tableData.columns().get(calculateRealFromVisibleColumns(column - 1));
     }
 
     @Override
@@ -31,7 +33,7 @@ public class MatrixTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return this.tableData.columnCount() + 1;
+        return this.tableData.columnCount() + 1 - this.hiddenColumns.size();
     }
 
     @Override
@@ -39,7 +41,7 @@ public class MatrixTableModel extends AbstractTableModel {
         if (column == 0) {
             return "";
         } else {
-            return this.tableData.columns().get(column - 1).getName();
+            return this.tableData.columns().get(calculateRealFromVisibleColumns(column - 1)).getName();
         }
     }
 
@@ -58,8 +60,31 @@ public class MatrixTableModel extends AbstractTableModel {
         if (column == 0) {
             return this.tableData.rows().get(calculateRealFromVisibleRow(row));
         } else {
-            return this.tableData.getRelationship(calculateRealFromVisibleRow(row), column - 1);
+            return this.tableData.getRelationship(
+                    calculateRealFromVisibleRow(row),
+                    calculateRealFromVisibleColumns(column - 1)
+            );
         }
+    }
+
+    private int calculateRealFromVisibleColumns(int visibleColumns){
+
+        int currentColumn = 0;
+
+        for (int i = 0; i < this.tableData.columnCount(); i++) {
+
+            if (hiddenColumns.contains(i)){
+                continue;
+            }
+
+            if (currentColumn == visibleColumns){
+                return i;
+            }
+
+            currentColumn++;
+        }
+
+        return -1;
     }
 
     private int calculateRealFromVisibleRow(int visibleRow){
@@ -83,8 +108,18 @@ public class MatrixTableModel extends AbstractTableModel {
     }
 
     public void hideRows(int[] rows) {
+
         for (int rowToHide : rows) {
-            hiddenRows.add(rowToHide);
+            hiddenRows.add(calculateRealFromVisibleRow(rowToHide));
+        }
+
+        fireTableStructureChanged();
+    }
+
+    public void hideColumns(int[] columns) {
+
+        for (int columnToHide : columns){
+            hiddenColumns.add(calculateRealFromVisibleColumns(columnToHide - 1));
         }
 
         fireTableStructureChanged();
