@@ -7,8 +7,7 @@ import java.awt.BorderLayout;
 
 public class AbstractMatrixPanel extends JPanel {
 
-    private javax.swing.JPanel  topPanel;
-
+    private static final String TEXT_FIELD_SIZE = ",width 170:170:170";
     protected javax.swing.JButton columnPackageSelectButton;
     protected javax.swing.JTextField columnPackageTextField;
     protected javax.swing.JButton columnTypeSelectButton;
@@ -21,6 +20,7 @@ public class AbstractMatrixPanel extends JPanel {
     protected javax.swing.JTextField rowPackageTextField;
     protected javax.swing.JButton rowTypeSelectButton;
     protected javax.swing.JTextField rowTypeTextField;
+    private javax.swing.JPanel topPanel;
     private javax.swing.JLabel columnElementTypeLabel;
     private javax.swing.JLabel columnPackageLabel;
     private javax.swing.JPanel contentPanel;
@@ -28,6 +28,7 @@ public class AbstractMatrixPanel extends JPanel {
     private javax.swing.JScrollPane scrollPane1;
     private javax.swing.JLabel rowElementTypeLabel;
     private javax.swing.JLabel rowPackageLabel;
+
     public AbstractMatrixPanel() {
         super();
         initComponents();
@@ -80,7 +81,7 @@ public class AbstractMatrixPanel extends JPanel {
         contentPanel.add(rowElementTypeLabel, "cell 0 0");
 
         rowTypeTextField.setEnabled(false);
-        contentPanel.add(rowTypeTextField, "cell 1 0,width 80:80:80");
+        contentPanel.add(rowTypeTextField, "cell 1 0" + TEXT_FIELD_SIZE);
 
         rowTypeSelectButton.setText("Select...");
         contentPanel.add(rowTypeSelectButton, "cell 2 0");
@@ -89,7 +90,7 @@ public class AbstractMatrixPanel extends JPanel {
         contentPanel.add(columnElementTypeLabel, "cell 4 0");
 
         columnTypeTextField.setEnabled(false);
-        contentPanel.add(columnTypeTextField, "cell 5 0,width 80:80:80");
+        contentPanel.add(columnTypeTextField, "cell 5 0" + TEXT_FIELD_SIZE);
 
         columnTypeSelectButton.setText("Select...");
         contentPanel.add(columnTypeSelectButton, "cell 6 0");
@@ -98,7 +99,7 @@ public class AbstractMatrixPanel extends JPanel {
         contentPanel.add(rowPackageLabel, "cell 0 1");
 
         rowPackageTextField.setEnabled(false);
-        contentPanel.add(rowPackageTextField, "cell 1 1,width 80:80:80");
+        contentPanel.add(rowPackageTextField, "cell 1 1" + TEXT_FIELD_SIZE);
 
         rowPackageSelectButton.setText("Select ...");
         contentPanel.add(rowPackageSelectButton, "cell 2 1");
@@ -107,7 +108,7 @@ public class AbstractMatrixPanel extends JPanel {
         contentPanel.add(columnPackageLabel, "cell 4 1");
 
         columnPackageTextField.setEnabled(false);
-        contentPanel.add(columnPackageTextField, "cell 5 1,width 80:80:80");
+        contentPanel.add(columnPackageTextField, "cell 5 1" + TEXT_FIELD_SIZE);
 
         columnPackageSelectButton.setText("Select...");
         contentPanel.add(columnPackageSelectButton, "cell 6 1");
@@ -116,7 +117,7 @@ public class AbstractMatrixPanel extends JPanel {
         contentPanel.add(dependencyTypeLabel, "cell 0 2");
 
         dependencyTextField.setEnabled(false);
-        contentPanel.add(dependencyTextField, "cell 1 2,width 80:80:80");
+        contentPanel.add(dependencyTextField, "cell 1 2" + TEXT_FIELD_SIZE);
 
         dependencySelectButton.setText("Select...");
         contentPanel.add(dependencySelectButton, "cell 2 2");
@@ -133,5 +134,6 @@ public class AbstractMatrixPanel extends JPanel {
 
         add(scrollPane1, BorderLayout.CENTER);
     }
+
 
 }
