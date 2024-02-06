@@ -124,4 +124,15 @@ public class MatrixTableModel extends AbstractTableModel {
 
         fireTableStructureChanged();
     }
+
+    public void showAllRows() {
+        this.hiddenRows.clear();
+        fireTableStructureChanged();
+    }
+
+    public void showAllColumns() {
+        this.hiddenRows.clear();
+        fireTableStructureChanged();
+    }
+
 }

@@ -100,6 +100,11 @@ public class MatrixPanel extends AbstractMatrixPanel {
                 new HideRowsRequestedEvent(matrixTable.getSelectedRows())));
         rowMenu.add(hideRowsItem);
 
+        JMenuItem showAllRowsItem = new JMenuItem("Show all rows");
+        showAllRowsItem.addActionListener(actionEvent -> fireMatrixEvent(
+                new ShowAllRowsRequestedEvent()));
+        rowMenu.add(showAllRowsItem);
+
         return rowMenu;
     }
 
@@ -115,6 +120,11 @@ public class MatrixPanel extends AbstractMatrixPanel {
         hideColumnsItem.addActionListener(actionEvent -> fireMatrixEvent(
                 new HideColumnsRequestedEvent(matrixTable.getSelectedColumns())));
         columnMenu.add(hideColumnsItem);
+
+        JMenuItem showAllColumnsItem = new JMenuItem("Show all columns");
+        showAllColumnsItem.addActionListener(actionEvent -> fireMatrixEvent(
+                new ShowAllColumnsRequestedEvent()));
+        columnMenu.add(showAllColumnsItem);
 
         return columnMenu;
     }
@@ -220,6 +230,10 @@ public class MatrixPanel extends AbstractMatrixPanel {
         this.eventBus.subscribe(new HideColumnsUseCase(matrixTable));
 
         this.eventBus.subscribe(new HideRowsUseCase(matrixTable));
+
+        this.eventBus.subscribe(new ShowAllRowsUseCase(matrixTable));
+
+        this.eventBus.subscribe(new ShowAllColumnsUseCase(matrixTable));
     }
 
     private void fillTableWithDemoData() {
