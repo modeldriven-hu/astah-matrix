@@ -31,7 +31,7 @@ import java.util.List;
 @SuppressWarnings("java:S125")
 public class MatrixPanel extends AbstractMatrixPanel {
 
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
 
     private final Component parentComponent;
     private final transient EventBus eventBus;
@@ -228,6 +228,8 @@ public class MatrixPanel extends AbstractMatrixPanel {
         rows.add(new DummyNamedElement("Requirement 1"));
         rows.add(new DummyNamedElement("Requirement 2"));
         rows.add(new DummyNamedElement("Requirement 3"));
+        rows.add(new DummyNamedElement("Requirement 4"));
+        rows.add(new DummyNamedElement("Requirement 5"));
 
         List<INamedElement> columns = new ArrayList<>();
         columns.add(new DummyNamedElement("UseCase 1"));

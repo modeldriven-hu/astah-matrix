@@ -3,7 +3,7 @@ package hu.modeldriven.astah.matrix.ui.table;
 import com.change_vision.jude.api.inf.model.INamedElement;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -19,11 +19,11 @@ public class MatrixTableModel extends AbstractTableModel {
     }
 
     public INamedElement getElementByRow(int row) {
-        return tableData.rows().get(calculateRealFromVisibleRow(row));
+        return tableData.rows().get(calculateRowIndexFromVisibleToReal(row));
     }
 
     public INamedElement getElementByColumn(int column) {
-        return tableData.columns().get(calculateRealFromVisibleColumns(column - 1));
+        return tableData.columns().get(calculateColumnIndexFromVisibleToReal(column - 1));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class MatrixTableModel extends AbstractTableModel {
         if (column == 0) {
             return "";
         } else {
-            return this.tableData.columns().get(calculateRealFromVisibleColumns(column - 1)).getName();
+            return this.tableData.columns().get(calculateColumnIndexFromVisibleToReal(column - 1)).getName();
         }
     }
 
@@ -58,68 +58,68 @@ public class MatrixTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int row, int column) {
         if (column == 0) {
-            return this.tableData.rows().get(calculateRealFromVisibleRow(row));
+            return this.tableData.rows().get(calculateRowIndexFromVisibleToReal(row));
         } else {
             return this.tableData.getRelationship(
-                    calculateRealFromVisibleRow(row),
-                    calculateRealFromVisibleColumns(column - 1)
+                    calculateRowIndexFromVisibleToReal(row),
+                    calculateColumnIndexFromVisibleToReal(column - 1)
             );
         }
     }
 
-    private int calculateRealFromVisibleColumns(int visibleColumns){
+    private int calculateColumnIndexFromVisibleToReal(int visibleColumns) {
+        return calculateIndexFromVisibleToReal(visibleColumns, tableData.columnCount(), hiddenColumns);
+    }
 
-        int currentColumn = 0;
+    private int calculateRowIndexFromVisibleToReal(int visibleRow) {
+        return calculateIndexFromVisibleToReal(visibleRow, tableData.rowCount(), hiddenRows);
+    }
 
-        for (int i = 0; i < this.tableData.columnCount(); i++) {
+    private int calculateIndexFromVisibleToReal(int visibleElementIndex, int maxElements, Set<Integer> hiddenElements) {
 
-            if (hiddenColumns.contains(i)){
+        int current = 0;
+
+        for (int i = 0; i < maxElements; i++) {
+
+            if (hiddenElements.contains(i)) {
                 continue;
             }
 
-            if (currentColumn == visibleColumns){
+            if (current == visibleElementIndex) {
                 return i;
             }
 
-            currentColumn++;
+            current++;
         }
 
         return -1;
     }
 
-    private int calculateRealFromVisibleRow(int visibleRow){
+    public void hideRows(int[] visibleRowIndexes) {
 
-        int currentRow = 0;
+        // Because we are doing a visible to real index calculation, we need to
+        // go in a reverse order
 
-        for (int i = 0; i < this.tableData.rowCount(); i++) {
+        Arrays.sort(visibleRowIndexes);
 
-            if (hiddenRows.contains(i)){
-                continue;
-            }
-
-            if (currentRow == visibleRow){
-                return i;
-            }
-
-            currentRow++;
-        }
-
-        return -1;
-    }
-
-    public void hideRows(int[] rows) {
-
-        for (int rowToHide : rows) {
-            hiddenRows.add(calculateRealFromVisibleRow(rowToHide));
+        for (int index = visibleRowIndexes.length - 1; index >= 0; index--) {
+            int rowToHide = visibleRowIndexes[index];
+            hiddenRows.add(calculateRowIndexFromVisibleToReal(rowToHide));
         }
 
         fireTableStructureChanged();
     }
 
-    public void hideColumns(int[] columns) {
+    public void hideColumns(int[] visibleColumnIndexes) {
 
-        for (int columnToHide : columns){
-            hiddenColumns.add(calculateRealFromVisibleColumns(columnToHide - 1));
+        // Because we are doing a visible to real index calculation, we need to
+        // go in a reverse order
+
+        Arrays.sort(visibleColumnIndexes);
+
+        for (int index = visibleColumnIndexes.length - 1; index >= 0; index--) {
+            int columnToHide = visibleColumnIndexes[index];
+            hiddenColumns.add(calculateColumnIndexFromVisibleToReal(columnToHide - 1));
         }
 
         fireTableStructureChanged();
