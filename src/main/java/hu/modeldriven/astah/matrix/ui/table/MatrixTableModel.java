@@ -135,4 +135,10 @@ public class MatrixTableModel extends AbstractTableModel {
         fireTableStructureChanged();
     }
 
+    public void showRows(int[] indexes) {
+        
+    }
+
+    public void showColumns(int[] indexes) {
+    }
 }

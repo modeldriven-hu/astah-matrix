@@ -20,9 +20,7 @@ import hu.modeldriven.astah.matrix.ui.usecase.*;
 import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventBus;
 
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
+import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -31,7 +29,7 @@ import java.util.List;
 @SuppressWarnings("java:S125")
 public class MatrixPanel extends AbstractMatrixPanel {
 
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
 
     private final Component parentComponent;
     private final transient EventBus eventBus;
@@ -84,7 +82,22 @@ public class MatrixPanel extends AbstractMatrixPanel {
         popupMenu.add(columnMenu);
         popupMenu.add(createRelationshipMenu);
 
+        addUndoRedo(popupMenu);
+
         matrixTable.setComponentPopupMenu(popupMenu);
+    }
+
+    private void addUndoRedo(JPopupMenu menu){
+
+        JMenuItem undoItem = new JMenuItem("Undo");
+        undoItem.addActionListener(actionEvent -> fireMatrixEvent(
+                new UndoRequestedEvent()));
+        menu.add(undoItem);
+
+        JMenuItem redoItem = new JMenuItem("Redo");
+        redoItem.addActionListener(actionEvent -> fireMatrixEvent(
+                new RedoRequestedEvent()));
+        menu.add(redoItem);
     }
 
     private JMenu createRowMenu() {
@@ -149,7 +162,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
         return createRelationshipMenu;
     }
 
-    private void fireMatrixEvent(Event event){
+    private void fireMatrixEvent(Event event) {
         if (isMatrixSelected()) {
             eventBus.publish(event);
         } else {
@@ -157,7 +170,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
         }
     }
 
-    private boolean isMatrixSelected(){
+    private boolean isMatrixSelected() {
         return getSelectedColumnElement() != null && getSelectedRowElement() != null;
     }
 
@@ -227,13 +240,11 @@ public class MatrixPanel extends AbstractMatrixPanel {
 
         this.eventBus.subscribe(new DisplayErrorOnNoMatrixElementSelectionUseCase(parentComponent));
 
-        this.eventBus.subscribe(new HideColumnsUseCase(matrixTable));
-
-        this.eventBus.subscribe(new HideRowsUseCase(matrixTable));
-
         this.eventBus.subscribe(new ShowAllRowsUseCase(matrixTable));
 
         this.eventBus.subscribe(new ShowAllColumnsUseCase(matrixTable));
+
+        this.eventBus.subscribe(new BuildCommandStackUseCase(matrixTable));
     }
 
     private void fillTableWithDemoData() {
