@@ -26,7 +26,7 @@ public class AbstractMatrixPanel extends JPanel {
     private javax.swing.JLabel columnPackageLabel;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JLabel dependencyTypeLabel;
-    private javax.swing.JScrollPane scrollPane1;
+    protected javax.swing.JScrollPane scrollPane;
     private javax.swing.JLabel rowElementTypeLabel;
     private javax.swing.JLabel rowPackageLabel;
 
@@ -59,7 +59,7 @@ public class AbstractMatrixPanel extends JPanel {
         dependencyTextField = new JTextField();
         dependencySelectButton = new JButton();
         queryButton = new JButton();
-        scrollPane1 = new JScrollPane();
+        scrollPane = new JScrollPane();
         matrixTable = new JTable();
 
         setLayout(new BorderLayout());
@@ -135,9 +135,9 @@ public class AbstractMatrixPanel extends JPanel {
 
         add(topPanel, BorderLayout.NORTH);
 
-        scrollPane1.setViewportView(matrixTable);
+        scrollPane.setViewportView(matrixTable);
 
-        add(scrollPane1, BorderLayout.CENTER);
+        add(scrollPane, BorderLayout.CENTER);
     }
 
 
