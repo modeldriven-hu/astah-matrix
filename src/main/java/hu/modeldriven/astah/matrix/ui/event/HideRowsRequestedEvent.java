@@ -6,11 +6,11 @@ public class HideRowsRequestedEvent implements Event {
 
     private final int[] rows;
 
-    public HideRowsRequestedEvent(int[] rows){
+    public HideRowsRequestedEvent(int[] rows) {
         this.rows = rows;
     }
 
-    public int[] selectedRows(){
+    public int[] selectedRows() {
         return rows;
     }
 

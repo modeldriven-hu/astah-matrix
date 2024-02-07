@@ -13,7 +13,7 @@ public class ShowAllRowsUseCase implements EventHandler<ShowAllRowsRequestedEven
 
     private final JTable table;
 
-    public ShowAllRowsUseCase(JTable table){
+    public ShowAllRowsUseCase(JTable table) {
         this.table = table;
     }
 

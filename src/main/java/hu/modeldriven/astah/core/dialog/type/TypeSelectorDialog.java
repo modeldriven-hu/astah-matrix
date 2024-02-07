@@ -19,20 +19,6 @@ public class TypeSelectorDialog {
         this.callback = callback;
     }
 
-    public void show() {
-        JDialog dialog = new JDialog();
-        dialog.setModal(true);
-        dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        dialog.getContentPane().setLayout(new BorderLayout());
-
-        TypeSelectorPanel panel = new TypeSelectorPanel(dialog, data, callback);
-        dialog.getContentPane().add(panel);
-
-        dialog.pack();
-        dialog.setLocationRelativeTo(parentComponent);
-        dialog.setVisible(true);
-    }
-
     public static void main(String[] args) {
 
         SwingUtilities.invokeLater(() -> {
@@ -56,6 +42,20 @@ public class TypeSelectorDialog {
             frame.setVisible(true);
 
         });
+    }
+
+    public void show() {
+        JDialog dialog = new JDialog();
+        dialog.setModal(true);
+        dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        dialog.getContentPane().setLayout(new BorderLayout());
+
+        TypeSelectorPanel panel = new TypeSelectorPanel(dialog, data, callback);
+        dialog.getContentPane().add(panel);
+
+        dialog.pack();
+        dialog.setLocationRelativeTo(parentComponent);
+        dialog.setVisible(true);
     }
 
 }

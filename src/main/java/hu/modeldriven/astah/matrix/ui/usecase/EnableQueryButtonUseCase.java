@@ -4,7 +4,7 @@ import hu.modeldriven.astah.matrix.ui.event.*;
 import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventHandler;
 
-import javax.swing.JButton;
+import javax.swing.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;

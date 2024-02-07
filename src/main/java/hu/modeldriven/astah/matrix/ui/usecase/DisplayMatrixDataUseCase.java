@@ -5,7 +5,7 @@ import hu.modeldriven.astah.matrix.ui.table.MatrixTableModel;
 import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventHandler;
 
-import javax.swing.JTable;
+import javax.swing.*;
 import java.util.Collections;
 import java.util.List;
 

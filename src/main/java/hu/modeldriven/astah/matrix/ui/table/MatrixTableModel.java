@@ -131,7 +131,7 @@ public class MatrixTableModel extends AbstractTableModel {
     }
 
     public void showAllColumns() {
-        this.hiddenRows.clear();
+        this.hiddenColumns.clear();
         fireTableStructureChanged();
     }
 

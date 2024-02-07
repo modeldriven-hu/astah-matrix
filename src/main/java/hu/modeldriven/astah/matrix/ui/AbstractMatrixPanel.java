@@ -1,6 +1,5 @@
 package hu.modeldriven.astah.matrix.ui;
 
-import net.miginfocom.layout.Grid;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;

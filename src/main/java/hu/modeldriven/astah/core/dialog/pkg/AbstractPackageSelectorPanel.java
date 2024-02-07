@@ -12,6 +12,16 @@ import java.awt.Font;
 @SuppressWarnings("java:S1450")
 public class AbstractPackageSelectorPanel extends javax.swing.JPanel {
 
+    protected javax.swing.JButton cancelButton;
+    protected javax.swing.JButton okButton;
+    protected javax.swing.JTree packageTree;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel buttonPanel;
+    private javax.swing.JPanel contentPanel;
+    private javax.swing.JLabel descriptionLabel;
+    private javax.swing.JPanel infoPanel;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JLabel titleLabel;
     /**
      * Creates new form AbstractPackageSelectorPanel
      */
@@ -115,17 +125,5 @@ public class AbstractPackageSelectorPanel extends javax.swing.JPanel {
                                 .addComponent(buttonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel buttonPanel;
-    protected javax.swing.JButton cancelButton;
-    private javax.swing.JPanel contentPanel;
-    private javax.swing.JLabel descriptionLabel;
-    private javax.swing.JPanel infoPanel;
-    protected javax.swing.JButton okButton;
-    protected javax.swing.JTree packageTree;
-    private javax.swing.JScrollPane scrollPane;
-    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }

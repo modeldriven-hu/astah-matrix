@@ -2,7 +2,7 @@ package hu.modeldriven.astah.core.dialog.pkg;
 
 import com.change_vision.jude.api.inf.model.IPackage;
 
-import javax.swing.JDialog;
+import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 import java.util.function.Consumer;

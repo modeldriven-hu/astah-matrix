@@ -8,7 +8,7 @@ import com.change_vision.jude.api.inf.ui.IPluginActionDelegate;
 import com.change_vision.jude.api.inf.ui.IWindow;
 import hu.modeldriven.astah.matrix.ui.MatrixScreen;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class TemplateAction implements IPluginActionDelegate {
 

@@ -4,8 +4,6 @@ import hu.modeldriven.astah.core.dialog.type.matcher.CombinedMatcher;
 import hu.modeldriven.astah.core.dialog.type.matcher.StereotypeMatcher;
 import hu.modeldriven.astah.core.dialog.type.matcher.TypeMatcher;
 
-import java.lang.reflect.Type;
-
 public class StereotypedTypeSelector implements TypeSelector {
 
     private final String stereotype;
@@ -28,7 +26,7 @@ public class StereotypedTypeSelector implements TypeSelector {
 
     @Override
     public String name() {
-        return  "« " + stereotype + " » " + typeSelector.name();
+        return "« " + stereotype + " » " + typeSelector.name();
     }
 
     @Override

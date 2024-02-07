@@ -2,10 +2,7 @@ package hu.modeldriven.astah.matrix.ui.table.renderer;
 
 import hu.modeldriven.astah.matrix.ui.table.RelationshipDirection;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.Color;
 import java.awt.Component;

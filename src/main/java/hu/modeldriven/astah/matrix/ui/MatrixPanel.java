@@ -20,13 +20,15 @@ import hu.modeldriven.astah.matrix.ui.usecase.*;
 import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventBus;
 
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
+import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @SuppressWarnings("java:S125")
 public class MatrixPanel extends AbstractMatrixPanel {
@@ -63,6 +65,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
         matrixTable.getSelectionModel().addListSelectionListener(listener);
         matrixTable.getColumnModel().getSelectionModel().addListSelectionListener(listener);
 
+        matrixTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         matrixTable.setRowSelectionAllowed(false);
         matrixTable.setColumnSelectionAllowed(false);
 
@@ -70,7 +73,36 @@ public class MatrixPanel extends AbstractMatrixPanel {
         matrixTable.setDefaultRenderer(RelationshipDirection.class, new RelationshipDirectionCellRenderer());
         matrixTable.getTableHeader().setDefaultRenderer(new MatrixTableHeaderRenderer());
 
+        matrixTable.addPropertyChangeListener("model", propertyChangeEvent -> adjustTableColumnsWidth(matrixTable));
+
         addPopupMenu();
+    }
+
+    private void adjustTableColumnsWidth(JTable table) {
+        TableColumnModel columnModel = table.getColumnModel();
+
+        // Iterate through each column
+        for (int column = 0; column < table.getColumnCount(); column++) {
+
+            TableColumn tableColumn = columnModel.getColumn(column);
+
+            // Get the header width
+            TableCellRenderer defaultHeaderRenderer = table.getTableHeader().getDefaultRenderer();
+            Component headerComp = defaultHeaderRenderer.getTableCellRendererComponent(table, tableColumn.getHeaderValue(), false, false, 0, column);
+            int headerWidth = headerComp.getPreferredSize().width;
+
+            // Get the content width
+            int maxWidth = headerWidth;
+            for (int row = 0; row < table.getRowCount(); row++) {
+                TableCellRenderer cellRenderer = table.getCellRenderer(row, column);
+                Object value = table.getValueAt(row, column);
+                Component comp = cellRenderer.getTableCellRendererComponent(table, value, false, false, row, column);
+                maxWidth = Math.max(comp.getPreferredSize().width, maxWidth);
+            }
+
+            // Set the preferred width for the column
+            tableColumn.setPreferredWidth(maxWidth);
+        }
     }
 
     private void addPopupMenu() {
@@ -149,7 +181,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
         return createRelationshipMenu;
     }
 
-    private void fireMatrixEvent(Event event){
+    private void fireMatrixEvent(Event event) {
         if (isMatrixSelected()) {
             eventBus.publish(event);
         } else {
@@ -157,7 +189,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
         }
     }
 
-    private boolean isMatrixSelected(){
+    private boolean isMatrixSelected() {
         return getSelectedColumnElement() != null && getSelectedRowElement() != null;
     }
 
@@ -239,18 +271,20 @@ public class MatrixPanel extends AbstractMatrixPanel {
     private void fillTableWithDemoData() {
 
         List<INamedElement> rows = new ArrayList<>();
-        rows.add(new DummyNamedElement("Requirement 1"));
+        rows.add(new DummyNamedElement("Transfer and some other text as well comes here"));
         rows.add(new DummyNamedElement("Requirement 2"));
         rows.add(new DummyNamedElement("Requirement 3"));
         rows.add(new DummyNamedElement("Requirement 4"));
-        rows.add(new DummyNamedElement("Requirement 5"));
+        rows.add(new DummyNamedElement("Req 5"));
+
+        IntStream.range(6, 30).forEach(i -> rows.add(new DummyNamedElement("Requirement " + i)));
 
         List<INamedElement> columns = new ArrayList<>();
-        columns.add(new DummyNamedElement("UseCase 1"));
-        columns.add(new DummyNamedElement("UseCase 2"));
+        columns.add(new DummyNamedElement("Merchant System"));
+        columns.add(new DummyNamedElement("Very long text comes here"));
         columns.add(new DummyNamedElement("UseCase 3"));
         columns.add(new DummyNamedElement("UseCase 4"));
-        columns.add(new DummyNamedElement("UseCase 5"));
+        columns.add(new DummyNamedElement("Simple"));
         columns.add(new DummyNamedElement("UseCase 6"));
 
         MatrixData data = new MatrixDataImpl(rows, columns);

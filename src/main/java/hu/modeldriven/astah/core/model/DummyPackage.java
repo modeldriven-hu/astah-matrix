@@ -32,6 +32,11 @@ public class DummyPackage implements IPackage {
     }
 
     @Override
+    public void setName(String s) throws InvalidEditingException {
+        // dummy implementation
+    }
+
+    @Override
     public String getFullName(String s) {
         return null;
     }
@@ -82,6 +87,11 @@ public class DummyPackage implements IPackage {
     }
 
     @Override
+    public void setDefinition(String s) throws InvalidEditingException {
+        // dummy implementation
+    }
+
+    @Override
     public boolean isPublicVisibility() {
         return false;
     }
@@ -107,16 +117,6 @@ public class DummyPackage implements IPackage {
     }
 
     @Override
-    public void setName(String s) throws InvalidEditingException {
-        // dummy implementation
-    }
-
-    @Override
-    public void setDefinition(String s) throws InvalidEditingException {
-        // dummy implementation
-    }
-
-    @Override
     public void setVisibility(String s) throws InvalidEditingException {
         // dummy implementation
     }
@@ -127,13 +127,13 @@ public class DummyPackage implements IPackage {
     }
 
     @Override
-    public String getAlias2() {
-        return null;
+    public void setAlias1(String s) throws InvalidEditingException {
+        // dummy implementation
     }
 
     @Override
-    public void setAlias1(String s) throws InvalidEditingException {
-        // dummy implementation
+    public String getAlias2() {
+        return null;
     }
 
     @Override
@@ -207,13 +207,13 @@ public class DummyPackage implements IPackage {
     }
 
     @Override
-    public IPresentation[] getPresentations() throws InvalidUsingException {
-        return new IPresentation[0];
+    public void setTypeModifier(String s) throws InvalidEditingException {
+        // dummy implementation
     }
 
     @Override
-    public void setTypeModifier(String s) throws InvalidEditingException {
-        // dummy implementation
+    public IPresentation[] getPresentations() throws InvalidUsingException {
+        return new IPresentation[0];
     }
 
     @Override

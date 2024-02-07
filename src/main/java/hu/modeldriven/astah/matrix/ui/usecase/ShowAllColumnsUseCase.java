@@ -1,7 +1,6 @@
 package hu.modeldriven.astah.matrix.ui.usecase;
 
 import hu.modeldriven.astah.matrix.ui.event.ShowAllColumnsRequestedEvent;
-import hu.modeldriven.astah.matrix.ui.event.ShowAllRowsRequestedEvent;
 import hu.modeldriven.astah.matrix.ui.table.MatrixTableModel;
 import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventHandler;
@@ -14,7 +13,7 @@ public class ShowAllColumnsUseCase implements EventHandler<ShowAllColumnsRequest
 
     private final JTable table;
 
-    public ShowAllColumnsUseCase(JTable table){
+    public ShowAllColumnsUseCase(JTable table) {
         this.table = table;
     }
 

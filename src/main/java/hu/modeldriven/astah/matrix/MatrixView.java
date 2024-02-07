@@ -10,7 +10,7 @@ import com.change_vision.jude.api.inf.ui.ISelectionListener;
 import hu.modeldriven.astah.matrix.ui.MatrixPanel;
 import hu.modeldriven.core.eventbus.EventBus;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;

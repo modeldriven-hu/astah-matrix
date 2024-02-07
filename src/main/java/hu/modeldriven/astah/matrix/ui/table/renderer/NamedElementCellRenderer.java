@@ -2,10 +2,11 @@ package hu.modeldriven.astah.matrix.ui.table.renderer;
 
 import com.change_vision.jude.api.inf.model.INamedElement;
 
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 
 public class NamedElementCellRenderer extends DefaultTableCellRenderer {
@@ -30,13 +31,17 @@ public class NamedElementCellRenderer extends DefaultTableCellRenderer {
             INamedElement namedElement = (INamedElement) value;
             setText(namedElement.getName());
 
-            Font normalFont = new Font(getFont().getName(), Font.PLAIN, getFont().getSize());
-            setFont(normalFont);
+            Font font = null;
 
             if (table.getSelectionModel().isSelectedIndex(row)) {
-                Font boldFont = new Font(getFont().getName(), Font.BOLD, getFont().getSize());
-                setFont(boldFont);
+                font = new Font(getFont().getName(), Font.BOLD, getFont().getSize());
+            } else {
+                font = new Font(getFont().getName(), Font.PLAIN, getFont().getSize());
             }
+
+            setFont(font);
+
+            setPreferredSize(new Dimension(new TextMeasure(getText(), font).getWidth() + 20, getHeight()));
         }
         return this;
     }

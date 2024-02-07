@@ -6,7 +6,6 @@ import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventHandler;
 
 import javax.swing.*;
-import javax.swing.table.TableColumn;
 import java.util.Collections;
 import java.util.List;
 

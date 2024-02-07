@@ -4,10 +4,9 @@ import hu.modeldriven.astah.core.dialog.type.matcher.TypeMatcher;
 
 public class DefaultTypeSelector implements TypeSelector {
 
-    private boolean selected = false;
     private final String name;
-
     private final TypeMatcher matcher;
+    private boolean selected = false;
 
     public DefaultTypeSelector(String name, TypeMatcher matcher) {
         this.name = name;

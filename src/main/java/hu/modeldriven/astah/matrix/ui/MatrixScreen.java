@@ -2,8 +2,7 @@ package hu.modeldriven.astah.matrix.ui;
 
 import hu.modeldriven.core.eventbus.EventBus;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Container;
 
@@ -17,6 +16,13 @@ public class MatrixScreen {
         this.eventBus = new EventBus();
     }
 
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            MatrixScreen screen = new MatrixScreen(null);
+            screen.show();
+        });
+    }
+
     public void show() {
         JFrame frame = new JFrame();
         frame.getContentPane().setLayout(new BorderLayout());
@@ -24,13 +30,6 @@ public class MatrixScreen {
         frame.pack();
         frame.setLocationRelativeTo(parent);
         frame.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            MatrixScreen screen = new MatrixScreen(null);
-            screen.show();
-        });
     }
 
 }

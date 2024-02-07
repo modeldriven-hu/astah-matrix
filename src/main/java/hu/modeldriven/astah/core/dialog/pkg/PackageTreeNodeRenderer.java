@@ -1,7 +1,6 @@
 package hu.modeldriven.astah.core.dialog.pkg;
 
-import javax.swing.JLabel;
-import javax.swing.JTree;
+import javax.swing.*;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import java.awt.Component;
 
