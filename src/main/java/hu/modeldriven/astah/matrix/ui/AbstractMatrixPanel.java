@@ -24,11 +24,13 @@ public class AbstractMatrixPanel extends JPanel {
     private javax.swing.JPanel topPanel;
     private javax.swing.JLabel columnElementTypeLabel;
     private javax.swing.JLabel columnPackageLabel;
-    private javax.swing.JPanel contentPanel;
+    protected javax.swing.JPanel contentPanel;
     private javax.swing.JLabel dependencyTypeLabel;
     protected javax.swing.JScrollPane scrollPane;
     private javax.swing.JLabel rowElementTypeLabel;
     private javax.swing.JLabel rowPackageLabel;
+
+    protected BorderLayout panelLayout;
 
     public AbstractMatrixPanel() {
         super();
@@ -37,10 +39,14 @@ public class AbstractMatrixPanel extends JPanel {
 
     private void initComponents() {
 
+        setName("matrixPanel");
+
         topPanel = new JPanel(new BorderLayout());
+        topPanel.setName("topPanel");
         topPanel.setBackground(Color.WHITE);
 
         contentPanel = new JPanel();
+        contentPanel.setName("contentPanel");
         contentPanel.setBackground(Color.WHITE);
 
         rowElementTypeLabel = new JLabel();
@@ -62,7 +68,9 @@ public class AbstractMatrixPanel extends JPanel {
         scrollPane = new JScrollPane();
         matrixTable = new JTable();
 
-        setLayout(new BorderLayout());
+        panelLayout = new BorderLayout();
+
+        setLayout(panelLayout);
 
         contentPanel.setLayout(new MigLayout(
                 "fill,hidemode 3",

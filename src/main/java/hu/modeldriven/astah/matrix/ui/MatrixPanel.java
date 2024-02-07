@@ -33,7 +33,7 @@ import java.util.stream.IntStream;
 @SuppressWarnings("java:S125")
 public class MatrixPanel extends AbstractMatrixPanel {
 
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
 
     private final Component parentComponent;
     private final transient EventBus eventBus;
@@ -81,6 +81,8 @@ public class MatrixPanel extends AbstractMatrixPanel {
     private void adjustTableColumnsWidth(JTable table) {
         TableColumnModel columnModel = table.getColumnModel();
 
+        int sumWidth = 0;
+
         // Iterate through each column
         for (int column = 0; column < table.getColumnCount(); column++) {
 
@@ -89,20 +91,45 @@ public class MatrixPanel extends AbstractMatrixPanel {
             // Get the header width
             TableCellRenderer defaultHeaderRenderer = table.getTableHeader().getDefaultRenderer();
             Component headerComp = defaultHeaderRenderer.getTableCellRendererComponent(table, tableColumn.getHeaderValue(), false, false, 0, column);
-            int headerWidth = headerComp.getPreferredSize().width;
+
+            int calculatedWidth = headerComp.getPreferredSize().width;
 
             // Get the content width
-            int maxWidth = headerWidth;
             for (int row = 0; row < table.getRowCount(); row++) {
                 TableCellRenderer cellRenderer = table.getCellRenderer(row, column);
                 Object value = table.getValueAt(row, column);
                 Component comp = cellRenderer.getTableCellRendererComponent(table, value, false, false, row, column);
-                maxWidth = Math.max(comp.getPreferredSize().width, maxWidth);
+                calculatedWidth = Math.max(comp.getPreferredSize().width, calculatedWidth);
             }
 
-            // Set the preferred width for the column
-            tableColumn.setPreferredWidth(maxWidth);
+            sumWidth += calculatedWidth;
+
+            // Handle last column
+            if (column == table.getColumnCount() - 1){
+
+                // FIXME the calculation is sadly not still perfect, needs to be investigated
+                // In general the BorderLayout does not change the preferred size of the component
+                // Maybe getting rid of BorderLayout in favor of miglayout solves this issue
+                
+                int panelWidth = panelLayout.preferredLayoutSize(contentPanel).width - UIManager.getInt("ScrollBar.width");
+
+                int lastColumnSize = calculatedWidth;
+
+                // If width is smaller than of the scroll pane, the match it
+                if (sumWidth <= panelWidth){
+                    // we already added the column width so we need to remove and then calculate
+                    int widthBeforeLastColumn = sumWidth - calculatedWidth;
+                    lastColumnSize = panelWidth - widthBeforeLastColumn;
+                }
+
+                tableColumn.setPreferredWidth(lastColumnSize);
+            } else {
+                // Set the preferred width for the column
+                tableColumn.setPreferredWidth(calculatedWidth);
+            }
         }
+
+        table.invalidate();
     }
 
     private void addPopupMenu() {
@@ -281,18 +308,16 @@ public class MatrixPanel extends AbstractMatrixPanel {
 
         List<INamedElement> columns = new ArrayList<>();
         columns.add(new DummyNamedElement("Merchant System"));
-        columns.add(new DummyNamedElement("Very long text comes here"));
-        columns.add(new DummyNamedElement("UseCase 3"));
-        columns.add(new DummyNamedElement("UseCase 4"));
-        columns.add(new DummyNamedElement("Simple"));
-        columns.add(new DummyNamedElement("UseCase 6"));
+        columns.add(new DummyNamedElement("Second column"));
 
         MatrixData data = new MatrixDataImpl(rows, columns);
 
+        /*
         data.addRelationship(0, 1, RelationshipDirection.ROW_TO_COLUMN);
         data.addRelationship(1, 2, RelationshipDirection.ROW_TO_COLUMN);
         data.addRelationship(2, 0, RelationshipDirection.COLUMN_TO_ROW);
         data.addRelationship(2, 1, RelationshipDirection.BOTH);
+        */
 
         MatrixTableModel tableModel = new MatrixTableModel(data);
 

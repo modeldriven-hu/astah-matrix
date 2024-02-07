@@ -8,6 +8,7 @@ import hu.modeldriven.core.eventbus.EventBus;
 import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
 
 public class TestMatrixPanel {
 
@@ -16,9 +17,9 @@ public class TestMatrixPanel {
     public static void main(String[] args) throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             try {
-                UIManager.put("TitlePane.menuBarEmbedded", false);
-                FlatLightFlatIJTheme.setup();
-                FlatLaf.updateUI();
+                //UIManager.put("TitlePane.menuBarEmbedded", false);
+                //FlatLightFlatIJTheme.setup();
+                //FlatLaf.updateUI();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -43,15 +44,21 @@ public class TestMatrixPanel {
      */
     protected void initialize() {
         frame = new JFrame("Matrix test");
-        frame.setMinimumSize(new Dimension(763, 300));
         frame.setLocation(100, 100);
+        frame.setSize(1600, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         EventBus eventBus = new EventBus();
 
         JPanel panel = new MatrixPanel(frame, eventBus);
 
-        frame.getContentPane().add(panel, BorderLayout.NORTH);
+        JPanel frameContentPanel = new JPanel(new BorderLayout());
+        frameContentPanel.setName("frameContentPanel");
+        frameContentPanel.add(panel, BorderLayout.CENTER);
+
+        frame.setContentPane(frameContentPanel);
+
+        frame.pack();
     }
 
 

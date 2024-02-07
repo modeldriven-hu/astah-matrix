@@ -5,6 +5,7 @@ import hu.modeldriven.core.eventbus.EventBus;
 import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.GridBagLayout;
 
 public class MatrixScreen {
 
@@ -25,8 +26,12 @@ public class MatrixScreen {
 
     public void show() {
         JFrame frame = new JFrame();
-        frame.getContentPane().setLayout(new BorderLayout());
-        frame.getContentPane().add(new MatrixPanel(frame, eventBus), BorderLayout.CENTER);
+
+        JPanel frameContentPanel = new JPanel(new BorderLayout());
+        frameContentPanel.setName("frameContentPanel");
+        frameContentPanel.add(new MatrixPanel(frame, eventBus), BorderLayout.CENTER);
+        frame.setContentPane(frameContentPanel);
+
         frame.pack();
         frame.setLocationRelativeTo(parent);
         frame.setVisible(true);
