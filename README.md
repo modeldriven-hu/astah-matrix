@@ -20,6 +20,7 @@ as well.
   - Creating relationship between elements
   - Hiding selected rows and columns
   - Show all hidden rows and columns
+- Display elements based on stereotype
 
 # Build
 
