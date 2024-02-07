@@ -1,8 +1,6 @@
 package hu.modeldriven.astah.core.dialog.type;
 
-import javax.swing.JDialog;
-import javax.swing.ListSelectionModel;
-import javax.swing.RowFilter;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.TableColumnModel;
@@ -73,7 +71,15 @@ public class TypeSelectorPanel extends AbstractTypeSelectorPanel {
         });
 
         this.okButton.addActionListener(actionEvent -> {
-            tableModel.selectedRow().ifPresent(this.elementSelectedCallback);
+            tableModel.selectedRow().ifPresent(selectedRow -> {
+                String stereotypeText = this.stereotypeTextField.getText();
+
+                if (stereotypeText != null && stereotypeText.trim().length() > 0) {
+                    this.elementSelectedCallback.accept(new StereotypedTypeSelector(stereotypeText, selectedRow));
+                } else {
+                    this.elementSelectedCallback.accept(selectedRow);
+                }
+            });
 
             this.parentDialog.setVisible(false);
             this.parentDialog.dispose();

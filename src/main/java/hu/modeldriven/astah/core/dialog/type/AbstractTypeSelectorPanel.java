@@ -37,6 +37,9 @@ public class AbstractTypeSelectorPanel extends javax.swing.JPanel {
         filterLabel = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
         elementTable = new javax.swing.JTable();
+        stereotypePanel = new javax.swing.JPanel();
+        stereotypeLabel = new javax.swing.JLabel();
+        stereotypeTextField = new javax.swing.JTextField();
         buttonPanel = new javax.swing.JPanel();
         okButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
@@ -94,18 +97,43 @@ public class AbstractTypeSelectorPanel extends javax.swing.JPanel {
         });
         scrollPane.setViewportView(elementTable);
 
+        stereotypeLabel.setText("Stereotype:");
+
+        javax.swing.GroupLayout stereotypePanelLayout = new javax.swing.GroupLayout(stereotypePanel);
+        stereotypePanel.setLayout(stereotypePanelLayout);
+        stereotypePanelLayout.setHorizontalGroup(
+            stereotypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(stereotypePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(stereotypeLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(stereotypeTextField))
+        );
+        stereotypePanelLayout.setVerticalGroup(
+            stereotypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(stereotypePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(stereotypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(stereotypeLabel)
+                    .addComponent(stereotypeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout selectorPanelLayout = new javax.swing.GroupLayout(selectorPanel);
         selectorPanel.setLayout(selectorPanelLayout);
         selectorPanelLayout.setHorizontalGroup(
             selectorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(selectorPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(selectorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(selectorPanelLayout.createSequentialGroup()
-                        .addComponent(filterLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(filterTextField)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, selectorPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(selectorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(selectorPanelLayout.createSequentialGroup()
+                                .addComponent(filterLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(filterTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE))))
+                    .addComponent(stereotypePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         selectorPanelLayout.setVerticalGroup(
@@ -116,8 +144,9 @@ public class AbstractTypeSelectorPanel extends javax.swing.JPanel {
                     .addComponent(filterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(filterLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(stereotypePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         okButton.setText("Ok");
@@ -129,7 +158,7 @@ public class AbstractTypeSelectorPanel extends javax.swing.JPanel {
         buttonPanelLayout.setHorizontalGroup(
             buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buttonPanelLayout.createSequentialGroup()
-                .addContainerGap(208, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(okButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cancelButton)
@@ -176,6 +205,9 @@ public class AbstractTypeSelectorPanel extends javax.swing.JPanel {
     protected javax.swing.JButton okButton;
     protected javax.swing.JScrollPane scrollPane;
     private javax.swing.JPanel selectorPanel;
+    private javax.swing.JLabel stereotypeLabel;
+    private javax.swing.JPanel stereotypePanel;
+    protected javax.swing.JTextField stereotypeTextField;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }

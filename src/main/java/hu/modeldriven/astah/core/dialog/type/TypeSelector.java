@@ -2,32 +2,12 @@ package hu.modeldriven.astah.core.dialog.type;
 
 import hu.modeldriven.astah.core.dialog.type.matcher.TypeMatcher;
 
-public class TypeSelector {
+public interface TypeSelector {
+    boolean selected();
 
-    private boolean selected = false;
-    private final String name;
+    void setSelected(boolean selected);
 
-    private final TypeMatcher matcher;
+    String name();
 
-    public TypeSelector(String name, TypeMatcher matcher) {
-        this.name = name;
-        this.matcher = matcher;
-    }
-
-    public boolean selected() {
-        return selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
-
-    public String name() {
-        return name;
-    }
-
-    public TypeMatcher matcher() {
-        return matcher;
-    }
-
+    TypeMatcher matcher();
 }

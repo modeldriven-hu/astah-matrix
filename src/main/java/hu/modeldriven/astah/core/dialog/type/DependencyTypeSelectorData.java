@@ -24,16 +24,16 @@ public class DependencyTypeSelectorData implements TypeSelectorData {
 
     private void initialize() {
 
-        map.put(new TypeSelector("Dependency", new ClassMatcher<>(IDependency.class)),
+        map.put(new DefaultTypeSelector("Dependency", new ClassMatcher<>(IDependency.class)),
                 (factory, client, supplier) -> factory.getBasicModelEditor().createDependency(client, supplier, ""));
 
-        map.put(new TypeSelector("Allocate", new CombinedMatcher(
+        map.put(new DefaultTypeSelector("Allocate", new CombinedMatcher(
                         new ClassMatcher<>(IDependency.class),
                         new StereotypeMatcher("Allocate")
                 )),
                 (factory, client, supplier) -> factory.getSysmlModelEditor().createAllocateDependency(client, supplier, ""));
 
-        map.put(new TypeSelector("DeriveRqt", new CombinedMatcher(
+        map.put(new DefaultTypeSelector("DeriveRqt", new CombinedMatcher(
                 new ClassMatcher<>(IDependency.class),
                 new StereotypeMatcher("DeriveReqt")
         )), (factory, client, supplier) -> {
@@ -42,7 +42,7 @@ public class DependencyTypeSelectorData implements TypeSelectorData {
             }
         });
 
-        map.put(new TypeSelector("Copy", new CombinedMatcher(
+        map.put(new DefaultTypeSelector("Copy", new CombinedMatcher(
                 new ClassMatcher<>(IDependency.class),
                 new StereotypeMatcher("Copy")
         )), (factory, client, supplier) -> {
@@ -51,7 +51,7 @@ public class DependencyTypeSelectorData implements TypeSelectorData {
             }
         });
 
-        map.put(new TypeSelector("Satisfy", new CombinedMatcher(
+        map.put(new DefaultTypeSelector("Satisfy", new CombinedMatcher(
                 new ClassMatcher<>(IDependency.class),
                 new StereotypeMatcher("Satisfy")
         )), (factory, client, supplier) -> {
@@ -60,7 +60,7 @@ public class DependencyTypeSelectorData implements TypeSelectorData {
             }
         });
 
-        map.put(new TypeSelector("Verify", new CombinedMatcher(
+        map.put(new DefaultTypeSelector("Verify", new CombinedMatcher(
                 new ClassMatcher<>(IDependency.class),
                 new StereotypeMatcher("Verify")
         )), (factory, client, supplier) -> {
@@ -69,7 +69,7 @@ public class DependencyTypeSelectorData implements TypeSelectorData {
             }
         });
 
-        map.put(new TypeSelector("Refine", new CombinedMatcher(
+        map.put(new DefaultTypeSelector("Refine", new CombinedMatcher(
                 new ClassMatcher<>(IDependency.class),
                 new StereotypeMatcher("Refine")
         )), (factory, client, supplier) -> {
@@ -78,7 +78,7 @@ public class DependencyTypeSelectorData implements TypeSelectorData {
             }
         });
 
-        map.put(new TypeSelector("Trace", new CombinedMatcher(
+        map.put(new DefaultTypeSelector("Trace", new CombinedMatcher(
                 new ClassMatcher<>(IDependency.class),
                 new StereotypeMatcher("Trace")
         )), (factory, client, supplier) -> {
