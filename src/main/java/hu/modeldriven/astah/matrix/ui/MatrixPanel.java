@@ -33,7 +33,7 @@ import java.util.stream.IntStream;
 @SuppressWarnings("java:S125")
 public class MatrixPanel extends AbstractMatrixPanel {
 
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
 
     private final Component parentComponent;
     private final transient EventBus eventBus;
@@ -73,63 +73,9 @@ public class MatrixPanel extends AbstractMatrixPanel {
         matrixTable.setDefaultRenderer(RelationshipDirection.class, new RelationshipDirectionCellRenderer());
         matrixTable.getTableHeader().setDefaultRenderer(new MatrixTableHeaderRenderer());
 
-        matrixTable.addPropertyChangeListener("model", propertyChangeEvent -> adjustTableColumnsWidth(matrixTable));
+        matrixTable.addPropertyChangeListener("model", propertyChangeEvent -> eventBus.publish(new TableStructureChangedEvent()));
 
         addPopupMenu();
-    }
-
-    private void adjustTableColumnsWidth(JTable table) {
-        TableColumnModel columnModel = table.getColumnModel();
-
-        int sumWidth = 0;
-
-        // Iterate through each column
-        for (int column = 0; column < table.getColumnCount(); column++) {
-
-            TableColumn tableColumn = columnModel.getColumn(column);
-
-            // Get the header width
-            TableCellRenderer defaultHeaderRenderer = table.getTableHeader().getDefaultRenderer();
-            Component headerComp = defaultHeaderRenderer.getTableCellRendererComponent(table, tableColumn.getHeaderValue(), false, false, 0, column);
-
-            int calculatedWidth = headerComp.getPreferredSize().width;
-
-            // Get the content width
-            for (int row = 0; row < table.getRowCount(); row++) {
-                TableCellRenderer cellRenderer = table.getCellRenderer(row, column);
-                Object value = table.getValueAt(row, column);
-                Component comp = cellRenderer.getTableCellRendererComponent(table, value, false, false, row, column);
-                calculatedWidth = Math.max(comp.getPreferredSize().width, calculatedWidth);
-            }
-
-            sumWidth += calculatedWidth;
-
-            // Handle last column
-            if (column == table.getColumnCount() - 1){
-
-                // FIXME the calculation is sadly not still perfect, needs to be investigated
-                // In general the BorderLayout does not change the preferred size of the component
-                // Maybe getting rid of BorderLayout in favor of miglayout solves this issue
-                
-                int panelWidth = panelLayout.preferredLayoutSize(contentPanel).width - UIManager.getInt("ScrollBar.width");
-
-                int lastColumnSize = calculatedWidth;
-
-                // If width is smaller than of the scroll pane, the match it
-                if (sumWidth <= panelWidth){
-                    // we already added the column width so we need to remove and then calculate
-                    int widthBeforeLastColumn = sumWidth - calculatedWidth;
-                    lastColumnSize = panelWidth - widthBeforeLastColumn;
-                }
-
-                tableColumn.setPreferredWidth(lastColumnSize);
-            } else {
-                // Set the preferred width for the column
-                tableColumn.setPreferredWidth(calculatedWidth);
-            }
-        }
-
-        table.invalidate();
     }
 
     private void addPopupMenu() {
@@ -286,13 +232,15 @@ public class MatrixPanel extends AbstractMatrixPanel {
 
         this.eventBus.subscribe(new DisplayErrorOnNoMatrixElementSelectionUseCase(parentComponent));
 
-        this.eventBus.subscribe(new HideColumnsUseCase(matrixTable));
+        this.eventBus.subscribe(new HideColumnsUseCase(eventBus, matrixTable));
 
-        this.eventBus.subscribe(new HideRowsUseCase(matrixTable));
+        this.eventBus.subscribe(new HideRowsUseCase(eventBus, matrixTable));
 
-        this.eventBus.subscribe(new ShowAllRowsUseCase(matrixTable));
+        this.eventBus.subscribe(new ShowAllRowsUseCase(eventBus, matrixTable));
 
-        this.eventBus.subscribe(new ShowAllColumnsUseCase(matrixTable));
+        this.eventBus.subscribe(new ShowAllColumnsUseCase(eventBus, matrixTable));
+
+        this.eventBus.subscribe(new ResizeTableColumnsUseCase(matrixTable, panelLayout, contentPanel));
     }
 
     private void fillTableWithDemoData() {
@@ -307,8 +255,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
         IntStream.range(6, 30).forEach(i -> rows.add(new DummyNamedElement("Requirement " + i)));
 
         List<INamedElement> columns = new ArrayList<>();
-        columns.add(new DummyNamedElement("Merchant System"));
-        columns.add(new DummyNamedElement("Second column"));
+        IntStream.range(1, 5).forEach(i -> columns.add(new DummyNamedElement("UseCase " + i)));
 
         MatrixData data = new MatrixDataImpl(rows, columns);
 
