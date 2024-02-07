@@ -18,6 +18,8 @@ as well.
 - Context menu support including:
   - Selecting row or column element in tree
   - Creating relationship between elements
+  - Hiding selected rows and columns
+  - Show all hidden rows and columns
 
 # Build
 
