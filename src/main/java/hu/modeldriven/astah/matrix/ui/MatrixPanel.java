@@ -33,7 +33,7 @@ import java.util.stream.IntStream;
 @SuppressWarnings("java:S125")
 public class MatrixPanel extends AbstractMatrixPanel {
 
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
 
     private final Component parentComponent;
     private final transient EventBus eventBus;
