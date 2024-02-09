@@ -14,7 +14,7 @@ public class SetToolbarButtonsStatusUseCase implements EventHandler<Event> {
 
     private final List<JButton> buttons;
 
-    public SetToolbarButtonsStatusUseCase(JButton ... buttons) {
+    public SetToolbarButtonsStatusUseCase(JButton... buttons) {
         this.buttons = Arrays.asList(buttons);
     }
 

@@ -71,6 +71,11 @@ public class MatrixPanel extends AbstractMatrixPanel {
                 16,
                 UIManager.getColor(BUTTON_FOREGROUND)));
 
+        exportButton.setIcon(FontIcon.of(
+                MaterialDesign.MDI_EXPORT,
+                16,
+                UIManager.getColor(BUTTON_FOREGROUND)));
+
         queryButton.setIcon(FontIcon.of(
                 MaterialDesign.MDI_RUN,
                 16,
@@ -92,6 +97,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
 
         openButton.addActionListener(e -> eventBus.publish(new OpenFileRequestedEvent()));
         saveButton.addActionListener(e -> eventBus.publish(new SaveFileRequestedEvent()));
+        exportButton.addActionListener(e -> eventBus.publish(new ExportCSVRequestedEvent()));
 
         matrixTable.getTableHeader().setResizingAllowed(true);
         matrixTable.getTableHeader().setReorderingAllowed(false);
@@ -288,6 +294,8 @@ public class MatrixPanel extends AbstractMatrixPanel {
         this.eventBus.subscribe(new BuildQueryModelUseCase(eventBus));
         this.eventBus.subscribe(new SaveFileUseCase(eventBus, this));
         this.eventBus.subscribe(new OpenFileUseCase(eventBus, this, modelRepresentation));
+        this.eventBus.subscribe(new ExportToCSVUseCase(eventBus, this));
+
         this.eventBus.subscribe(new PresentLoadedQueryModelUseCase(eventBus));
     }
 

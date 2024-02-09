@@ -27,6 +27,7 @@ public class AbstractMatrixPanel extends JPanel {
     protected JButton newButton;
     protected JButton openButton;
     protected JButton saveButton;
+    protected JButton exportButton;
     protected BorderLayout panelLayout;
     private JPanel topPanel;
     private JLabel columnElementTypeLabel;
@@ -154,10 +155,11 @@ public class AbstractMatrixPanel extends JPanel {
         openButton = new JButton("Open");
         saveButton = new JButton("Save");
         saveButton.setEnabled(false);
+        exportButton = new JButton("Export");
         queryButton = new JButton("Query");
         queryButton.setEnabled(false);
 
-        for (JButton button : Arrays.asList(newButton, openButton, saveButton, queryButton)) {
+        for (JButton button : Arrays.asList(newButton, openButton, saveButton, exportButton, queryButton)) {
             button.setFocusable(false);
             toolBar.add(button);
         }

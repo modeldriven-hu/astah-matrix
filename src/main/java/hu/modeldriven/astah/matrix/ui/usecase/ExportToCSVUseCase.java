@@ -1,10 +1,10 @@
 package hu.modeldriven.astah.matrix.ui.usecase;
 
 import hu.modeldriven.astah.matrix.ui.event.ExceptionOccurredEvent;
-import hu.modeldriven.astah.matrix.ui.event.QueryModelChangedEvent;
-import hu.modeldriven.astah.matrix.ui.event.SaveFileRequestedEvent;
-import hu.modeldriven.astah.matrix.ui.usecase.model.QueryModel;
-import hu.modeldriven.astah.matrix.ui.usecase.persistance.YAMLQueryFile;
+import hu.modeldriven.astah.matrix.ui.event.ExportCSVRequestedEvent;
+import hu.modeldriven.astah.matrix.ui.event.TableDataCalculatedEvent;
+import hu.modeldriven.astah.matrix.ui.table.MatrixData;
+import hu.modeldriven.astah.matrix.ui.usecase.persistance.CSVQueryResultFile;
 import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventBus;
 import hu.modeldriven.core.eventbus.EventHandler;
@@ -16,16 +16,15 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-public class SaveFileUseCase implements EventHandler<Event> {
+public class ExportToCSVUseCase implements EventHandler<Event> {
 
-    public static final String YAML = ".yaml";
+    private static final String CSV = ".csv";
     private final EventBus eventBus;
     private final Component parentComponent;
 
-    private QueryModel queryModel;
+    private MatrixData matrixData;
 
-
-    public SaveFileUseCase(EventBus eventBus, Component parentComponent) {
+    public ExportToCSVUseCase(EventBus eventBus, Component parentComponent) {
         this.eventBus = eventBus;
         this.parentComponent = parentComponent;
     }
@@ -33,11 +32,11 @@ public class SaveFileUseCase implements EventHandler<Event> {
     @Override
     public void handleEvent(Event event) {
 
-        if (event instanceof QueryModelChangedEvent) {
-            this.queryModel = ((QueryModelChangedEvent) event).queryModel();
+        if (event instanceof TableDataCalculatedEvent) {
+            this.matrixData = ((TableDataCalculatedEvent) event).tableData();
         }
 
-        if (event instanceof SaveFileRequestedEvent && queryModel != null && queryModel.isAllDataProvided()) {
+        if (event instanceof ExportCSVRequestedEvent && matrixData != null) {
             saveFile();
         }
 
@@ -48,7 +47,7 @@ public class SaveFileUseCase implements EventHandler<Event> {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Specify a file to save");
 
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("YAML files", "yaml");
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV Files", "csv");
             fileChooser.addChoosableFileFilter(filter);
             fileChooser.setFileFilter(filter);
 
@@ -69,12 +68,12 @@ public class SaveFileUseCase implements EventHandler<Event> {
                 }
             }
 
-            if (!file.getName().endsWith(YAML)) {
-                file = new File(file.getParent() + File.separator + file.getName() + YAML);
+            if (!file.getName().endsWith(CSV)) {
+                file = new File(file.getParent() + File.separator + file.getName() + CSV);
             }
 
-            YAMLQueryFile queryFile = new YAMLQueryFile(file);
-            queryFile.write(queryModel);
+            CSVQueryResultFile csvFile = new CSVQueryResultFile(file);
+            csvFile.write(matrixData);
 
         } catch (Exception e) {
             eventBus.publish(new ExceptionOccurredEvent(e));
@@ -84,10 +83,9 @@ public class SaveFileUseCase implements EventHandler<Event> {
     @Override
     public List<Class<? extends Event>> subscribedEvents() {
         return Arrays.asList(
-                SaveFileRequestedEvent.class,
-                QueryModelChangedEvent.class
+                ExportCSVRequestedEvent.class,
+                TableDataCalculatedEvent.class
         );
     }
 
 }
-

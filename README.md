@@ -1,6 +1,6 @@
 # Astah Matrix Plug-in
 
-This enables you to display dependencies among model elements 
+This enables you to display dependencies among model elements
 in Astah SysML, but might also work with other Astah variants
 as well.
 
@@ -16,10 +16,10 @@ as well.
 - Display dependency matrix (row to column, column to row, both)
 - Ability to select a single cell and highlight both row and column
 - Context menu support including:
-  - Selecting row or column element in tree
-  - Creating relationship between elements
-  - Hiding selected rows and columns
-  - Show all hidden rows and columns
+    - Selecting row or column element in tree
+    - Creating relationship between elements
+    - Hiding selected rows and columns
+    - Show all hidden rows and columns
 - Display elements based on stereotype
 
 # Build
