@@ -13,7 +13,7 @@
         <snakeyaml.version>2.2</snakeyaml.version>
         <junit.version>4.13.1</junit.version>
         <ikonli.version>2.6.0</ikonli.version>
-        <opencsv.version>5.9</opencsv.version>
+        <fastcsv.version>2.2.2</fastcsv.version>
     </properties>
     <modelVersion>4.0.0</modelVersion>
     <groupId>hu.modeldriven</groupId>
@@ -287,9 +287,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.opencsv</groupId>
-            <artifactId>opencsv</artifactId>
-            <version>${opencsv.version}</version>
+            <groupId>de.siegmar</groupId>
+            <artifactId>fastcsv</artifactId>
+            <version>${fastcsv.version}</version>
         </dependency>
     </dependencies>
 </project>

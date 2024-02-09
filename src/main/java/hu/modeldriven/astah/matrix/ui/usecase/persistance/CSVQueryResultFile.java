@@ -1,13 +1,11 @@
 package hu.modeldriven.astah.matrix.ui.usecase.persistance;
 
 import com.change_vision.jude.api.inf.model.INamedElement;
-import com.opencsv.CSVWriterBuilder;
-import com.opencsv.ICSVWriter;
+import de.siegmar.fastcsv.writer.CsvWriter;
 import hu.modeldriven.astah.matrix.ui.table.MatrixData;
 import hu.modeldriven.astah.matrix.ui.table.RelationshipDirection;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,8 +17,9 @@ public class CSVQueryResultFile {
         this.file = file;
     }
 
-    public void write(MatrixData matrixData) throws CSVFileException {
-        try (ICSVWriter writer = new CSVWriterBuilder(new FileWriter(file)).withSeparator(';').build()) {
+    public void write(MatrixData matrixData) throws CSVExportException {
+
+        try (CsvWriter writer = CsvWriter.builder().build(file.toPath())) {
 
             List<INamedElement> columns = matrixData.columns();
 
@@ -31,7 +30,7 @@ public class CSVQueryResultFile {
                 header[columnIndex + 1] = columns.get(columnIndex).getName();
             }
 
-            writer.writeNext(header);
+            writer.writeRow(header);
 
             // Write data
             List<INamedElement> rows = matrixData.rows();
@@ -41,11 +40,11 @@ public class CSVQueryResultFile {
                 for (int columnIndex = 0; columnIndex < matrixData.columnCount(); columnIndex++) {
                     data[columnIndex + 1] = getRelationshipDirectionSymbol(matrixData.getRelationship(rowIndex, columnIndex));
                 }
-                writer.writeNext(data);
+                writer.writeRow(data);
             }
 
         } catch (IOException e) {
-            throw new CSVFileException(e);
+            throw new CSVExportException(e);
         }
     }
 
