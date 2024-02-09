@@ -156,6 +156,7 @@ public class AbstractMatrixPanel extends JPanel {
         saveButton = new JButton("Save");
         saveButton.setEnabled(false);
         exportButton = new JButton("Export");
+        exportButton.setEnabled(false);
         queryButton = new JButton("Query");
         queryButton.setEnabled(false);
 

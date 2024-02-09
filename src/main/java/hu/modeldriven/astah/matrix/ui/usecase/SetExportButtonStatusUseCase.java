@@ -11,34 +11,30 @@ import javax.swing.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class SetToolbarButtonsStatusUseCase implements EventHandler<Event> {
+public class SetExportButtonStatusUseCase implements EventHandler<Event> {
 
-    private final List<JButton> buttons;
+    private final JButton exportButton;
 
-    public SetToolbarButtonsStatusUseCase(JButton... buttons) {
-        this.buttons = Arrays.asList(buttons);
+    public SetExportButtonStatusUseCase(JButton exportButton) {
+        this.exportButton = exportButton;
     }
 
     @Override
     public void handleEvent(Event event) {
 
         if (event instanceof ResetRequestedEvent) {
-            buttons.forEach(button -> button.setEnabled(false));
+            exportButton.setEnabled(false);
         }
 
-        if (event instanceof QueryModelChangedEvent) {
-            QueryModel model = ((QueryModelChangedEvent) event).queryModel();
-
-            if (model.isAllDataProvided()) {
-                buttons.forEach(button -> button.setEnabled(true));
-            }
+        if (event instanceof MatrixDataDisplayedEvent) {
+            exportButton.setEnabled(true);
         }
 
     }
 
     @Override
     public List<Class<? extends Event>> subscribedEvents() {
-        return Arrays.asList(QueryModelChangedEvent.class, ResetRequestedEvent.class);
+        return Arrays.asList(ResetRequestedEvent.class, MatrixDataDisplayedEvent.class);
     }
 
 }
