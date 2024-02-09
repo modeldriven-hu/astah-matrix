@@ -37,12 +37,8 @@ public class SaveFileUseCase implements EventHandler<Event> {
             this.queryModel = ((QueryModelChangedEvent) event).queryModel();
         }
 
-        if (event instanceof SaveFileRequestedEvent) {
-            if (queryModel != null && queryModel.isAllDataProvided()) {
+        if (event instanceof SaveFileRequestedEvent && queryModel != null && queryModel.isAllDataProvided()) {
                 saveFile();
-            } else {
-                eventBus.publish(new ExceptionOccurredEvent(new IllegalStateException("Cannot save without all the information")));
-            }
         }
 
     }

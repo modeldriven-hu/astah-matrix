@@ -153,6 +153,7 @@ public class AbstractMatrixPanel extends JPanel {
         newButton = new JButton("New");
         openButton = new JButton("Open");
         saveButton = new JButton("Save");
+        saveButton.setEnabled(false);
         queryButton = new JButton("Query");
         queryButton.setEnabled(false);
 

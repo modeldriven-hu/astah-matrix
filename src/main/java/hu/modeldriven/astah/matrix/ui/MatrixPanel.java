@@ -257,7 +257,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
         this.eventBus.subscribe(new DisplayRelationshipNameUseCase(dependencyTextField));
         this.eventBus.subscribe(new DisplayRelationshipSelectorUseCase(parentComponent, eventBus));
 
-        this.eventBus.subscribe(new SetQueryButtonStatusUseCase(queryButton));
+        this.eventBus.subscribe(new SetToolbarButtonsStatusUseCase(queryButton, saveButton));
 
         this.eventBus.subscribe(new CalculateMatrixDataUseCase(eventBus));
 

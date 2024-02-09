@@ -10,30 +10,29 @@ import javax.swing.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class SetQueryButtonStatusUseCase implements EventHandler<Event> {
+public class SetToolbarButtonsStatusUseCase implements EventHandler<Event> {
 
-    private final JButton queryButton;
+    private final List<JButton> buttons;
 
-    public SetQueryButtonStatusUseCase(JButton queryButton) {
-        this.queryButton = queryButton;
+    public SetToolbarButtonsStatusUseCase(JButton ... buttons) {
+        this.buttons = Arrays.asList(buttons);
     }
 
     @Override
     public void handleEvent(Event event) {
 
         if (event instanceof ResetRequestedEvent) {
-            this.queryButton.setEnabled(false);
+            buttons.forEach(button -> button.setEnabled(false));
         }
 
         if (event instanceof QueryModelChangedEvent) {
             QueryModel model = ((QueryModelChangedEvent) event).queryModel();
 
             if (model.isAllDataProvided()) {
-                this.queryButton.setEnabled(true);
+                buttons.forEach(button -> button.setEnabled(true));
             }
         }
     }
-
 
     @Override
     public List<Class<? extends Event>> subscribedEvents() {
