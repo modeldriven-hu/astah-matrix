@@ -11,8 +11,12 @@ public class TextMeasure {
     private final Font font;
 
     public TextMeasure(String text, Font font) {
+        this(text, font, false);
+    }
+
+    public TextMeasure(String text, Font font, boolean isBold) {
         this.text = text;
-        this.font = font;
+        this.font = isBold ? font.deriveFont(Font.BOLD) : font;
     }
 
     public Rectangle2D getBounds() {

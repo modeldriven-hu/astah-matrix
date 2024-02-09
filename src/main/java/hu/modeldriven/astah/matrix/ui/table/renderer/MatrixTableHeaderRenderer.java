@@ -32,7 +32,7 @@ public class MatrixTableHeaderRenderer extends DefaultTableHeaderCellRenderer {
 
         setFont(font);
 
-        Rectangle2D size = new TextMeasure(getText(), font).getBounds();
+        Rectangle2D size = new TextMeasure(getText(), font, true).getBounds();
         setPreferredSize(new Dimension((int) size.getWidth() + 30, (int) size.getHeight()));
 
         return this;

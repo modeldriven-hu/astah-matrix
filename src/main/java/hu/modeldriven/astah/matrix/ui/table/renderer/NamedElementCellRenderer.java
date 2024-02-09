@@ -41,7 +41,7 @@ public class NamedElementCellRenderer extends DefaultTableCellRenderer {
 
             setFont(font);
 
-            setPreferredSize(new Dimension(new TextMeasure(getText(), font).getWidth() + 20, getHeight()));
+            setPreferredSize(new Dimension(new TextMeasure(getText(), font, true).getWidth() + 20, getHeight()));
         }
         return this;
     }
