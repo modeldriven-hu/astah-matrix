@@ -21,13 +21,5 @@ as well.
     - Hiding selected rows and columns
     - Show all hidden rows and columns
 - Display elements based on stereotype
-
-# Build
-
-Use the astah-build command to build the plugin
-
-# Extension points
-
-- To add a new element type extend ElementTypeSelectorData.java
-- To add a new dependency type extend DependencyTypeSelectorData.java
+- Export to CSV
 
