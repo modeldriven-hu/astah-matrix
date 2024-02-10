@@ -1,9 +1,7 @@
 package hu.modeldriven.astah.matrix.ui.usecase;
 
 import hu.modeldriven.astah.matrix.ui.event.MatrixDataDisplayedEvent;
-import hu.modeldriven.astah.matrix.ui.event.QueryModelChangedEvent;
 import hu.modeldriven.astah.matrix.ui.event.ResetRequestedEvent;
-import hu.modeldriven.astah.matrix.ui.usecase.model.QueryModel;
 import hu.modeldriven.core.eventbus.Event;
 import hu.modeldriven.core.eventbus.EventHandler;
 

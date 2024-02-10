@@ -1,6 +1,9 @@
 package hu.modeldriven.astah.core.representation;
 
+import com.change_vision.jude.api.inf.model.IElement;
 import com.change_vision.jude.api.inf.model.IPackage;
+
+import java.util.List;
 
 public class DummyModelRepresentation implements ModelRepresentation {
     @Override
@@ -25,4 +28,21 @@ public class DummyModelRepresentation implements ModelRepresentation {
     public IPackage findPackageById(String id) throws ModelAccessException {
         return null;
     }
+
+    @Override
+    public boolean isElementSelected() throws ModelAccessException {
+        return false;
+    }
+
+    @Override
+    public IElement getSingleSelection() throws ModelAccessException {
+        return null;
+    }
+
+    @Override
+    public List<IElement> getSelection() throws ModelAccessException {
+        return null;
+    }
+
+
 }

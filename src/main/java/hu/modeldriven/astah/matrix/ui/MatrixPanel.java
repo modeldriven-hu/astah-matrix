@@ -81,23 +81,15 @@ public class MatrixPanel extends AbstractMatrixPanel {
                 16,
                 UIManager.getColor(BUTTON_FOREGROUND)));
 
-        newButton.addActionListener(e -> {
+        findInRowButton.setIcon(FontIcon.of(
+                MaterialDesign.MDI_DRAG_VERTICAL,
+                16,
+                UIManager.getColor(BUTTON_FOREGROUND)));
 
-            int result = JOptionPane.showConfirmDialog(null,
-                    "The following operation will clear all fields. Do you want to continue?",
-                    "Create a new query",
-                    JOptionPane.OK_CANCEL_OPTION);
-
-            if (result == JOptionPane.CANCEL_OPTION) {
-                return;
-            }
-
-            eventBus.publish(new ResetRequestedEvent());
-        });
-
-        openButton.addActionListener(e -> eventBus.publish(new OpenFileRequestedEvent()));
-        saveButton.addActionListener(e -> eventBus.publish(new SaveFileRequestedEvent()));
-        exportButton.addActionListener(e -> eventBus.publish(new ExportCSVRequestedEvent()));
+        findInColumnButton.setIcon(FontIcon.of(
+                MaterialDesign.MDI_DRAG_VERTICAL,
+                16,
+                UIManager.getColor(BUTTON_FOREGROUND)));
 
         matrixTable.getTableHeader().setResizingAllowed(true);
         matrixTable.getTableHeader().setReorderingAllowed(false);
@@ -242,6 +234,26 @@ public class MatrixPanel extends AbstractMatrixPanel {
         columnPackageSelectButton.addActionListener(actionEvent -> this.eventBus.publish(new ColumnPackageSelectionRequestedEvent()));
         dependencySelectButton.addActionListener(actionEvent -> this.eventBus.publish(new DependencySelectionRequestedEvent()));
         queryButton.addActionListener(actionEvent -> this.eventBus.publish(new QueryRequestedEvent()));
+        openButton.addActionListener(e -> eventBus.publish(new OpenFileRequestedEvent()));
+        saveButton.addActionListener(e -> eventBus.publish(new SaveFileRequestedEvent()));
+        exportButton.addActionListener(e -> eventBus.publish(new ExportCSVRequestedEvent()));
+        findInRowButton.addActionListener(e -> eventBus.publish(new FindSelectionInRowRequested()));
+        findInColumnButton.addActionListener(e -> eventBus.publish(new FindSelectionInColumnRequested()));
+
+        newButton.addActionListener(e -> {
+
+            int result = JOptionPane.showConfirmDialog(null,
+                    "The following operation will clear all fields. Do you want to continue?",
+                    "Create a new query",
+                    JOptionPane.OK_CANCEL_OPTION);
+
+            if (result == JOptionPane.CANCEL_OPTION) {
+                return;
+            }
+
+            eventBus.publish(new ResetRequestedEvent());
+        });
+
     }
 
     private void initUseCases() {
@@ -298,6 +310,8 @@ public class MatrixPanel extends AbstractMatrixPanel {
         this.eventBus.subscribe(new ExportToCSVUseCase(eventBus, this));
 
         this.eventBus.subscribe(new PresentLoadedQueryModelUseCase(eventBus));
+        this.eventBus.subscribe(new FindSelectionInRowUseCase(matrixTable, modelRepresentation));
+        this.eventBus.subscribe(new FindSelectionInColumnUseCase(matrixTable, modelRepresentation));
     }
 
     private void fillTableWithDemoData() {

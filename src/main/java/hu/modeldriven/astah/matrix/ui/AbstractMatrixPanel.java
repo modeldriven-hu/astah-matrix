@@ -5,7 +5,6 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.util.Arrays;
 
 public class AbstractMatrixPanel extends JPanel {
 
@@ -27,6 +26,8 @@ public class AbstractMatrixPanel extends JPanel {
     protected JButton newButton;
     protected JButton openButton;
     protected JButton saveButton;
+    protected JButton findInRowButton;
+    protected JButton findInColumnButton;
     protected JButton exportButton;
     protected BorderLayout panelLayout;
     private JPanel topPanel;
@@ -155,15 +156,32 @@ public class AbstractMatrixPanel extends JPanel {
         openButton = new JButton("Open");
         saveButton = new JButton("Save");
         saveButton.setEnabled(false);
+
+        toolBar.add(newButton);
+        toolBar.add(openButton);
+        toolBar.add(saveButton);
+
+        toolBar.addSeparator();
+
+        findInRowButton = new JButton("Find in row");
+        findInColumnButton = new JButton("Find in column");
+
+        toolBar.add(findInRowButton);
+        toolBar.add(findInColumnButton);
+
+        toolBar.addSeparator();
+
         exportButton = new JButton("Export");
         exportButton.setEnabled(false);
+
+        toolBar.add(exportButton);
+
+        toolBar.addSeparator();
+
         queryButton = new JButton("Query");
         queryButton.setEnabled(false);
 
-        for (JButton button : Arrays.asList(newButton, openButton, saveButton, exportButton, queryButton)) {
-            button.setFocusable(false);
-            toolBar.add(button);
-        }
+        toolBar.add(queryButton);
 
         topPanel.add(toolBar, BorderLayout.NORTH);
     }

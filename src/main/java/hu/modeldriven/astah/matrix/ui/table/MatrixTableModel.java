@@ -26,6 +26,26 @@ public class MatrixTableModel extends AbstractTableModel {
         return tableData.columns().get(calculateColumnIndexFromVisibleToReal(column - 1));
     }
 
+    public int findRowByElement(INamedElement element) {
+        for (int rowIndex = 0; rowIndex < getRowCount(); rowIndex++) {
+            INamedElement currentElement = getElementByRow(rowIndex);
+            if (currentElement.equals(element)) {
+                return rowIndex;
+            }
+        }
+        return -1;
+    }
+
+    public int findColumnByElement(INamedElement element) {
+        for (int columnIndex = 1; columnIndex < getColumnCount(); columnIndex++) {
+            INamedElement currentElement = getElementByColumn(columnIndex);
+            if (currentElement.equals(element)) {
+                return columnIndex;
+            }
+        }
+        return -1;
+    }
+
     @Override
     public int getRowCount() {
         return this.tableData.rowCount() - this.hiddenRows.size();
