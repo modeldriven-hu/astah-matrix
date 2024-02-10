@@ -6,7 +6,7 @@ as well.
 
 # Screenshot
 
-![image](https://github.com/modeldriven-hu/astah-matrix/assets/8182138/48822ee5-08d6-433c-a3f6-e3d93fb0eef5)
+![image](https://github.com/modeldriven-hu/astah-matrix/assets/8182138/f3eeaa30-bc6d-4f92-a0b0-6c3af266867b)
 
 # Supported functions
 
@@ -22,4 +22,5 @@ as well.
     - Show all hidden rows and columns
 - Display elements based on stereotype
 - Export to CSV
+- Select row or column based on selected diagram element
 
