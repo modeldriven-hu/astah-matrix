@@ -82,7 +82,7 @@ public class MatrixPanel extends AbstractMatrixPanel {
                 UIManager.getColor(BUTTON_FOREGROUND)));
 
         findInRowButton.setIcon(FontIcon.of(
-                MaterialDesign.MDI_DRAG_VERTICAL,
+                MaterialDesign.MDI_DRAG_HORIZONTAL,
                 16,
                 UIManager.getColor(BUTTON_FOREGROUND)));
 
